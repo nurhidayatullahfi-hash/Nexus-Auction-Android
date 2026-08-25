@@ -1321,23 +1321,22 @@ function getRevealedHTML(item, forceShowPrice = false) {
       </div>`;
 }
 
+// ============================================================
+// PERBAIKAN INTRO LAG
+// ============================================================
 window.onload = () => {
     initMenus();
-    
     const splash = document.getElementById('splash');
     const startBtn = document.getElementById('startBtn');
     
     if(splash && startBtn) {
-        // Jeda 1 detik (1000 ms) sebelum mengubah teks tombol
         setTimeout(() => {
             if (localStorage.getItem('nexus_save')) {
                 startBtn.textContent = 'SINKRONISASI ULANG';
             }
-        }, 1000);
+        }, 50);
         
         startBtn.onclick = () => {
-            ensureAudio();
-            playIntroSound();
             document.getElementById('start-screen').style.display = 'none';
             
             splash.innerHTML = `
@@ -1353,6 +1352,25 @@ window.onload = () => {
                 setTimeout(() => { 
                     splash.style.display = 'none'; 
                     
+                    // Inisialisasi audio setelah splash hilang (lebih ringan)
+                    ensureAudio();
+                    // Suara pendek sederhana
+                    if(audioCtx) {
+                        try {
+                            const o = audioCtx.createOscillator();
+                            const g = audioCtx.createGain();
+                            o.type = 'sine';
+                            o.frequency.value = 660;
+                            g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+                            g.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02);
+                            g.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+                            o.connect(g);
+                            g.connect(master);
+                            o.start();
+                            o.stop(audioCtx.currentTime + 0.3);
+                        } catch(e) {}
+                    }
+                    
                     if (localStorage.getItem('nexus_save')) {
                         loadData();
                         show('lobby');
@@ -1366,7 +1384,6 @@ window.onload = () => {
         };
     }
 };
-
 
 function registerPlayer() {
     const name = document.getElementById('regName').value.trim();
@@ -2957,41 +2974,6 @@ function ensureAudio(){
     if(audioCtx.state==='suspended') audioCtx.resume();
     if(!master){master=audioCtx.createGain();master.gain.value=.055;master.connect(audioCtx.destination);}
   }catch(e){}
-}
-
-function playIntroSound() {
-    if(!audioCtx) return;
-    const synth = audioCtx.createOscillator();
-    const bass = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    
-    synth.type = 'square';
-    bass.type = 'sawtooth';
-    
-    const now = audioCtx.currentTime;
-    
-    bass.frequency.setValueAtTime(200, now);
-    bass.frequency.exponentialRampToValueAtTime(30, now + 1.5);
-    
-    let freqs = [440, 523.25, 659.25, 880, 1318.51, 1046.50, 1760];
-    let t = now;
-    freqs.forEach((f) => {
-        synth.frequency.setValueAtTime(f, t);
-        t += 0.12;
-    });
-    synth.frequency.setValueAtTime(1760, t);
-    
-    gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.2, now + 0.1);
-    gain.gain.setValueAtTime(0.2, now + 1.5);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
-    
-    synth.connect(gain);
-    bass.connect(gain);
-    gain.connect(master);
-    
-    synth.start(now); bass.start(now);
-    synth.stop(now + 2.5); bass.stop(now + 2.5);
 }
 
 function startAudio(){ ensureAudio(); if(!audioCtx) return; musicOn=true; }
