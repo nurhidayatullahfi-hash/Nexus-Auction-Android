@@ -600,7 +600,7 @@ button:hover{filter:brightness(1.15);transform:translateY(-1px)}
 
 <script>
 // ============================================================
-// NEXUS AUCTION V10 — SCRIPT LENGKAP
+// NEXUS AUCTION V10 — SCRIPT LENGKAP + INTRO TIDAK STUCK
 // ============================================================
 
 const ROUND_MULTIPLIERS = {1:2.0,2:1.5,3:1.3,4:1.2,5:1.1};
@@ -705,7 +705,7 @@ let pendingGalleryCredits=0,diamonds=500,spinsToday=0,lastSpinDate='';
 let myFriends=[],activeChatFriendId=null;
 let highestPrevBid=0,myLastBid=0,bidLockHistory={};
 
-// ===== SOUND FIX =====
+// ===== SOUND FIX (dengan error handling) =====
 function ensureAudio(){
   try{
     if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
@@ -716,82 +716,121 @@ function ensureAudio(){
 }
 
 function playIntroSound(){
-  const ctx=ensureAudio();
-  if(!ctx) return;
-  try{
-    [523,659].forEach((freq,idx)=>{
-      const o=ctx.createOscillator();
-      const g=ctx.createGain();
-      o.type='sine';
-      o.frequency.value=freq;
-      const st=ctx.currentTime+idx*0.15;
-      g.gain.setValueAtTime(0.0001,st);
-      g.gain.linearRampToValueAtTime(0.1,st+0.02);
-      g.gain.linearRampToValueAtTime(0.0001,st+0.3);
-      o.connect(g);
-      g.connect(master);
-      o.start(st);
-      o.stop(st+0.3);
+  try {
+    if(!audioCtx) return;
+    [523, 659].forEach((freq, idx) => {
+      try {
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'sine';
+        o.frequency.value = freq;
+        const st = audioCtx.currentTime + idx * 0.15;
+        g.gain.setValueAtTime(0.0001, st);
+        g.gain.linearRampToValueAtTime(0.08, st + 0.02);
+        g.gain.linearRampToValueAtTime(0.0001, st + 0.25);
+        o.connect(g);
+        g.connect(master);
+        o.start(st);
+        o.stop(st + 0.25);
+      } catch(e) { /* abaikan error per oscillator */ }
     });
-  }catch(e){}
+  } catch(e) { /* abaikan */ }
 }
 
 function sound(f){
-  const ctx=ensureAudio();
-  if(!ctx)return;
-  try{
-    const o=ctx.createOscillator();
-    const g=ctx.createGain();
-    o.type='sine';
-    o.frequency.value=f;
-    g.gain.setValueAtTime(0.0001,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.12,ctx.currentTime+0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001,ctx.currentTime+0.25);
+  try {
+    const ctx = ensureAudio();
+    if(!ctx) return;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.10, ctx.currentTime + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.25);
     o.connect(g);
     g.connect(master);
     o.start();
-    o.stop(ctx.currentTime+0.3);
-  }catch(e){}
+    o.stop(ctx.currentTime + 0.3);
+  } catch(e) { /* silent */ }
 }
 function touchSound(){sound(440);}
 
 function toggleMusic(){
-  const ctx=ensureAudio();
-  if(!ctx)return;
-  musicOn=!musicOn;
-  master.gain.value=musicOn?0.06:0.0001;
-  showToast(musicOn?'🎵 AUDIO AKTIF':'🔇 AUDIO MATI');
-  if(musicOn)sound(520);
+  try {
+    if(!ensureAudio()) return;
+    musicOn = !musicOn;
+    master.gain.value = musicOn ? 0.06 : 0.0001;
+    showToast(musicOn ? '🎵 AUDIO AKTIF' : '🔇 AUDIO MATI');
+    if(musicOn) sound(520);
+  } catch(e) { /* silent */ }
 }
 
-// ===== INTRO =====
-window.onload=function(){
-  initMenus();
-  const splash=document.getElementById('splash');
-  const startBtn=document.getElementById('startBtn');
-  if(splash&&startBtn){
-    setTimeout(()=>{if(localStorage.getItem('nexus_save'))startBtn.textContent='SINKRONISASI ULANG';},50);
-    startBtn.onclick=function(){
-      ensureAudio();
-      playIntroSound();
-      document.getElementById('start-screen').style.display='none';
-      splash.innerHTML='<div class="cine-flash"></div><div class="cine-container"><div class="cine-text">NEXUS</div><div class="cine-sub">AUCTION</div></div>';
-      setTimeout(()=>{
-        splash.style.opacity='0';
-        setTimeout(()=>{
-          splash.style.display='none';
-          if(localStorage.getItem('nexus_save')){
-            loadData();
-            show('lobby');
-            enterLobby();
-            showToast('Selamat datang kembali, Agen '+playerProfile.name+'!');
-          }else show('screen-register');
-        },600);
-      },2200);
-    };
+// ===== INTRO — TIDAK STUCK =====
+window.onload = function(){
+  try {
+    initMenus();
+    const splash = document.getElementById('splash');
+    const startBtn = document.getElementById('startBtn');
+    if(splash && startBtn){
+      setTimeout(() => {
+        try {
+          if(localStorage.getItem('nexus_save')) startBtn.textContent = 'SINKRONISASI ULANG';
+        } catch(e) { /* ignore */ }
+      }, 50);
+      
+      startBtn.onclick = function(e){
+        e.preventDefault();
+        try {
+          // Pastikan audio context aktif
+          if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+          // Suara intro (tidak memblokir)
+          try { playIntroSound(); } catch(err) { console.warn('Sound error:', err); }
+          
+          document.getElementById('start-screen').style.display = 'none';
+          splash.innerHTML = '<div class="cine-flash"></div><div class="cine-container"><div class="cine-text">NEXUS</div><div class="cine-sub">AUCTION</div></div>';
+          
+          setTimeout(() => {
+            splash.style.opacity = '0';
+            setTimeout(() => {
+              splash.style.display = 'none';
+              try {
+                if(localStorage.getItem('nexus_save')){
+                  loadData();
+                  show('lobby');
+                  enterLobby();
+                  showToast('Selamat datang kembali, Agen '+playerProfile.name+'!');
+                } else {
+                  show('screen-register');
+                }
+              } catch(err) {
+                console.error('Error after intro:', err);
+                show('screen-register'); // fallback
+              }
+            }, 600);
+          }, 2200);
+        } catch(err) {
+          console.error('Intro click error:', err);
+          // Jika error, langsung tampilkan register
+          splash.style.display = 'none';
+          show('screen-register');
+        }
+      };
+    }
+  } catch(e) {
+    console.error('Window onload error:', e);
+    // Fallback: jika terjadi error di awal, langsung tampilkan lobby/register
+    const splash = document.getElementById('splash');
+    if(splash) splash.style.display = 'none';
+    try { show('screen-register'); } catch(err) {}
   }
 };
 
+// ===== SISANYA TETAP SAMA (fungsi-fungsi lainnya) =====
+// ... (semua fungsi lain tetap seperti sebelumnya, tidak perlu diulang karena sudah ada)
+// Tapi karena kita mengganti seluruh script, kita harus menambahkan semua fungsi yang diperlukan agar game berjalan.
+
+// === FUNGSI-FUNGSI DASAR ===
 function registerPlayer(){
   const name=document.getElementById('regName').value.trim();
   const country=document.getElementById('regCountry').value;
@@ -1020,7 +1059,7 @@ function claimGallery(){
   else showToast("Belum ada kredit terkumpul.");
 }
 
-// ===== LAN =====
+// ===== LAN (singkat karena sudah ada) =====
 let lanMode=false,lanRole=null,lanHostPC=null,lanHostDC=null;
 let lanPending=new Map(),lanPeers=new Map(),lanOfferSeq=0;
 const LAN_MAX_PLAYERS=5;
@@ -1034,63 +1073,17 @@ async function lanShare(id){const e=document.getElementById(id);if(!e||!e.value)
 function openLanMode(){closeCitySelection();document.getElementById('lanModal').style.display='flex';lanShowHost();lanRenderHostPlayers();}
 function closeLanMode(){document.getElementById('lanModal').style.display='none';}
 let lanSignalSocket=null,lanAutoRole=null,lanAutoHostInfo=null,lanAutoRooms=new Map();
-function lanAutoDiscover(){
-  const box=document.getElementById('lanRoomList');
-  if(box)box.innerHTML='<span style="color:#00f3ff">🔎 Mencari room...</span>';
-  if(window.AndroidLAN?.discoverRooms)AndroidLAN.discoverRooms();
-  else if(box)box.textContent='Mode browser: discovery membutuhkan APK Android.';
-}
+function lanAutoDiscover(){const box=document.getElementById('lanRoomList');if(box)box.innerHTML='<span style="color:#00f3ff">🔎 Mencari room...</span>';if(window.AndroidLAN?.discoverRooms)AndroidLAN.discoverRooms();else if(box)box.textContent='Mode browser: discovery membutuhkan APK Android.';}
 window.onAndroidLanRoom=function(raw){try{const r=typeof raw==='string'?JSON.parse(raw):raw;if(!r||!r.host||!r.port)return;lanAutoRooms.set(r.name,r);lanRenderRooms();}catch(e){}};
 window.onAndroidLanRoomLost=function(name){lanAutoRooms.delete(name);lanRenderRooms();};
-function lanRenderRooms(){
-  const box=document.getElementById('lanRoomList');if(!box)return;
-  if(!lanAutoRooms.size){box.innerHTML='<span class="muted">Tidak ada room ditemukan.</span>';return;}
-  box.innerHTML=Array.from(lanAutoRooms.values()).map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:clamp(4px,.4vh,8px);margin-top:4px;border:1px solid #26334a;border-radius:6px;background:#070b12;font-size:clamp(9px,.9vw,11px);"><div><b>📡 ${escapeHtml(r.name||'Nexus')}</b><div class="muted" style="font-size:clamp(7px,.7vw,9px);">${escapeHtml(r.host)}:${r.port}</div></div><button class="btn primary" style="font-size:clamp(8px,.8vw,10px);padding:clamp(3px,.3vh,5px) clamp(6px,.6vw,10px);" onclick='lanAutoJoin(${JSON.stringify(r)})'>GABUNG</button></div>`).join('');
-}
+function lanRenderRooms(){const box=document.getElementById('lanRoomList');if(!box)return;if(!lanAutoRooms.size){box.innerHTML='<span class="muted">Tidak ada room ditemukan.</span>';return;}box.innerHTML=Array.from(lanAutoRooms.values()).map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;padding:clamp(4px,.4vh,8px);margin-top:4px;border:1px solid #26334a;border-radius:6px;background:#070b12;font-size:clamp(9px,.9vw,11px);"><div><b>📡 ${escapeHtml(r.name||'Nexus')}</b><div class="muted" style="font-size:clamp(7px,.7vw,9px);">${escapeHtml(r.host)}:${r.port}</div></div><button class="btn primary" style="font-size:clamp(8px,.8vw,10px);padding:clamp(3px,.3vh,5px) clamp(6px,.6vw,10px);" onclick='lanAutoJoin(${JSON.stringify(r)})'>GABUNG</button></div>`).join('');}
 function escapeHtml(x){return String(x).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
 function lanOpenSignal(url,onMsg){try{if(lanSignalSocket)lanSignalSocket.close();lanSignalSocket=new WebSocket(url);lanSignalSocket.onmessage=e=>onMsg(e.data);lanSignalSocket.onclose=()=>{};return true;}catch(e){showToast('LAN signaling gagal.');return false;}}
 function lanSignalSend(m){try{if(lanSignalSocket&&lanSignalSocket.readyState===1)lanSignalSocket.send(JSON.stringify(m));}catch(e){}}
-function lanAutoHost(){
-  if(!window.AndroidLAN?.hostRoom){showToast('Fitur otomatis LAN hanya tersedia di APK Android.');return;}
-  const info=JSON.parse(AndroidLAN.hostRoom('Nexus Auction'));
-  if(!info.ok){showToast('Gagal membuat room LAN.');return;}
-  lanAutoRole='host';lanMode=true;lanRole='host';lanAutoHostInfo=info;
-  lanOpenSignal('ws://127.0.0.1:'+info.port,raw=>lanAutoHostReceive(raw));
-  showToast('📡 Room LAN aktif.');
-  lanSetStatus('lanHostStatus','📡 ROOM AKTIF — '+info.ip+':'+info.port);
-}
-async function lanAutoHostReceive(raw){
-  let m;try{m=JSON.parse(raw)}catch(e){return}
-  if(m.type!=='lanHello'&&m.type!=='lanAnswer')return;
-  if(m.type==='lanHello'){
-    if(lanPeers.size>=LAN_MAX_PLAYERS-1)return;
-    const slot='S'+(++lanOfferSeq),rec=lanMakePeer(slot);rec.name=(m.name||'Player').slice(0,24);rec.socketId=m.clientId||'';lanPeers.set(slot,rec);lanRenderHostPlayers();
-    const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await lanWaitIce(rec.pc);
-    lanSignalSend({type:'lanOffer',slot,clientId:rec.socketId,sdp:rec.pc.localDescription,city:selectedAuctionCity});
-    lanSetStatus('lanHostStatus','📡 '+lanPeers.size+1+'/'+LAN_MAX_PLAYERS+' pemain.');
-  }else if(m.type==='lanAnswer'){const rec=lanPeers.get(m.slot)||lanPending.get(m.slot);if(!rec)return;try{await rec.pc.setRemoteDescription(m.sdp);}catch(e){}}
-}
-async function lanAutoJoin(r){
-  selectedAuctionCity=selectedAuctionCity||'CITY1';lanAutoRole='client';lanMode=true;lanRole='client';
-  const clientId='C'+Math.random().toString(36).slice(2,10);
-  if(!lanOpenSignal('ws://'+r.host+':'+r.port,raw=>lanAutoClientReceive(raw,clientId)))return;
-  lanSetStatus('lanJoinStatus','🔗 Menghubungkan...');
-  const sendHello=()=>lanSignalSend({type:'lanHello',name:playerProfile.name,clientId});
-  const old=lanSignalSocket.onopen;lanSignalSocket.onopen=()=>{if(old)old();sendHello();lanSetStatus('lanJoinStatus','✅ Terhubung. Menunggu Host.');};
-}
-async function lanAutoClientReceive(raw,clientId){
-  let m;try{m=JSON.parse(raw)}catch(e){return}
-  if(m.type!=='lanOffer')return;
-  if(m.clientId&&m.clientId!==clientId)return;
-  try{
-    selectedAuctionCity=m.city||selectedAuctionCity;
-    const pc=new RTCPeerConnection({iceServers:[]});lanHostPC=pc;
-    pc.ondatachannel=e=>{lanHostDC=e.channel;lanHostDC.onopen=()=>{lanSend(lanHostDC,{type:'hello',name:playerProfile.name});};lanHostDC.onmessage=e=>lanClientReceive(e.data);};
-    await pc.setRemoteDescription(m.sdp);const ans=await pc.createAnswer();await pc.setLocalDescription(ans);await lanWaitIce(pc);
-    lanSignalSend({type:'lanAnswer',slot:m.slot,clientId,sdp:pc.localDescription});
-    lanSetStatus('lanJoinStatus','✅ Terhubung. Menunggu Host memulai.');
-  }catch(e){showToast('Gagal koneksi.');}
-}
+function lanAutoHost(){if(!window.AndroidLAN?.hostRoom){showToast('Fitur otomatis LAN hanya tersedia di APK Android.');return;}const info=JSON.parse(AndroidLAN.hostRoom('Nexus Auction'));if(!info.ok){showToast('Gagal membuat room LAN.');return;}lanAutoRole='host';lanMode=true;lanRole='host';lanAutoHostInfo=info;lanOpenSignal('ws://127.0.0.1:'+info.port,raw=>lanAutoHostReceive(raw));showToast('📡 Room LAN aktif.');lanSetStatus('lanHostStatus','📡 ROOM AKTIF — '+info.ip+':'+info.port);}
+async function lanAutoHostReceive(raw){let m;try{m=JSON.parse(raw)}catch(e){return}if(m.type!=='lanHello'&&m.type!=='lanAnswer')return;if(m.type==='lanHello'){if(lanPeers.size>=LAN_MAX_PLAYERS-1)return;const slot='S'+(++lanOfferSeq),rec=lanMakePeer(slot);rec.name=(m.name||'Player').slice(0,24);rec.socketId=m.clientId||'';lanPeers.set(slot,rec);lanRenderHostPlayers();const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await lanWaitIce(rec.pc);lanSignalSend({type:'lanOffer',slot,clientId:rec.socketId,sdp:rec.pc.localDescription,city:selectedAuctionCity});lanSetStatus('lanHostStatus','📡 '+lanPeers.size+1+'/'+LAN_MAX_PLAYERS+' pemain.');}else if(m.type==='lanAnswer'){const rec=lanPeers.get(m.slot)||lanPending.get(m.slot);if(!rec)return;try{await rec.pc.setRemoteDescription(m.sdp);}catch(e){}}}
+async function lanAutoJoin(r){selectedAuctionCity=selectedAuctionCity||'CITY1';lanAutoRole='client';lanMode=true;lanRole='client';const clientId='C'+Math.random().toString(36).slice(2,10);if(!lanOpenSignal('ws://'+r.host+':'+r.port,raw=>lanAutoClientReceive(raw,clientId)))return;lanSetStatus('lanJoinStatus','🔗 Menghubungkan...');const sendHello=()=>lanSignalSend({type:'lanHello',name:playerProfile.name,clientId});const old=lanSignalSocket.onopen;lanSignalSocket.onopen=()=>{if(old)old();sendHello();lanSetStatus('lanJoinStatus','✅ Terhubung. Menunggu Host.');};}
+async function lanAutoClientReceive(raw,clientId){let m;try{m=JSON.parse(raw)}catch(e){return}if(m.type!=='lanOffer')return;if(m.clientId&&m.clientId!==clientId)return;try{selectedAuctionCity=m.city||selectedAuctionCity;const pc=new RTCPeerConnection({iceServers:[]});lanHostPC=pc;pc.ondatachannel=e=>{lanHostDC=e.channel;lanHostDC.onopen=()=>{lanSend(lanHostDC,{type:'hello',name:playerProfile.name});};lanHostDC.onmessage=e=>lanClientReceive(e.data);};await pc.setRemoteDescription(m.sdp);const ans=await pc.createAnswer();await pc.setLocalDescription(ans);await lanWaitIce(pc);lanSignalSend({type:'lanAnswer',slot:m.slot,clientId,sdp:pc.localDescription});lanSetStatus('lanJoinStatus','✅ Terhubung. Menunggu Host memulai.');}catch(e){showToast('Gagal koneksi.');}}
 function lanShowHost(){document.getElementById('lanHostPanel').style.display='block';document.getElementById('lanJoinPanel').style.display='none';}
 function lanShowJoin(){document.getElementById('lanHostPanel').style.display='none';document.getElementById('lanJoinPanel').style.display='block';lanAutoDiscover();}
 function lanRenderHostPlayers(){const e=document.getElementById('lanHostPlayers');if(!e)return;const a=[playerProfile.name,...Array.from(lanPeers.values()).map(x=>x.name||'Player')];e.innerHTML=a.map((n,i)=>`<div style="display:flex;justify-content:space-between;padding:clamp(4px,.4vh,6px) clamp(6px,.6vw,10px);border:1px solid #26334a;border-radius:6px;background:rgba(0,243,255,.03);font-size:clamp(9px,.9vw,11px);"><b>${i===0?'🔑 ':''}${n}</b><span style="color:#00ff9d">${i===0?'HOST':'● ONLINE'}</span></div>`).join('');}
@@ -1103,16 +1096,7 @@ async function lanJoinFromOffer(){try{const d=lanDecode(document.getElementById(
 function lanClientBeginRound(m){show('game');roundFinished=false;round=m.round||1;auctionItems=m.items||auctionItems;playerBids=m.bids||{};bidLockHistory=m.locks||{};window._totalBoardValue=auctionItems.reduce((a,x)=>a+Number(x.price||0),0);window._currentRoundMultiplier=ROUND_MULTIPLIERS[round]||1.1;buildBoard();renderGamePlayers();document.getElementById('myBidStatus').textContent='MENUNGGU / INPUT BID';document.getElementById('round').textContent=round;document.getElementById('timer').textContent=String(m.time||30);updateMinBid();if(m.time){clearInterval(timerId);let localT=Number(m.time);timerId=setInterval(()=>{if(roundFinished)return;localT--;document.getElementById('timer').textContent=String(Math.max(0,localT));if(localT<=0)clearInterval(timerId);},1000);}}
 function lanClientReceive(raw){let m;try{m=JSON.parse(raw)}catch(e){return}if(m.type==='roster'){activePlayersList=m.players||activePlayersList;renderGamePlayers();}else if(m.type==='start'){activePlayersList=m.players||activePlayersList;selectedAuctionCity=m.city||selectedAuctionCity;window.lanBotPlayers=new Set(m.bots||[]);window.lanHumanPlayers=new Set(activePlayersList.filter(n=>!window.lanBotPlayers.has(n)));lanClientBeginRound({items:m.items,round:m.round,time:m.time,bids:{},locks:{}});}else if(m.type==='roundState'){activePlayersList=m.players||activePlayersList;lanClientBeginRound(m);}else if(m.type==='bidSync'){playerBids[m.name]=m.bid;if(m.locked)setBidLockIndicator(m.name,true);renderGamePlayers();}else if(m.type==='revealSync'){const ix=auctionItems.findIndex(x=>x.index===m.item.index||x.itemId===m.item.itemId);if(ix>=0){auctionItems[ix]=m.item;const x=auctionItems[ix];const e=document.getElementById('c'+x.index);if(e){e.classList.add('revealed','reveal-base');e.style.padding='0';e.style.display='block';e.style.border='none';e.style.background='transparent';e.innerHTML=getRevealedHTML(x);}updateMinBid();}}else if(m.type==='roundResult'){lanApplyRemoteResult(m);}else if(m.type==='nextRound'){lanClientBeginRound({items:m.items,round:m.round,time:30,bids:{},locks:{}});}}
 function lanApplyRemoteResult(m){roundFinished=true;window.lastRoundResult=m.entries||[];const win=m.winner===playerProfile.name;if(win){coins=Math.max(0,coins-Number(m.winningBid||0));safesWon++;auctionItems.forEach(i=>myInventory.push(i));saveData();}showVictoryScreen(win,m.winner,Number(m.winningBid||0),null);}
-function lanStartHostGame(){
-  if(lanPeers.size<1)return showToast('Hubungkan minimal 1 player.');
-  const remotePlayers=Array.from(lanPeers.values()).map(x=>x.name||'Player').slice(0,LAN_MAX_PLAYERS-1);
-  const botCandidates=botNamesPool.filter(n=>n.toLowerCase()!==playerProfile.name.toLowerCase()&&!remotePlayers.some(r=>r.toLowerCase()===n.toLowerCase()));
-  const botFill=botCandidates.slice(0,Math.max(0,LAN_MAX_PLAYERS-1-remotePlayers.length));
-  activePlayersList=[playerProfile.name,...remotePlayers,...botFill].slice(0,LAN_MAX_PLAYERS);
-  window.lanHumanPlayers=new Set([playerProfile.name,...remotePlayers]);
-  window.lanBotPlayers=new Set(botFill);
-  lanRole='host';lanMode=true;closeLanMode();startGame();
-}
+function lanStartHostGame(){if(lanPeers.size<1)return showToast('Hubungkan minimal 1 player.');const remotePlayers=Array.from(lanPeers.values()).map(x=>x.name||'Player').slice(0,LAN_MAX_PLAYERS-1);const botCandidates=botNamesPool.filter(n=>n.toLowerCase()!==playerProfile.name.toLowerCase()&&!remotePlayers.some(r=>r.toLowerCase()===n.toLowerCase()));const botFill=botCandidates.slice(0,Math.max(0,LAN_MAX_PLAYERS-1-remotePlayers.length));activePlayersList=[playerProfile.name,...remotePlayers,...botFill].slice(0,LAN_MAX_PLAYERS);window.lanHumanPlayers=new Set([playerProfile.name,...remotePlayers]);window.lanBotPlayers=new Set(botFill);lanRole='host';lanMode=true;closeLanMode();startGame();}
 function lanHostBroadcastStart(){lanBroadcast({type:'start',city:selectedAuctionCity,players:activePlayersList,bots:Array.from(window.lanBotPlayers||[]),items:auctionItems,round,time:t,bids:{},locks:bidLockHistory});}
 function lanHostBroadcastRound(){lanBroadcast({type:'roundState',city:selectedAuctionCity,players:activePlayersList,items:auctionItems,round,time:t,bids:playerBids,locks:bidLockHistory});}
 
@@ -1124,13 +1108,7 @@ function openCitySelection(){gameMode='SINGLE';const m=document.getElementById('
 function closeCitySelection(){const m=document.getElementById('citySelectionModal');if(m)m.style.display='none';}
 function selectAuctionCity(city){selectedAuctionCity=['CITY1','CITY2','CITY3'].includes(city)?city:'CITY1';closeCitySelection();showToast(selectedAuctionCity==='CITY3'?'💎 Kota 3: 1–2 item ×2 value.':selectedAuctionCity==='CITY2'?'🔑 Kota 2: High Rarity.':'🏙️ Kota 1: Standar.');setTimeout(()=>{if(gameMode==='LAN')openLanMode();else{lanMode=false;lanRole='';startMatchmaking();}},250);}
 
-function updateMinBid(){
-  let revealed=auctionItems.filter(x=>x.privatelyRevealed||x.known);
-  let visible=revealed.reduce((s,x)=>s+(x.price||0),0);
-  roundMinBid=visible>0?visible:15000;
-  const el=document.getElementById('roundMinBidUI');
-  if(el)el.textContent=money(roundMinBid);
-}
+function updateMinBid(){let revealed=auctionItems.filter(x=>x.privatelyRevealed||x.known);let visible=revealed.reduce((s,x)=>s+(x.price||0),0);roundMinBid=visible>0?visible:15000;const el=document.getElementById('roundMinBidUI');if(el)el.textContent=money(roundMinBid);}
 function startMatchmaking(){
   show('match');
   const cl=document.getElementById('matchCityLabel');
