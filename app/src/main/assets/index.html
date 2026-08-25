@@ -344,6 +344,141 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
 .v10-rarity-info span{font-size:10px;padding:4px 7px;border:1px solid #3a1c5e;border-radius:999px;color:#e0d8ea}
 </style>
 
+<!-- ====== RESPONSIVE FIX UNTUK HP (TAMBAHAN) ====== -->
+<style>
+@media screen and (max-width: 480px) {
+    .top {
+        height: 50px !important;
+        padding: 6px 12px !important;
+    }
+    .logo {
+        font-size: 16px !important;
+    }
+    .stats {
+        font-size: 13px !important;
+        gap: 8px !important;
+    }
+    .lobby-left {
+        padding: 15px !important;
+    }
+    .hero-title {
+        font-size: 20px !important;
+    }
+    .hero-sub {
+        font-size: 13px !important;
+    }
+    .hero-display {
+        font-size: 80px !important;
+        height: 150px !important;
+    }
+    .hero-action {
+        font-size: 14px !important;
+        padding: 10px !important;
+    }
+    .stats-bar {
+        padding: 12px 15px !important;
+        flex-wrap: wrap !important;
+    }
+    .stat-box {
+        flex: 1 0 45% !important;
+    }
+    .stat-val {
+        font-size: 18px !important;
+    }
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 10px !important;
+    }
+    .menu-card {
+        padding: 10px 5px !important;
+    }
+    .menu-icon {
+        font-size: 24px !important;
+    }
+    .menu-label {
+        font-size: 11px !important;
+    }
+    .big-play-btn {
+        font-size: 18px !important;
+        padding: 18px !important;
+    }
+    .game {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+    .arena {
+        padding: 10px !important;
+    }
+    .arenahead {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+    .timer {
+        font-size: 28px !important;
+    }
+    .board {
+        max-height: 45vh !important;
+        min-height: 180px !important;
+        aspect-ratio: auto !important;
+    }
+    .cell {
+        font-size: 8px !important;
+    }
+    .players {
+        order: 2 !important;
+    }
+    .right {
+        order: 1 !important;
+    }
+    .chat {
+        min-height: 120px !important;
+        font-size: 13px !important;
+    }
+    .chatbar input {
+        padding: 8px !important;
+        font-size: 13px !important;
+    }
+    .menu-screen {
+        padding: 15px !important;
+        margin: 10px !important;
+    }
+    .menu-header h2 {
+        font-size: 20px !important;
+    }
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+    .spin-wheel-box {
+        width: 280px !important;
+        height: 280px !important;
+    }
+    .wheel-label {
+        font-size: 12px !important;
+        padding-right: 10px !important;
+    }
+    .pointer {
+        border-left-width: 14px !important;
+        border-right-width: 14px !important;
+        border-top-width: 28px !important;
+        top: -14px !important;
+    }
+    #result .panel {
+        padding: 15px !important;
+    }
+    #resTitle {
+        font-size: 24px !important;
+    }
+    .revealed-item-full .revealed-item-art {
+        padding: 2px !important;
+    }
+    .revealed-item-full .revealed-item-art .figure-art {
+        width: 80% !important;
+        height: 80% !important;
+    }
+}
+</style>
+
 </head>
 <body>
 <!-- SPLASH SCREEN -->
@@ -415,7 +550,7 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
                     <div style="margin-top:12px;color:#00ff9d;font-weight:900;">⚖️ RARITY NORMAL</div>
                   </button>
                   <button class="btn" onclick="selectAuctionCity('CITY2')" style="padding:22px;text-align:left;border:2px solid #ffd700;background:linear-gradient(145deg,#160d20,#0b0614);border-radius:16px;">
-                    <div style="font-size:28px;">👑</div>
+                    <div style="font-size:28px;">🔑</div>
                     <b style="font-size:19px;color:#ffd700;">KOTA 2</b>
                     <div class="muted" style="margin-top:7px;">Peluang item kualitas tinggi muncul lebih besar.</div>
                     <div style="margin-top:12px;color:#ffd700;font-weight:900;">⬆️ HIGH RARITY CHANCE</div>
@@ -434,7 +569,7 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
             <div id="lanModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(2,1,8,.96);align-items:center;justify-content:center;padding:14px;overflow:auto;">
               <div style="width:min(760px,96vw);background:linear-gradient(145deg,#0d1020,#07030d);border:2px solid #00f3ff;border-radius:20px;padding:20px;box-shadow:0 0 45px rgba(0,243,255,.22);">
                 <div style="text-align:center;margin-bottom:15px;"><div style="font-size:32px;">📡📱</div><h2 style="margin:5px 0;color:#00f3ff;">MULTIPLAYER LAN OFFLINE</h2><div class="muted" style="font-size:12px;">HP ke HP dalam Wi‑Fi/hotspot yang sama. Tidak membutuhkan laptop/komputer.</div></div>
-                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px;"><button class="btn" onclick="lanShowHost();lanAutoHost()" style="padding:13px;border-color:#00f3ff;color:#00f3ff;">👑 BUAT ROOM / HOST</button><button class="btn" onclick="lanShowJoin()" style="padding:13px;">🔗 GABUNG ROOM</button></div>
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px;"><button class="btn" onclick="lanShowHost();lanAutoHost()" style="padding:13px;border-color:#00f3ff;color:#00f3ff;">🔑 BUAT ROOM / HOST</button><button class="btn" onclick="lanShowJoin()" style="padding:13px;">🔗 GABUNG ROOM</button></div>
                 <div id="lanHostPanel">
                   <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;"><button class="btn primary" onclick="lanCreateOffer()">BUAT KODE PLAYER</button><span id="lanHostStatus" class="muted" style="font-size:12px;">Belum membuat slot player.</span></div>
                   <textarea id="lanOfferOut" readonly placeholder="Kode koneksi player akan muncul di sini..." style="width:100%;min-height:110px;resize:vertical;background:#05030a;color:#8ffcff;border:1px solid #174a5a;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;"></textarea>
@@ -692,7 +827,7 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
 </main>
 <aside class="panel right" style="display: flex; flex-direction: column;">
 <div class="skill">
-<h3>⚖️ Sistem Lelang Rahasia</h3>
+<h3>⚔️ Sistem Lelang Rahasia</h3>
 <p>Input kredit disembunyikan. Jika tawaran tertinggi melampaui <b>ambang batas</b>, pelelangan langsung berakhir dan pemenang mengambil semuanya.</p>
 </div>
 <div class="skill" id="heroSkillBox" style="background:rgba(0,243,255,0.05); border-color:#00f3ff;">
@@ -1612,7 +1747,7 @@ async function lanAutoClientReceive(raw,clientId){
 }
 function lanShowHost(){document.getElementById('lanHostPanel').style.display='block';document.getElementById('lanJoinPanel').style.display='none';}
 function lanShowJoin(){document.getElementById('lanHostPanel').style.display='none';document.getElementById('lanJoinPanel').style.display='block';lanAutoDiscover();}
-function lanRenderHostPlayers(){const e=document.getElementById('lanHostPlayers');if(!e)return;const a=[playerProfile.name,...Array.from(lanPeers.values()).map(x=>x.name||'Player')];e.innerHTML=a.map((n,i)=>`<div style="display:flex;justify-content:space-between;padding:9px 10px;border:1px solid #26334a;border-radius:8px;background:rgba(0,243,255,.04);"><b>${i===0?'👑 ':''}${n}</b><span style="color:#00ff9d">${i===0?'HOST':'● ONLINE'}</span></div>`).join('');}
+function lanRenderHostPlayers(){const e=document.getElementById('lanHostPlayers');if(!e)return;const a=[playerProfile.name,...Array.from(lanPeers.values()).map(x=>x.name||'Player')];e.innerHTML=a.map((n,i)=>`<div style="display:flex;justify-content:space-between;padding:9px 10px;border:1px solid #26334a;border-radius:8px;background:rgba(0,243,255,.04);"><b>${i===0?'🔑 ':''}${n}</b><span style="color:#00ff9d">${i===0?'HOST':'● ONLINE'}</span></div>`).join('');}
 function lanMakePeer(slot){const pc=new RTCPeerConnection({iceServers:[]});const dc=pc.createDataChannel('nexus-auction');const rec={pc,dc,name:null,slot};lanPending.set(slot,rec);dc.onopen=()=>lanSetStatus('lanHostStatus','Player terhubung.');dc.onmessage=e=>lanHostReceive(rec,e.data);pc.onconnectionstatechange=()=>{if(['failed','closed'].includes(pc.connectionState)){lanPending.delete(slot);if(rec.name)lanPeers.delete(slot);lanRenderHostPlayers();}};return rec;}
 function lanSetStatus(id,t){const e=document.getElementById(id);if(e)e.textContent=t;}
 async function lanCreateOffer(){if(lanPeers.size>=LAN_MAX_PLAYERS-1)return showToast('Slot player penuh.');lanMode=true;lanRole='host';const slot='S'+(++lanOfferSeq),rec=lanMakePeer(slot);const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await lanWaitIce(rec.pc);document.getElementById('lanOfferOut').value=lanEncode({v:1,city:selectedAuctionCity,slot,sdp:rec.pc.localDescription});lanSetStatus('lanHostStatus',`Kode Player ${lanPeers.size+2} siap. Kirim ke HP player.`);}
@@ -1669,7 +1804,7 @@ function selectAuctionCity(city){
   showToast(selectedAuctionCity === 'CITY3'
     ? '💎 Kota 3 dipilih — setiap ronde 1–2 item akan bernilai 2x harga asli.'
     : selectedAuctionCity === 'CITY2'
-      ? '👑 Kota 2 dipilih — peluang item kualitas tinggi ditingkatkan.'
+      ? '🔑 Kota 2 dipilih — peluang item kualitas tinggi ditingkatkan.'
       : '🏙️ Kota 1 dipilih — distribusi item standar.');
   setTimeout(()=>{
     if(gameMode === 'LAN'){ openLanMode(); }
@@ -1689,7 +1824,7 @@ function updateMinBid() {
 function startMatchmaking(){
   show('match');
   const cityLabel=document.getElementById('matchCityLabel');
-  if(cityLabel) cityLabel.textContent = selectedAuctionCity === 'CITY3' ? '💎 KOTA 3 • ×2 VALUE / RONDE' : (selectedAuctionCity === 'CITY2' ? '👑 KOTA 2 • HIGH RARITY' : '🏙️ KOTA 1 • STANDARD');
+  if(cityLabel) cityLabel.textContent = selectedAuctionCity === 'CITY3' ? '💎 KOTA 3 • ×2 VALUE / RONDE' : (selectedAuctionCity === 'CITY2' ? '🔑 KOTA 2 • HIGH RARITY' : '🏙️ KOTA 1 • STANDARD');
   matchmaking = true;
   
   let availableNames = botNamesPool.filter(n => n.toLowerCase() !== playerProfile.name.toLowerCase());
@@ -2478,7 +2613,7 @@ function showVictoryScreen(userWon, winnerName, winBid, bestFigure = null) {
                   ${renderIcon(bestFigure.icon, "100%", bestFigure.rarity, true)}
                 </div>
               </div>
-              <div style="position:absolute;bottom:5px;z-index:8;background:${rc};color:#05020a;padding:7px 16px;border-radius:14px;font-weight:1000;font-size:13px;box-shadow:0 0 25px ${rc};">🔓 ${bestFigure.rarity} FIGURE DIDAPATKAN!</div>
+              <div style="position:absolute;bottom:5px;z-index:8;background:${rc};color:#05020a;padding:7px 16px;border-radius:14px;font-weight:1000;font-size:13px;box-shadow:0 0 25px ${rc};">🔱 ${bestFigure.rarity} FIGURE DIDAPATKAN!</div>
             </div>`;
         document.getElementById('victoryPlayerName').textContent = bestFigure.name;
         document.getElementById('victoryPlayerName').style.color = rc;
@@ -2531,7 +2666,7 @@ function startItemReveal(userWon, winnerName, winBid) {
             const bg = index === 0 ? 'rgba(255,174,0,0.1)' : (isUser ? 'rgba(0,243,255,0.1)' : 'transparent');
             const border = index === 0 ? '1px solid #ffae00' : '1px solid #2a1545';
             const rank = index + 1;
-            const badge = index === 0 ? '👑 WINNER' : `#${rank}`;
+            const badge = index === 0 ? '🔑 WINNER' : `#${rank}`;
             return `<div style="display:flex;justify-content:space-between;padding:6px 12px;background:${bg};border:${border};border-radius:6px;align-items:center;">
                 <div><b style="color:${color};margin-right:10px;font-size:12px;">${badge}</b>
                 <b style="color:${isUser ? '#fff' : '#e0d8ea'};font-size:14px;">${name}</b></div>
@@ -2618,7 +2753,7 @@ function startItemReveal(userWon, winnerName, winBid) {
             const bidColor=isWinner?'#ffd700':(locked?'#00f3ff':'#8b7a9e');
             const resultText=result>0?'+'+money(result):money(result);
             return `<div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;padding:6px 8px;background:${isWinner?'rgba(255,174,0,.08)':(isUser?'rgba(0,243,255,.06)':'transparent')};border:1px solid ${isWinner?'#8a5d00':'#241437'};border-radius:6px;min-height:34px;box-sizing:border-box;">
-              <div style="min-width:0;display:flex;align-items:center;gap:5px;"><span style="font-size:11px;color:${isWinner?'#ffd700':'#8b7a9e'};font-weight:900;">${isWinner?'👑':'#'+(index+1)}</span><b style="color:${isUser?'#fff':'#e0d8ea'};font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${displayName}</b>${locked?'<span style="font-size:8px;color:#00ff9d;">🔒</span>':'<span style="font-size:8px;color:#ff007b;">0 BID</span>'}</div>
+              <div style="min-width:0;display:flex;align-items:center;gap:5px;"><span style="font-size:11px;color:${isWinner?'#ffd700':'#8b7a9e'};font-weight:900;">${isWinner?'🔑':'#'+(index+1)}</span><b style="color:${isUser?'#fff':'#e0d8ea'};font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${displayName}</b>${locked?'<span style="font-size:8px;color:#00ff9d;">🔒</span>':'<span style="font-size:8px;color:#ff007b;">0 BID</span>'}</div>
               <div style="text-align:right;white-space:nowrap;color:${bidColor};font-weight:900;font-size:12px;">🪙 ${money(bid)}</div>
               <div style="text-align:right;min-width:82px;white-space:nowrap;"><div style="font-size:8px;color:#8b7a9e;font-weight:800;">${label}</div><b style="color:${resultColor};font-size:13px;">${resultText}</b></div>
             </div>`;
@@ -2655,7 +2790,7 @@ function startItemReveal(userWon, winnerName, winBid) {
             if (userWon) {
                 setTimeout(() => showToast(`⚠️ OVERBID! Kamu rugi 🪙 ${money(excess)}. Kerugian dibagikan ke ${losersCount} pemain lain.`), 500);
             } else {
-                setTimeout(() => showToast(`🤑 ${winnerName} OVERBID. Kerugian 🪙 ${money(excess)} dibagikan ke pemain yang tidak menang.`), 500);
+                setTimeout(() => showToast(`🤝 ${winnerName} OVERBID. Kerugian 🪙 ${money(excess)} dibagikan ke pemain yang tidak menang.`), 500);
             }
         }
 
