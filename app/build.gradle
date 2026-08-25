@@ -1,5 +1,38 @@
-plugins { id 'com.android.application' }
+plugins {
+    id 'com.android.application'
+}
 
-android { namespace 'com.nexusauction.game'; compileSdk 35
-    defaultConfig { applicationId 'com.nexusauction.game'; minSdk 23; targetSdk 35; versionCode 1; versionName '1.0' }
+android {
+    namespace 'com.nexusauction.game'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.nexusauction.game'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+    // WAJIB: Beri tahu Gradle di mana folder kode sumber Anda
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+}
+
+dependencies {
+    // Minimal library agar APK punya isi (pastikan ada activity)
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
 }
