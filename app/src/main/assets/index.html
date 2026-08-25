@@ -568,6 +568,15 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
             </div>
             <div id="lanModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(2,1,8,.96);align-items:center;justify-content:center;padding:14px;overflow:auto;">
               <div style="width:min(760px,96vw);background:linear-gradient(145deg,#0d1020,#07030d);border:2px solid #00f3ff;border-radius:20px;padding:20px;box-shadow:0 0 45px rgba(0,243,255,.22);">
+                
+                <!-- ====== INSTRUKSI LAN AUTO DISCOVERY (TAMBAHAN) ====== -->
+                <div style="background:rgba(0,255,157,0.08); border:1px solid #00ff9d; border-radius:8px; padding:10px 12px; margin-bottom:15px; font-size:13px; color:#e0d8ea;">
+                    <b style="color:#00ff9d;">📡 CARA PAKAI LAN (AUTO DISCOVERY):</b><br>
+                    🟢 <b>HOST:</b> Klik "BUAT ROOM / HOST" → otomatis aktif.<br>
+                    🔵 <b>PLAYER:</b> Klik "CARI ROOM" → pilih room yang muncul → klik "GABUNG".<br>
+                    <span style="color:#8b7a9e; font-size:12px;">(Pastikan semua HP terhubung ke WiFi/Hotspot yang sama)</span>
+                </div>
+                
                 <div style="text-align:center;margin-bottom:15px;"><div style="font-size:32px;">📡📱</div><h2 style="margin:5px 0;color:#00f3ff;">MULTIPLAYER LAN OFFLINE</h2><div class="muted" style="font-size:12px;">HP ke HP dalam Wi‑Fi/hotspot yang sama. Tidak membutuhkan laptop/komputer.</div></div>
                 <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px;"><button class="btn" onclick="lanShowHost();lanAutoHost()" style="padding:13px;border-color:#00f3ff;color:#00f3ff;">🔑 BUAT ROOM / HOST</button><button class="btn" onclick="lanShowJoin()" style="padding:13px;">🔗 GABUNG ROOM</button></div>
                 <div id="lanHostPanel">
@@ -580,13 +589,13 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
                   <button class="big-play-btn" onclick="lanStartHostGame()" style="width:100%;margin-top:14px;font-size:16px;">🚀 MULAI LELANG LAN</button>
                 </div>
                 <div id="lanAutoPanel" style="margin-bottom:14px;padding:12px;border:1px solid #174a5a;border-radius:12px;background:rgba(0,243,255,.04);">
-  <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;">
-    <b style="color:#00f3ff;">📡 ROOM LAN TERDETEKSI OTOMATIS</b>
-    <button class="btn" onclick="lanAutoDiscover()">🔎 CARI ROOM</button>
-  </div>
-  <div id="lanRoomList" class="muted" style="margin-top:10px;font-size:12px;">Tekan CARI ROOM. Pastikan semua HP berada di hotspot/Wi‑Fi yang sama.</div>
-</div>
-<div id="lanJoinPanel" style="display:none;">
+                  <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;">
+                    <b style="color:#00f3ff;">📡 ROOM LAN TERDETEKSI OTOMATIS</b>
+                    <button class="btn" onclick="lanAutoDiscover()">🔎 CARI ROOM</button>
+                  </div>
+                  <div id="lanRoomList" class="muted" style="margin-top:10px;font-size:12px;">Tekan CARI ROOM. Pastikan semua HP berada di hotspot/Wi‑Fi yang sama.</div>
+                </div>
+                <div id="lanJoinPanel" style="display:none;">
                   <textarea id="lanOfferIn" placeholder="Tempel KODE HOST di sini..." style="width:100%;min-height:120px;resize:vertical;background:#05030a;color:#fff;border:1px solid #3a1c5e;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;"></textarea>
                   <button class="btn primary" onclick="lanJoinFromOffer()" style="width:100%;margin-top:8px;">🔗 BUAT KODE JAWABAN</button>
                   <textarea id="lanAnswerOut" readonly placeholder="Kode jawaban akan muncul setelah kode host diproses..." style="width:100%;min-height:120px;resize:vertical;background:#05030a;color:#8ffcff;border:1px solid #174a5a;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;margin-top:10px;"></textarea>
