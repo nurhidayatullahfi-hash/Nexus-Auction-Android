@@ -22,35 +22,30 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      # ⚠️ HAPUS semua step instalasi SDK manual!
-      # Runner ubuntu-latest sudah punya Android SDK dan lisensi yang sudah diterima.
-
+      # Tidak perlu install SDK manual, runner sudah punya semua.
+      
       - name: Set up Gradle 8.9
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - name: Bersihkan cache & Build Debug APK (menggunakan wrapper)
+      # [FIX] Buat file gradlew terlebih dahulu karena tidak ada di repo
+      - name: Buat Gradle Wrapper
+        run: gradle wrapper
+
+      # [FIX] Sekarang pakai ./gradlew seperti biasa
+      - name: Build Debug APK
         run: |
           chmod +x gradlew
           ./gradlew clean assembleDebug --stacktrace
 
-      # [DEBUG] Step ini akan menampilkan ukuran & tipe file APK di server
+      # DEBUG: Cek ukuran APK hasil build
       - name: Debug Cek APK
         run: |
           echo "=== Daftar file APK ==="
           ls -la app/build/outputs/apk/debug/
           echo "=== Cek tipe file ==="
           file app/build/outputs/apk/debug/*.apk || echo "APK tidak ditemukan"
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Nexus-Auction-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
-      - name: Build debug APK
-        run: gradle --no-daemon --stacktrace assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
