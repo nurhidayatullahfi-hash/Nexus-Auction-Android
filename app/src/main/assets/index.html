@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0a0514"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><title>Nexus Auction: Cyber Relic</title>
 <style>
 /* Offline APK: no external font/network dependency. */
@@ -479,6 +479,264 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
 }
 </style>
 
+
+<style id="android-v6-fix">
+/* ============================================================
+   NEXUS AUCTION V6 â€” ANDROID WEBVIEW HARDENING
+   - No visible overflow artifacts
+   - Registration fits the phone viewport
+   - No page scroll required for registration
+   - Keeps calculator/game layouts intact
+   ============================================================ */
+html{
+  width:100%;
+  min-width:0;
+  background:#05020a;
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{
+  width:100%;
+  min-width:0;
+  margin:0;
+  overflow-x:hidden;
+  background:#05020a;
+  -webkit-tap-highlight-color:transparent;
+  overscroll-behavior-x:none;
+}
+body,body *{
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{
+  -webkit-appearance:none;
+  appearance:none;
+}
+button{
+  touch-action:manipulation;
+}
+.app{
+  width:100%;
+  max-width:1450px;
+  min-width:0;
+}
+.screen{
+  width:100%;
+  min-width:0;
+}
+
+/* Registration is a complete viewport screen on Android. */
+#screen-register{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:9990 !important;
+  width:100vw !important;
+  height:100vh !important;
+  height:100svh !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:
+    max(8px, env(safe-area-inset-top))
+    max(8px, env(safe-area-inset-right))
+    max(8px, env(safe-area-inset-bottom))
+    max(8px, env(safe-area-inset-left)) !important;
+  display:none;
+  place-items:center;
+  overflow:hidden !important;
+  background:
+    radial-gradient(circle at 50% 10%,rgba(112,0,255,.20),transparent 45%),
+    #05020a;
+}
+#screen-register.active{
+  display:grid !important;
+}
+.register-card{
+  width:min(500px, calc(100vw - 16px));
+  max-width:500px;
+  max-height:calc(100svh - 16px);
+  margin:0 !important;
+  padding:clamp(14px,3.2vw,26px) !important;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-radius:18px;
+}
+.register-head{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-align:left;
+  margin-bottom:clamp(10px,2vh,16px);
+}
+.register-mark{
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  display:grid;
+  place-items:center;
+  border:1px solid #00f3ff;
+  border-radius:14px;
+  background:rgba(0,243,255,.06);
+  font-size:25px;
+  box-shadow:0 0 18px rgba(0,243,255,.15);
+}
+.register-head h2{
+  margin:0;
+  color:#00f3ff;
+  font-size:clamp(21px,6vw,30px);
+  line-height:1.05;
+  letter-spacing:1px;
+}
+.register-head p{
+  margin:5px 0 0;
+  color:#8b7a9e;
+  font-size:12px;
+  line-height:1.25;
+}
+.register-fields{
+  display:grid;
+  gap:clamp(8px,1.5vh,12px);
+}
+.register-field{
+  text-align:left;
+  min-width:0;
+}
+.register-field label{
+  display:block;
+  color:#a385ff;
+  font-weight:800;
+  font-size:12px;
+  line-height:1.1;
+  margin:0 0 4px;
+}
+.register-field input,
+.register-field select{
+  display:block;
+  width:100%;
+  height:46px;
+  min-height:46px;
+  padding:0 12px;
+  margin:0;
+  background:#05020a;
+  border:1px solid #4a2575;
+  border-radius:9px;
+  color:#fff;
+  outline:none;
+  font-size:16px;
+  line-height:46px;
+}
+.register-field select{
+  line-height:normal;
+  color-scheme:dark;
+}
+.register-field input:focus,
+.register-field select:focus{
+  border-color:#00f3ff;
+  box-shadow:0 0 0 2px rgba(0,243,255,.12);
+}
+.register-submit{
+  width:100%;
+  min-height:48px;
+  margin-top:clamp(10px,2vh,15px);
+  padding:10px 14px;
+  font-size:16px;
+  border-radius:10px;
+}
+.register-note{
+  margin-top:8px;
+  color:#6f637e;
+  font-size:10px;
+  text-align:center;
+  line-height:1.2;
+}
+
+/* Small phones: deliberately compact so the complete form remains visible. */
+@media (max-width:480px){
+  #screen-register{
+    padding:6px !important;
+  }
+  .register-card{
+    width:calc(100vw - 12px);
+    max-height:calc(100svh - 12px);
+    padding:12px !important;
+    border-radius:14px;
+  }
+  .register-head{
+    margin-bottom:8px;
+    gap:9px;
+  }
+  .register-mark{
+    width:40px;height:40px;flex-basis:40px;
+    font-size:21px;border-radius:11px;
+  }
+  .register-head h2{font-size:20px;}
+  .register-head p{font-size:10px;margin-top:3px;}
+  .register-fields{gap:7px;}
+  .register-field label{font-size:11px;margin-bottom:3px;}
+  .register-field input,
+  .register-field select{
+    height:40px;
+    min-height:40px;
+    padding:0 10px;
+    font-size:15px;
+    line-height:40px;
+    border-radius:8px;
+  }
+  .register-submit{
+    min-height:42px;
+    margin-top:9px;
+    padding:8px 10px;
+    font-size:14px;
+  }
+  .register-note{font-size:9px;margin-top:6px;}
+}
+
+/* Very short Android displays / landscape. */
+@media (max-height:620px){
+  #screen-register{padding:5px !important;}
+  .register-card{
+    max-height:calc(100svh - 10px);
+    padding:9px !important;
+  }
+  .register-head{margin-bottom:5px;}
+  .register-mark{width:34px;height:34px;flex-basis:34px;font-size:18px;}
+  .register-head h2{font-size:18px;}
+  .register-head p{display:none;}
+  .register-fields{gap:5px;}
+  .register-field label{font-size:10px;margin-bottom:2px;}
+  .register-field input,
+  .register-field select{
+    height:34px;
+    min-height:34px;
+    font-size:14px;
+    line-height:34px;
+  }
+  .register-submit{min-height:36px;margin-top:6px;font-size:13px;}
+  .register-note{display:none;}
+}
+
+/* Do not let decorative animation/text create an Android WebView scroll layer. */
+#splash,
+.cine-flash,
+.cine-container{
+  overflow:hidden;
+}
+.cine-text,.cine-sub{
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* Modal content can scroll internally; the page itself remains stable. */
+#modeSelectionModal,
+#citySelectionModal,
+#lanModal{
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
+</style>
+
 </head>
 <body>
 <!-- SPLASH SCREEN -->
@@ -624,40 +882,48 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
 </section>
 
 
-<section id="screen-register" class="screen">
-    <div class="panel" style="max-width: 500px; margin: 40px auto; padding: 30px; text-align: center;">
-        <h2 style="color: #00f3ff; margin-top:0; font-size: 32px; letter-spacing: 2px;">REGISTRASI AGEN</h2>
-        <p class="muted" style="margin-bottom: 25px;">Masukkan kredensial Nexus untuk memulai.</p>
-        
-        <div style="text-align: left; margin-bottom: 15px;">
-            <label style="color:#a385ff; font-weight:700; font-size:14px;">NAMA ALIAS</label>
-            <input type="text" id="regName" placeholder="Contoh: Kael" style="width:100%; padding: 12px; margin-top:5px; background:#05020a; border:1px solid #4a2575; border-radius:8px; color:#fff;">
-        </div>
-        
-        <div style="text-align: left; margin-bottom: 15px;">
-            <label style="color:#a385ff; font-weight:700; font-size:14px;">NEGARA / WILAYAH</label>
-            <select id="regCountry" style="width:100%; padding: 12px; margin-top:5px; background:#05020a; border:1px solid #4a2575; border-radius:8px; color:#fff; font-family:inherit;">
-                <option value="ðŸ‡®ðŸ‡©">ðŸ‡®ðŸ‡© Indonesia</option>
-                <option value="ðŸ‡²ðŸ‡¾">ðŸ‡²ðŸ‡¾ Malaysia</option>
-                <option value="ðŸ‡¸ðŸ‡¬">ðŸ‡¸ðŸ‡¬ Singapore</option>
-                <option value="ðŸ‡¯ðŸ‡µ">ðŸ‡¯ðŸ‡µ Japan</option>
-                <option value="ðŸ‡ºðŸ‡¸">ðŸ‡ºðŸ‡¸ United States</option>
-                <option value="ðŸŒ">ðŸŒ Global</option>
-            </select>
-        </div>
-        
-        <div style="text-align: left; margin-bottom: 15px;">
-            <label style="color:#a385ff; font-weight:700; font-size:14px;">KATA SANDI</label>
-            <input type="password" id="regPass" placeholder="Masukkan kata sandi..." style="width:100%; padding: 12px; margin-top:5px; background:#05020a; border:1px solid #4a2575; border-radius:8px; color:#fff;">
-        </div>
-        
-        <div style="text-align: left; margin-bottom: 30px;">
-            <label style="color:#a385ff; font-weight:700; font-size:14px;">KONFIRMASI SANDI</label>
-            <input type="password" id="regPassConfirm" placeholder="Ulangi kata sandi..." style="width:100%; padding: 12px; margin-top:5px; background:#05020a; border:1px solid #4a2575; border-radius:8px; color:#fff;">
-        </div>
-        
-        <button class="btn primary" style="width:100%; padding: 18px; font-size: 18px;" onclick="registerPlayer()">DAFTAR & MASUK LOBI</button>
+<section id="screen-register" class="screen register-screen">
+  <div class="panel register-card" role="form" aria-label="Registrasi Agen">
+    <div class="register-head">
+      <div class="register-mark">ðŸ’ </div>
+      <div>
+        <h2>REGISTRASI AGEN</h2>
+        <p>Masukkan kredensial Nexus untuk memulai.</p>
+      </div>
     </div>
+
+    <div class="register-fields">
+      <div class="register-field">
+        <label for="regName">NAMA ALIAS</label>
+        <input type="text" id="regName" placeholder="Contoh: Kael" autocomplete="nickname" autocapitalize="words" spellcheck="false" maxlength="24">
+      </div>
+
+      <div class="register-field">
+        <label for="regCountry">NEGARA / WILAYAH</label>
+        <select id="regCountry">
+          <option value="ðŸ‡®ðŸ‡©">ðŸ‡®ðŸ‡© Indonesia</option>
+          <option value="ðŸ‡²ðŸ‡¾">ðŸ‡²ðŸ‡¾ Malaysia</option>
+          <option value="ðŸ‡¸ðŸ‡¬">ðŸ‡¸ðŸ‡¬ Singapore</option>
+          <option value="ðŸ‡¯ðŸ‡µ">ðŸ‡¯ðŸ‡µ Japan</option>
+          <option value="ðŸ‡ºðŸ‡¸">ðŸ‡ºðŸ‡¸ United States</option>
+          <option value="ðŸŒ">ðŸŒ Global</option>
+        </select>
+      </div>
+
+      <div class="register-field">
+        <label for="regPass">KATA SANDI</label>
+        <input type="password" id="regPass" placeholder="Masukkan kata sandi..." autocomplete="new-password">
+      </div>
+
+      <div class="register-field">
+        <label for="regPassConfirm">KONFIRMASI SANDI</label>
+        <input type="password" id="regPassConfirm" placeholder="Ulangi kata sandi..." autocomplete="new-password">
+      </div>
+    </div>
+
+    <button class="btn primary register-submit" type="button" onclick="registerPlayer()">DAFTAR &amp; MASUK LOBI</button>
+    <div class="register-note">ðŸ”’ Data profil disimpan secara lokal pada perangkat.</div>
+  </div>
 </section>
 
 <!-- MENU SCREENS (Simplified internally) -->
@@ -779,7 +1045,8 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
     <h2 style="color:#00f3ff;margin:0; font-size:32px;">SINKRONISASI JARINGAN <span style="font-size:16px;color:#a385ff; vertical-align:middle;">[ PROTOKOL LELANG TERTUTUP ]</span></h2>
     <div style="font-size: 24px; font-weight: 900;">
         <span class="muted" style="font-size:16px;">MENCARI KANDIDAT</span> 
-        <div id="matchCityLabel" style="text-align:center;color:#ffd700;font-weight:900;margin:8px 0 12px;"></div>\n<span id="matchWaitCount" style="color:#00ff9d; margin: 0 15px;">1/5</span> 
+        <div id="matchCityLabel" style="text-align:center;color:#ffd700;font-weight:900;margin:8px 0 12px;"></div>
+<span id="matchWaitCount" style="color:#00ff9d; margin: 0 15px;">1/5</span> 
         <span id="matchCountdownText" style="color:#00f3ff;">15s</span>
     </div>
   </div>
@@ -842,7 +1109,7 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
 <div class="skill" id="heroSkillBox" style="background:rgba(0,243,255,0.05); border-color:#00f3ff;">
 <h3>âš¡ Modul Unik: <span id="ingameHeroName">ARLOT</span></h3>
 <p>Sistem meretas sebagian sel brankas secara otomatis setiap memulai fase baru.</p>
-<button class="btn" style="background:rgba(0,243,255,0.2); color:#00f3ff; border-color:#00f3ff; width: 100%; cursor:default;" disabled>AUTO-BYPASS AKTIF</button>
+<button class="btn" style="background:rgba(0,243,255,0.2); color:#00f3ff; border-color:#00f3ff; width:100%;" onclick="showToast('AUTO-BYPASS aktif dan siap digunakan.');touchSound();">AUTO-BYPASS AKTIF</button>
 </div>
 <div class="chat" id="chat"></div>
 <div class="chatbar"><input id="chatInput" placeholder="Kirim pesan..." maxlength="90" onkeydown="if(event.key==='Enter')sendChat()"><button class="btn primary" style="padding: 0 20px;" onclick="sendChat()">KIRIM</button></div>
@@ -3810,5 +4077,60 @@ renderP2PListings();
 window.NEXUS_ANDROID_OFFLINE = true;
 window.NEXUS_LAN_MAX_PLAYERS = 5;
 window.addEventListener('offline',()=>{ document.documentElement.dataset.network='offline'; });
+
+/* ============================================================
+   NEXUS AUCTION V6 â€” ANDROID UI HARDENING
+   ============================================================ */
+(function(){
+  const _show = window.show;
+  window.show = function(id){
+    if(typeof _show === 'function') _show(id);
+    const reg = document.getElementById('screen-register');
+    const isReg = id === 'screen-register';
+    document.body.classList.toggle('register-mode', isReg);
+    if(reg){
+      reg.scrollTop = 0;
+      if(isReg){
+        reg.style.display = 'grid';
+        reg.classList.add('active');
+      }else{
+        reg.classList.remove('active');
+        reg.style.display = 'none';
+      }
+    }
+    window.scrollTo(0,0);
+  };
+
+  // Prevent Android WebView's visual viewport from pushing the form off-screen.
+  function fitRegisterToViewport(){
+    const reg=document.getElementById('screen-register');
+    if(!reg || !reg.classList.contains('active')) return;
+    const vv=window.visualViewport;
+    if(vv){
+      reg.style.height=Math.max(280, Math.floor(vv.height))+'px';
+    }
+  }
+  window.addEventListener('resize',fitRegisterToViewport,{passive:true});
+  window.visualViewport?.addEventListener('resize',fitRegisterToViewport,{passive:true});
+  window.visualViewport?.addEventListener('scroll',fitRegisterToViewport,{passive:true});
+
+  // Remove accidental literal slash-n text from any dynamically rendered legacy markup.
+  function cleanVisibleEscapes(root=document.body){
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(n=>{
+      if(n.parentElement && !['SCRIPT','STYLE','TEXTAREA'].includes(n.parentElement.tagName)){
+        n.nodeValue=n.nodeValue.replace(/\\\\n/g,' ');
+      }
+    });
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',()=>setTimeout(cleanVisibleEscapes,0),{once:true});
+  }else{
+    setTimeout(cleanVisibleEscapes,0);
+  }
+})();
+
 </script>
 </body></html>
