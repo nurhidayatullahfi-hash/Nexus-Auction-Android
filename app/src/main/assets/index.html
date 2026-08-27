@@ -7,7 +7,7 @@
 /* Offline APK: no external font/network dependency. */
 
 *{box-sizing:border-box}
-body{margin:0;background:#05020a;color:#e0d8ea;font-family:'Rajdhani',system-ui,-apple-system,sans-serif,'Segoe UI Emoji','Noto Color Emoji','Apple Color Emoji';}
+body{margin:0;background:#05020a;color:#e0d8ea;font-family:'Rajdhani',system-ui,-apple-system,sans-serif;}
 button,input{font:inherit}
 button{cursor:pointer; transition: 0.2s;}
 button:hover{filter: brightness(1.2); transform: translateY(-2px);}
@@ -477,55 +477,1482 @@ button:hover{filter: brightness(1.2); transform: translateY(-2px);}
         height: 80% !important;
     }
 }
-/* PERBAIKAN LAYOUT REGISTRASI DI HP */
-#screen-register .panel {
-    max-height: 92vh;
-    overflow-y: auto;
-}
-@media (max-width: 480px) {
-    #screen-register .panel {
-        padding: 20px !important;
-        margin: 10px auto !important;
-        max-height: 88vh;
-    }
-}
-@media (orientation: portrait) {
-    .screen.active {
-        overflow-y: auto !important;
-    }
-}
-body {
-    font-family: 'Rajdhani', 'Segoe UI Emoji', 'Noto Color Emoji', 'Apple Color Emoji', sans-serif;
+</style>
+
+
+<style id="nexus-android-responsive-v2">
+/* =========================================================
+   NEXUS AUCTION — ANDROID RESPONSIVE LAYOUT V2
+   Target: Android phones + Android tablets, especially landscape.
+   Tidak menghapus/mengunci fitur game yang sudah ada.
+   ========================================================= */
+
+:root{
+  --safe-top: env(safe-area-inset-top,0px);
+  --safe-right: env(safe-area-inset-right,0px);
+  --safe-bottom: env(safe-area-inset-bottom,0px);
+  --safe-left: env(safe-area-inset-left,0px);
+  --app-gap: clamp(6px,1vw,14px);
+  --ui-scale: 1;
 }
 
-/* Tablet landscape */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    .top { height: 55px; }
-    .logo { font-size: 20px; }
-    .stats { font-size: 14px; }
-    .hero-title { font-size: 24px; }
-    .hero-sub { font-size: 14px; }
-    .hero-display { font-size: 100px; }
-    .menu-label { font-size: 13px; }
-    .menu-icon { font-size: 28px; }
-    .big-play-btn { font-size: 22px; padding: 20px; }
-    .timer { font-size: 36px; }
-    .board { max-height: 50vh !important; }
+html{
+  width:100%;
+  min-height:100%;
+  background:#05020a;
+  overflow-x:hidden;
+  overscroll-behavior-x:none;
 }
-@media (min-width: 900px) and (orientation: landscape) {
-    .app { max-width: 1400px; }
-    .game { grid-template-columns: 200px 1fr 280px; }
-    .lobby-left { flex: 0 0 280px; }
-    .hero-display { font-size: 120px; }
+
+body{
+  width:100%;
+  min-width:0;
+  min-height:100%;
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  touch-action:pan-y;
+}
+
+*{
+  max-width:100%;
+}
+
+button,
+input,
+select,
+textarea{
+  min-width:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button{
+  touch-action:manipulation;
+}
+
+.app{
+  width:100%;
+  max-width:1450px;
+  min-height:100svh;
+  min-height:100dvh;
+  margin:0 auto;
+  padding:
+    max(6px,var(--safe-top))
+    max(6px,var(--safe-right))
+    max(8px,var(--safe-bottom))
+    max(6px,var(--safe-left));
+}
+
+/* ---------- TOP BAR ---------- */
+.top{
+  width:100%;
+  height:auto;
+  min-height:52px;
+  padding:8px clamp(10px,2vw,20px);
+  gap:10px;
+  position:sticky;
+  top:max(4px,var(--safe-top));
+}
+
+.logo{
+  min-width:0;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.stats{
+  min-width:0;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:clamp(6px,1.4vw,18px);
+}
+
+.stats > span{
+  white-space:nowrap;
+}
+
+/* ---------- COMMON SCREENS ---------- */
+.screen{
+  width:100%;
+  min-width:0;
+  max-width:100%;
+}
+
+.panel{
+  min-width:0;
+  max-width:100%;
+}
+
+.menu-screen{
+  width:min(100%,1100px);
+  max-width:1100px;
+  margin:clamp(8px,2vw,30px) auto;
+  padding:clamp(12px,2vw,30px);
+}
+
+/* ---------- LOBBY ---------- */
+.lobby-layout{
+  width:100%;
+  min-height:calc(100dvh - 85px);
+  gap:var(--app-gap);
+  margin-top:var(--app-gap);
+}
+
+.lobby-left{
+  flex-basis:clamp(220px,24vw,340px);
+  width:clamp(220px,24vw,340px);
+  min-width:0;
+  padding:clamp(12px,2vw,25px);
+}
+
+.lobby-right{
+  min-width:0;
+  gap:var(--app-gap);
+}
+
+.hero-display{
+  min-height:0;
+  width:min(100%,250px) !important;
+  height:auto !important;
+  aspect-ratio:1;
+  font-size:clamp(70px,10vw,140px);
+}
+
+.stats-bar{
+  min-width:0;
+  gap:12px;
+  flex-wrap:wrap;
+  padding:clamp(10px,1.8vw,20px) clamp(12px,2vw,30px);
+}
+
+.stat-box{
+  min-width:0;
+  flex:1 1 130px;
+}
+
+.menu-grid{
+  min-width:0;
+  grid-template-columns:repeat(auto-fit,minmax(105px,1fr));
+  gap:var(--app-gap);
+}
+
+.menu-card{
+  min-height:90px;
+  min-width:0;
+  padding:10px;
+}
+
+.menu-label{
+  text-align:center;
+  overflow-wrap:anywhere;
+}
+
+.big-play-btn{
+  min-height:54px;
+  padding:clamp(14px,2vw,25px);
+  font-size:clamp(17px,2.3vw,26px);
+}
+
+/* ---------- MODALS ---------- */
+#modeSelectionModal,
+#citySelectionModal,
+#lanModal,
+#calculator{
+  padding:
+    max(10px,var(--safe-top))
+    max(10px,var(--safe-right))
+    max(10px,var(--safe-bottom))
+    max(10px,var(--safe-left));
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+
+#modeSelectionModal > div,
+#citySelectionModal > div,
+#lanModal > div{
+  width:min(100%,760px) !important;
+  max-height:calc(100dvh - 20px);
+  overflow:auto;
+}
+
+/* ---------- MATCHMAKING ---------- */
+#match > .panel{
+  width:min(100%,1100px) !important;
+  min-height:0 !important;
+  margin:var(--app-gap) auto !important;
+  padding:clamp(12px,2vw,25px) !important;
+}
+
+.wait-room{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:var(--app-gap);
+  margin-top:var(--app-gap);
+}
+
+.wait-slot{
+  min-width:0;
+  min-height:110px;
+  padding:clamp(10px,2vw,30px) 8px;
+}
+
+.matchPhoto{
+  max-width:100%;
+}
+
+/* =========================================================
+   IN-GAME — LANDSCAPE FIRST
+   ========================================================= */
+#game{
+  width:100%;
+  min-width:0;
+  min-height:0;
+  overflow:visible;
+}
+
+.game{
+  width:100%;
+  min-width:0;
+  grid-template-columns:
+    clamp(132px,17vw,210px)
+    minmax(0,1fr)
+    clamp(180px,22vw,300px);
+  gap:var(--app-gap);
+  align-items:stretch;
+}
+
+.players,
+.arena,
+.right{
+  min-width:0;
+  max-width:100%;
+}
+
+.players{
+  overflow:hidden;
+}
+
+.arena{
+  padding:clamp(6px,1.2vw,15px);
+  overflow:hidden;
+}
+
+.arenahead{
+  min-width:0;
+  gap:8px;
+  margin-bottom:clamp(6px,1vw,15px);
+  padding-bottom:clamp(6px,1vw,10px);
+}
+
+.arenahead > div:first-child{
+  min-width:0;
+}
+
+.arenahead b,
+.arenahead .muted{
+  overflow-wrap:anywhere;
+}
+
+.timer{
+  font-size:clamp(26px,4vw,42px);
+  line-height:1;
+}
+
+#roundMultiplier{
+  flex:0 0 auto;
+  font-size:clamp(18px,2.5vw,26px) !important;
+  white-space:nowrap;
+}
+
+/* 10 x 8 board remains 10x8, but its height follows the viewport. */
+.board{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  min-height:0;
+  height:auto;
+  aspect-ratio:10 / 8;
+  max-height:none;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  grid-template-rows:repeat(8,minmax(0,1fr));
+  gap:clamp(1px,.25vw,2px);
+  padding:clamp(2px,.5vw,4px);
+}
+
+.cell{
+  min-width:0;
+  min-height:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-size:clamp(7px,1vw,12px);
+}
+
+.cell > *,
+.revealed-item-art,
+.revealed-item-art > *{
+  max-width:100%;
+  max-height:100%;
+  min-width:0;
+  min-height:0;
+}
+
+#bidRevealUI{
+  min-width:0;
+  min-height:0 !important;
+  max-height:55dvh;
+  overflow:auto;
+  padding:clamp(10px,1.5vw,25px) !important;
+}
+
+.value-box{
+  min-width:0;
+  margin-top:clamp(6px,1vw,15px);
+  padding:clamp(8px,1.2vw,15px);
+}
+
+.value-box > div{
+  min-width:0;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+#btnInitiateBid{
+  max-width:100%;
+  min-height:48px;
+  padding:clamp(10px,1.4vw,15px) clamp(14px,2vw,35px) !important;
+}
+
+/* ---------- PLAYER CARDS / LOCK INDICATORS ---------- */
+.game-player-card{
+  min-width:0;
+  padding:clamp(7px,1vw,10px) 3px;
+}
+
+.game-player-avatar{
+  flex:0 0 clamp(46px,5vw,65px);
+  width:clamp(46px,5vw,65px);
+  height:clamp(46px,5vw,65px);
+}
+
+.game-player-avatar .matchPhoto{
+  width:100%;
+  height:100%;
+  font-size:clamp(28px,4vw,50px);
+}
+
+.bid-lock-badge{
+  right:-4px;
+  bottom:-4px;
+  font-size:clamp(8px,.8vw,10px);
+  padding:3px 5px;
+}
+
+.bid-round-history{
+  max-width:100%;
+}
+
+.bid-round-dot{
+  width:clamp(18px,2.2vw,22px);
+  height:17px;
+}
+
+/* ---------- RIGHT PANEL ---------- */
+.right{
+  overflow:hidden;
+}
+
+.skill{
+  padding:clamp(8px,1.2vw,15px);
+}
+
+.skill h3{
+  font-size:clamp(14px,1.8vw,18px);
+}
+
+.skill p{
+  font-size:clamp(11px,1.25vw,14px);
+  line-height:1.35;
+}
+
+.chat{
+  min-width:0;
+  min-height:clamp(100px,18dvh,280px);
+  margin-top:8px;
+  overflow:auto;
+}
+
+.chatbar{
+  min-width:0;
+}
+
+.chatbar input{
+  min-width:0;
+  width:100%;
+}
+
+/* ---------- CALCULATOR ---------- */
+.calc{
+  width:min(94vw,420px);
+  max-height:calc(100dvh - 20px);
+  overflow:auto;
+  padding:clamp(12px,2vw,20px);
+}
+
+.calcgrid{
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;
+}
+
+.calcgrid button{
+  min-height:44px;
+  padding:8px;
+}
+
+/* ---------- RESULT / VICTORY ---------- */
+#result,
+#screen-victory{
+  min-height:0;
+}
+
+#result .panel,
+#screen-victory > .panel{
+  width:min(100%,900px);
+  max-width:100%;
+  margin:clamp(8px,2vw,40px) auto;
+  padding:clamp(12px,3vw,40px);
+}
+
+.unboxing-header{
+  min-width:0;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:clamp(10px,2vw,25px);
+}
+
+.unboxing-stats{
+  min-width:0;
+}
+
+.victory-title{
+  font-size:clamp(28px,6vw,50px);
+}
+
+.victory-avatar-container{
+  width:min(45vw,300px);
+  height:min(45vw,300px);
+}
+
+/* ---------- GENERIC GRIDS ---------- */
+.grid-container{
+  min-width:0;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+}
+
+.grid-item{
+  min-width:0;
+  overflow:hidden;
+}
+
+.grid-title,
+.grid-sub{
+  overflow-wrap:anywhere;
+}
+
+/* =========================================================
+   ANDROID PHONE PORTRAIT
+   ========================================================= */
+@media screen and (max-width:700px) and (orientation:portrait){
+  .top{
+    min-height:46px;
+    padding:6px 9px;
+  }
+
+  .logo{
+    font-size:clamp(13px,4vw,17px);
+  }
+
+  .stats{
+    font-size:clamp(10px,3vw,13px);
+    gap:5px;
+  }
+
+  #soundBtn{
+    padding:7px 9px;
+    font-size:10px;
+  }
+
+  .lobby-layout{
+    flex-direction:column;
+    min-height:0;
+  }
+
+  .lobby-left{
+    width:100%;
+    flex:0 0 auto;
+    border-radius:16px;
+  }
+
+  .hero-display{
+    width:min(48vw,210px) !important;
+  }
+
+  .stats-bar{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .stat-box{
+    flex:unset;
+  }
+
+  .menu-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  /* In portrait, game becomes scrollable stacked UI instead of squeezed. */
+  .game{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+
+  .players{order:1;}
+  .arena{order:2;}
+  .right{order:3;}
+
+  .board{
+    width:100%;
+    aspect-ratio:10 / 8;
+  }
+
+  .chat{
+    min-height:140px;
+  }
+
+  .wait-room{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+/* =========================================================
+   ANDROID PHONE LANDSCAPE
+   Typical: 640–900px wide, 320–500px high.
+   Keep all 3 game columns visible.
+   ========================================================= */
+@media screen and (max-width:900px) and (orientation:landscape){
+  :root{--app-gap:5px;}
+
+  body{
+    overflow-y:auto;
+  }
+
+  .app{
+    padding:4px;
+  }
+
+  .top{
+    min-height:40px;
+    padding:5px 8px;
+    border-radius:8px;
+    position:relative;
+  }
+
+  .logo{
+    font-size:clamp(12px,2.6vw,17px);
+  }
+
+  .stats{
+    font-size:clamp(9px,2vw,12px);
+    gap:5px;
+  }
+
+  #soundBtn{
+    padding:5px 7px;
+    font-size:9px;
+  }
+
+  .lobby-layout{
+    min-height:0;
+    flex-direction:row;
+  }
+
+  .lobby-left{
+    flex:0 0 180px;
+    width:180px;
+    padding:10px;
+  }
+
+  .hero-title{font-size:18px;}
+  .hero-sub{font-size:11px;margin-bottom:5px;}
+  .hero-display{width:min(24vh,145px) !important;}
+  .hero-action{padding:8px;font-size:11px;}
+
+  .stats-bar{
+    padding:7px 9px;
+    gap:5px;
+  }
+
+  .stat-box{
+    flex:1 1 80px;
+  }
+
+  .stat-label{font-size:8px;}
+  .stat-val{font-size:15px;}
+
+  .menu-grid{
+    grid-template-columns:repeat(3,minmax(70px,1fr));
+    gap:5px;
+  }
+
+  .menu-card{
+    min-height:58px;
+    padding:5px 3px;
+    gap:3px;
+    border-radius:9px;
+  }
+
+  .menu-icon{font-size:20px;}
+  .menu-label{font-size:8px;letter-spacing:.3px;}
+  .badge{top:4px;right:4px;font-size:8px;padding:2px 4px;}
+
+  .big-play-btn{
+    min-height:42px;
+    padding:9px;
+    font-size:15px;
+    border-radius:10px;
+  }
+
+  /* Game: compact 3-column landscape HUD */
+  .game{
+    grid-template-columns:
+      clamp(116px,19vw,155px)
+      minmax(0,1fr)
+      clamp(150px,24vw,190px);
+    gap:5px;
+  }
+
+  .arena{
+    padding:5px;
+  }
+
+  .arenahead{
+    margin-bottom:4px;
+    padding-bottom:4px;
+  }
+
+  .arenahead b{font-size:14px !important;}
+  .arenahead .muted{font-size:9px !important;}
+  .timer{font-size:clamp(22px,5vw,30px);}
+  #roundMultiplier{font-size:17px !important;}
+
+  #judgeBox{
+    margin:4px 0;
+    padding:6px !important;
+    border-radius:7px;
+    font-size:10px;
+    line-height:1.2;
+  }
+
+  #judgeBox span{
+    font-size:10px !important;
+  }
+
+  .board{
+    width:100%;
+    aspect-ratio:10 / 8;
+    height:auto;
+    max-height:none !important;
+    min-height:0 !important;
+  }
+
+  .cell{
+    font-size:6px;
+    border-radius:2px;
+  }
+
+  .item-info-chip{
+    font-size:6px;
+    padding:1px 3px;
+  }
+
+  .value-box{
+    padding:6px;
+    font-size:10px;
+  }
+
+  .value-box > div{
+    font-size:10px !important;
+    padding-bottom:4px !important;
+    margin-bottom:4px !important;
+  }
+
+  #roundMinBidUI{
+    font-size:12px !important;
+  }
+
+  #btnInitiateBid{
+    min-height:36px;
+    font-size:11px !important;
+    padding:7px 10px !important;
+  }
+
+  .game-player-card{
+    gap:4px;
+    padding:5px 2px;
+  }
+
+  .game-player-avatar{
+    flex-basis:40px;
+    width:40px;
+    height:40px;
+  }
+
+  .game-player-avatar .matchPhoto{
+    font-size:24px;
+  }
+
+  .game-player-card b{
+    font-size:10px !important;
+  }
+
+  .game-player-card div[style*="font-size:11px"]{
+    font-size:8px !important;
+  }
+
+  .bid-round-history{gap:2px;}
+  .bid-round-dot{
+    width:16px;
+    height:14px;
+    font-size:7px;
+  }
+
+  .bid-lock-badge{
+    font-size:7px;
+    padding:2px 3px;
+  }
+
+  .skill{
+    padding:6px;
+  }
+
+  .skill h3{
+    font-size:12px;
+    margin-bottom:4px;
+  }
+
+  .skill p{
+    font-size:9px;
+    margin:3px 0;
+  }
+
+  .skill .btn{
+    min-height:30px;
+    padding:5px 4px;
+    font-size:8px;
+  }
+
+  .chat{
+    min-height:70px;
+    margin-top:4px;
+    padding:6px;
+  }
+
+  .msg{
+    margin:3px 0;
+    font-size:9px;
+  }
+
+  .chatbar{
+    gap:4px;
+    margin-top:4px;
+  }
+
+  .chatbar input{
+    padding:6px;
+    font-size:9px;
+  }
+
+  .chatbar .btn{
+    padding:0 8px !important;
+    font-size:9px;
+  }
+
+  .wait-room{
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:5px;
+  }
+
+  .wait-slot{
+    min-height:75px;
+    padding:6px 3px;
+    border-radius:8px;
+  }
+
+  .matchPhoto{
+    font-size:30px;
+    margin-bottom:4px;
+  }
+
+  .menu-screen{
+    margin:6px auto;
+    padding:8px;
+  }
+
+  .menu-header{
+    padding-bottom:7px;
+    margin-bottom:8px;
+  }
+
+  .menu-header h2{
+    font-size:17px;
+  }
+
+  .grid-container{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:5px;
+  }
+
+  .grid-item{
+    padding:7px;
+    border-radius:8px;
+  }
+
+  .grid-icon{font-size:25px;margin-bottom:4px;}
+  .grid-title{font-size:10px;}
+  .grid-sub{font-size:9px;}
+
+  .spin-wheel-box{
+    width:min(45vh,260px);
+    height:min(45vh,260px);
+    margin:10px auto;
+  }
+
+  .wheel-label{
+    font-size:10px;
+    padding-right:8px;
+  }
+
+  .pointer{
+    top:-10px;
+    border-left-width:12px;
+    border-right-width:12px;
+    border-top-width:24px;
+  }
+
+  #result .panel,
+  #screen-victory > .panel{
+    margin:6px auto;
+    padding:10px;
+  }
+
+  .victory-title{
+    margin-top:8px;
+    font-size:28px;
+  }
+
+  .victory-avatar-container{
+    width:min(30vh,180px);
+    height:min(30vh,180px);
+    margin:8px auto;
+  }
+}
+
+/* =========================================================
+   ANDROID TABLET LANDSCAPE
+   ========================================================= */
+@media screen and (min-width:901px) and (orientation:landscape) and (max-height:1000px){
+  .app{
+    padding:7px;
+  }
+
+  .game{
+    grid-template-columns:
+      clamp(170px,18vw,230px)
+      minmax(0,1fr)
+      clamp(220px,23vw,310px);
+    gap:7px;
+  }
+
+  .arena{
+    padding:8px;
+  }
+
+  .board{
+    aspect-ratio:10 / 8;
+    max-height:none !important;
+  }
+
+  #judgeBox{
+    margin:7px 0;
+    padding:9px !important;
+  }
+
+  .chat{
+    min-height:130px;
+  }
+}
+
+/* Large tablet landscape / desktop-like Android */
+@media screen and (min-width:1200px) and (orientation:landscape){
+  .app{
+    padding:10px;
+  }
+
+  .game{
+    grid-template-columns:210px minmax(0,1fr) 300px;
+  }
+}
+
+/* ---------- SHORT LANDSCAPE DEVICES ---------- */
+@media screen and (orientation:landscape) and (max-height:430px){
+  .top{
+    min-height:36px;
+    padding:4px 7px;
+  }
+
+  .app{
+    padding:3px;
+  }
+
+  .game{
+    gap:4px;
+  }
+
+  .arena{
+    padding:4px;
+  }
+
+  .board{
+    /* Keep the board visible without pushing the controls off-screen. */
+    max-height:44dvh;
+  }
+
+  #judgeBox{
+    max-height:42px;
+    overflow:auto;
+  }
+
+  .value-box{
+    max-height:52px;
+    overflow:auto;
+  }
+
+  .chat{
+    min-height:50px;
+    max-height:18dvh;
+  }
+}
+
+/* ---------- PREVENT MODAL / INPUT OVERFLOW ---------- */
+textarea,
+input,
+select{
+  max-width:100%;
+}
+
+table{
+  max-width:100%;
+  display:block;
+  overflow-x:auto;
+}
+
+img,
+svg,
+video,
+canvas{
+  max-width:100%;
+}
+
+/* Android touch: no accidental text selection while playing. */
+#game button,
+#game .cell,
+#game .menu-card{
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* Keep all screens reachable even on small WebViews. */
+.screen.active{
+  min-width:0;
+  max-width:100%;
 }
 </style>
 
+
+<style id="nexus-android-responsive-final">
+/* =========================================================
+   NEXUS AUCTION — FINAL ANDROID RESPONSIVE
+   Semua fitur game tetap aktif; CSS hanya mengatur ukuran/layout.
+   Target: Android phone + Android tablet, portrait & landscape.
+   ========================================================= */
+:root{
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --g: clamp(5px, .9vw, 12px);
+}
+html,body{
+  width:100%;
+  min-width:0!important;
+  max-width:100%;
+  margin:0;
+  overflow-x:hidden!important;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{min-height:100dvh;}
+.app{
+  box-sizing:border-box;
+  width:100%;
+  max-width:1500px;
+  min-height:100dvh;
+  padding:calc(5px + var(--safe-t)) calc(5px + var(--safe-r))
+          calc(7px + var(--safe-b)) calc(5px + var(--safe-l));
+}
+.app *{box-sizing:border-box;min-width:0;}
+.screen{width:100%;max-width:100%;min-width:0;}
+.screen.active{max-width:100%;overflow:visible;}
+.panel,.menu-screen,.lobby-layout,.lobby-left,.lobby-right,
+.stats-bar,.menu-grid,.game,.players,.arena,.right{min-width:0;max-width:100%;}
+img,svg,video,canvas{max-width:100%;height:auto;}
+button,input,select,textarea{font:inherit;max-width:100%;}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+input,select,textarea{touch-action:manipulation;}
+
+/* ---------- top ---------- */
+.top{
+  width:100%;
+  min-height:clamp(40px,7dvh,65px);
+  height:auto;
+  padding:clamp(5px,1vw,10px) clamp(7px,1.8vw,20px);
+  gap:8px;
+  position:sticky;
+  top:var(--safe-t);
+  z-index:100;
+}
+.logo{min-width:0;max-width:48vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.stats{min-width:0;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;}
+.stats>span{white-space:nowrap;}
+
+/* ---------- menus/lobby ---------- */
+.menu-screen{
+  width:min(100%,1100px);
+  margin:clamp(7px,2vw,30px) auto;
+  padding:clamp(10px,2vw,30px);
+}
+.menu-header{min-width:0;display:flex;align-items:center;gap:8px;}
+.menu-header h2{min-width:0;overflow-wrap:anywhere;}
+.lobby-layout{
+  width:100%;
+  min-height:calc(100dvh - 85px);
+  height:auto;
+  display:flex;
+  gap:var(--g);
+  margin-top:var(--g);
+}
+.lobby-left{
+  flex:0 1 clamp(220px,24vw,340px);
+  width:auto;
+  padding:clamp(10px,1.8vw,25px);
+}
+.lobby-right{flex:1 1 auto;display:flex;flex-direction:column;gap:var(--g);}
+.hero-display{
+  width:min(100%,250px)!important;
+  height:auto!important;
+  aspect-ratio:1/1;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.stats-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--g);
+  padding:clamp(9px,1.7vw,20px);
+}
+.stat-box{flex:1 1 120px;min-width:0;}
+.menu-grid{
+  grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));
+  gap:var(--g);
+}
+.menu-card{min-width:0;min-height:82px;padding:clamp(8px,1.3vw,15px);}
+.menu-label,.grid-title,.grid-sub{overflow-wrap:anywhere;}
+.big-play-btn{min-height:52px;padding:clamp(12px,1.8vw,25px);}
+
+/* ---------- common modal surfaces ---------- */
+#modeSelectionModal,#citySelectionModal,#lanModal,#calculator,
+#intelModal,#chatModal,#p2pSellModal,#p2pBuyModal{
+  padding:max(8px,var(--safe-t)) max(8px,var(--safe-r))
+          max(8px,var(--safe-b)) max(8px,var(--safe-l))!important;
+  overflow:auto!important;
+  overscroll-behavior:contain;
+}
+#modeSelectionModal>div,#citySelectionModal>div,#lanModal>div{
+  width:min(100%,760px)!important;
+  max-height:calc(100dvh - 16px);
+  overflow:auto;
+}
+
+/* ---------- matchmaking ---------- */
+#match>.panel{
+  width:min(100%,1100px)!important;
+  min-height:0!important;
+  margin:var(--g) auto!important;
+  padding:clamp(10px,2vw,25px)!important;
+}
+.wait-room{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:var(--g);
+}
+.wait-slot{min-width:0;min-height:100px;padding:clamp(8px,1.8vw,30px) 6px;}
+
+/* =========================================================
+   GAME LANDSCAPE
+   Left = players | Center = board | Right = skills/chat
+   ========================================================= */
+#game{width:100%;min-width:0;}
+.game{
+  width:100%;
+  min-width:0;
+  display:grid;
+  grid-template-columns:
+    clamp(118px,16vw,210px)
+    minmax(0,1fr)
+    clamp(155px,22vw,300px);
+  gap:var(--g);
+  align-items:stretch;
+}
+.players,.arena,.right{min-width:0;max-width:100%;}
+.players{overflow:hidden;}
+.arena{padding:clamp(5px,1vw,15px);overflow:hidden;}
+.right{overflow:hidden;}
+.arenahead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-width:0;
+  gap:6px;
+  padding-bottom:clamp(5px,1vw,10px);
+  margin-bottom:clamp(5px,1vw,12px);
+}
+.arenahead>div{min-width:0;}
+.arenahead b,.arenahead .muted{overflow-wrap:anywhere;}
+.timer{font-size:clamp(24px,4vw,42px)!important;line-height:1;}
+#roundMultiplier{font-size:clamp(16px,2.5vw,26px)!important;white-space:nowrap;}
+
+/* Board always 10 x 8; never fixed pixel width. */
+.board{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:10/8!important;
+  grid-template-columns:repeat(10,minmax(0,1fr))!important;
+  grid-template-rows:repeat(8,minmax(0,1fr))!important;
+  gap:clamp(1px,.22vw,2px)!important;
+  padding:clamp(2px,.45vw,4px)!important;
+}
+.cell{
+  width:100%;
+  height:100%;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden;
+  font-size:clamp(6px,1vw,12px);
+}
+.cell>*{max-width:100%;max-height:100%;min-width:0;min-height:0;}
+.revealed-item-art{max-width:100%;max-height:100%;overflow:hidden;}
+#bidRevealUI{
+  min-width:0!important;
+  max-width:100%;
+  max-height:48dvh;
+  overflow:auto;
+  padding:clamp(8px,1.4vw,25px)!important;
+}
+.value-box{min-width:0;padding:clamp(7px,1.2vw,15px);margin-top:clamp(5px,1vw,15px);}
+.value-box>div{min-width:0;display:flex;flex-wrap:wrap;gap:7px;}
+#btnInitiateBid{min-height:46px;max-width:100%;padding:10px clamp(12px,2vw,35px)!important;}
+
+/* ---------- player cards / bid lock ---------- */
+.game-player-card{min-width:0;padding:clamp(6px,.9vw,10px) 3px;}
+.game-player-avatar{
+  flex:0 0 clamp(42px,5vw,65px);
+  width:clamp(42px,5vw,65px);
+  height:clamp(42px,5vw,65px);
+}
+.game-player-avatar .matchPhoto{width:100%;height:100%;font-size:clamp(24px,4vw,50px);}
+.bid-lock-badge{right:-4px;bottom:-4px;font-size:clamp(8px,.8vw,10px);padding:3px 5px;}
+.bid-round-history{max-width:100%;overflow:hidden;}
+.bid-round-dot{width:clamp(17px,2.1vw,22px);height:17px;}
+
+/* ---------- right tools ---------- */
+.skill{padding:clamp(7px,1.1vw,15px);}
+.skill h3{font-size:clamp(13px,1.7vw,18px);}
+.skill p{font-size:clamp(10px,1.25vw,14px);line-height:1.3;}
+.chat{min-width:0;min-height:clamp(85px,17dvh,280px);max-height:30dvh;overflow:auto;}
+.chatbar{min-width:0;gap:6px;}
+.chatbar input{width:100%;min-width:0;}
+
+/* ---------- calculator / grids ---------- */
+.calc{
+  width:min(94vw,420px);
+  max-height:calc(100dvh - 16px);
+  overflow:auto;
+  padding:clamp(10px,2vw,20px);
+}
+.calcgrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px;}
+.calcgrid button{min-height:42px;}
+
+/* ---------- phones portrait ---------- */
+@media (orientation:portrait){
+  .top{position:relative;top:auto;}
+  .lobby-layout{flex-direction:column;min-height:0;}
+  .lobby-left{flex:0 1 auto;width:100%;}
+  .lobby-right{width:100%;}
+  .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .wait-room{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .game{grid-template-columns:1fr;gap:var(--g);}
+  .players,.arena,.right{width:100%;}
+  .players{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;}
+  .arena{order:0;}
+  .right{display:grid;grid-template-columns:1fr 1fr;gap:var(--g);}
+  .chat{max-height:240px;}
+  #bidRevealUI{max-height:none;}
+}
+
+/* ---------- compact phone landscape: 640x360-ish to 800x480 ---------- */
+@media (orientation:landscape) and (max-width:900px){
+  .app{padding:3px;}
+  .top{min-height:34px;padding:3px 6px;}
+  .game{grid-template-columns:clamp(105px,17vw,145px) minmax(0,1fr) clamp(135px,23vw,190px);gap:4px;}
+  .arena{padding:4px;}
+  .arenahead{margin-bottom:4px;padding-bottom:4px;}
+  .timer{font-size:clamp(21px,4vw,32px)!important;}
+  #roundMultiplier{font-size:clamp(14px,2.4vw,20px)!important;}
+  .board{width:100%!important;max-height:none!important;}
+  .cell{font-size:clamp(5px,.95vw,9px);}
+  .game-player-card{padding:4px 2px;}
+  .game-player-avatar{flex-basis:40px;width:40px;height:40px;}
+  .skill{padding:5px;}
+  .skill p{font-size:10px;}
+  .chat{min-height:65px;max-height:20dvh;}
+  #bidRevealUI{padding:6px!important;}
+  #btnInitiateBid{min-height:40px;}
+}
+
+/* ---------- very short landscape: 640x320 / 800x360 ---------- */
+@media (orientation:landscape) and (max-height:430px){
+  .app{padding:2px;}
+  .top{min-height:31px;padding:2px 5px;}
+  .game{gap:3px;grid-template-columns:clamp(98px,16vw,132px) minmax(0,1fr) clamp(126px,22vw,175px);}
+  .arena{padding:3px;}
+  .arenahead{margin-bottom:3px;padding-bottom:3px;}
+  .board{aspect-ratio:10/8!important;}
+  .cell{font-size:5px;}
+  .game-player-avatar{flex-basis:34px;width:34px;height:34px;}
+  .game-player-card{padding:2px 1px;}
+  .bid-round-dot{width:15px;height:15px;font-size:8px;}
+  .chat{min-height:48px;max-height:18dvh;}
+  .skill{padding:3px;}
+  .skill p{margin:2px 0;font-size:9px;}
+}
+
+/* ---------- tablets landscape: >=901px ---------- */
+@media (orientation:landscape) and (min-width:901px){
+  .game{grid-template-columns:clamp(175px,19vw,255px) minmax(0,1fr) clamp(235px,24vw,340px);}
+  .board{max-width:100%;}
+  .players{overflow:auto;}
+  .right{overflow:auto;}
+  .chat{max-height:32dvh;}
+}
+
+/* ---------- large tablets / desktop-like Android ---------- */
+@media (orientation:landscape) and (min-width:1200px){
+  .app{padding:8px;}
+  .game{grid-template-columns:240px minmax(0,1fr) 340px;gap:10px;}
+  .arena{padding:12px;}
+  .cell{font-size:clamp(8px,.8vw,13px);}
+}
+
+/* ---------- touch target safety ---------- */
+@media (pointer:coarse){
+  button,.btn,.menu-card,.cell,select,input{min-height:40px;}
+  .cell{min-height:0;} /* board cells must preserve 10x8 geometry */
+}
+</style>
+
+<style id="nexus-landscape-fix-latest">
+/* =========================================================
+   NEXUS AUCTION — LANDSCAPE FIX (FINAL, LOADS LAST)
+   Tujuan: satu aturan yang pasti menang di atas semua style
+   sebelumnya (yang saling tumpuk & kadang bentrok), supaya
+   tampilan pas di HP Android posisi landscape.
+   Tidak ada fitur/logic game yang diubah, hanya ukuran/layout.
+   ========================================================= */
+html, body{
+  overflow-x:hidden !important;
+  width:100% !important;
+}
+.app{
+  width:100% !important;
+  max-width:100% !important;
+  min-height:100dvh !important;
+  padding:6px !important;
+  overflow-x:hidden !important;
+}
+.app *{box-sizing:border-box !important;}
+
+/* Top bar: jangan sampai menabrak/menutupi konten saat landscape pendek */
+.top{
+  min-height:44px !important;
+  height:auto !important;
+  padding:6px 10px !important;
+  flex-wrap:wrap !important;
+  gap:6px !important;
+}
+.logo{font-size:clamp(13px,3vw,18px) !important;}
+.stats{
+  font-size:clamp(10px,2.2vw,13px) !important;
+  gap:6px !important;
+  flex-wrap:wrap !important;
+  justify-content:flex-end !important;
+}
+
+/* ===================== LANDSCAPE HP (lebar > tinggi) ===================== */
+@media screen and (orientation:landscape){
+  .lobby-layout{
+    flex-direction:row !important;
+    min-height:0 !important;
+  }
+  .lobby-left{
+    flex:0 0 clamp(150px,22vw,260px) !important;
+    width:clamp(150px,22vw,260px) !important;
+    padding:clamp(8px,1.6vw,20px) !important;
+  }
+  .hero-display{
+    width:min(22vh,150px) !important;
+    height:min(22vh,150px) !important;
+    font-size:clamp(50px,9vh,100px) !important;
+  }
+  .menu-grid{
+    grid-template-columns:repeat(auto-fit,minmax(72px,1fr)) !important;
+    gap:6px !important;
+  }
+  .menu-card{min-height:56px !important;padding:6px 3px !important;}
+  .menu-icon{font-size:20px !important;}
+  .menu-label{font-size:8px !important;}
+  .stats-bar{flex-wrap:wrap !important;gap:6px !important;padding:8px !important;}
+  .stat-box{flex:1 1 90px !important;}
+
+  /* Papan lelang 3 kolom: pemain | arena | skill+chat, wajib muat semua */
+  #game .game, .game{
+    display:grid !important;
+    grid-template-columns:
+      clamp(100px,17vw,150px)
+      minmax(0,1fr)
+      clamp(130px,22vw,190px) !important;
+    gap:6px !important;
+    width:100% !important;
+  }
+  .players, .arena, .right{
+    min-width:0 !important;
+    max-width:100% !important;
+    overflow:hidden !important;
+  }
+  .arena{padding:6px !important;}
+  .arenahead{margin-bottom:4px !important;padding-bottom:4px !important;gap:6px !important;}
+  .timer{font-size:clamp(20px,4.5vh,32px) !important;}
+  #roundMultiplier{font-size:clamp(14px,3vh,20px) !important;}
+  #judgeBox{padding:6px !important;margin:4px 0 !important;font-size:11px !important;}
+
+  /* Board tetap grid 10x8, lebar mengikuti kolom tengah, tinggi mengikuti sisa layar */
+  .board{
+    width:100% !important;
+    max-width:100% !important;
+    height:auto !important;
+    max-height:none !important;
+    min-height:0 !important;
+    aspect-ratio:10 / 8 !important;
+    gap:1px !important;
+    padding:2px !important;
+  }
+  .cell{font-size:clamp(5px,1vh,9px) !important;}
+
+  .game-player-card{padding:4px 2px !important;gap:4px !important;}
+  .game-player-avatar{
+    flex:0 0 clamp(32px,7vh,44px) !important;
+    width:clamp(32px,7vh,44px) !important;
+    height:clamp(32px,7vh,44px) !important;
+  }
+  .game-player-avatar .matchPhoto{font-size:clamp(18px,4vh,26px) !important;}
+  .game-player-card b{font-size:10px !important;}
+  .bid-round-dot{width:15px !important;height:14px !important;font-size:7px !important;}
+
+  .skill{padding:5px !important;}
+  .skill h3{font-size:11px !important;margin-bottom:3px !important;}
+  .skill p{font-size:9px !important;margin:2px 0 !important;}
+  .chat{min-height:0 !important;max-height:22dvh !important;margin-top:4px !important;}
+  .chatbar input{padding:6px !important;font-size:9px !important;}
+
+  .value-box{padding:6px !important;margin-top:4px !important;font-size:10px !important;}
+  #btnInitiateBid{min-height:36px !important;padding:6px 10px !important;font-size:11px !important;}
+
+  /* Modal (mode/kota/lan/kalkulator) tidak boleh melebihi tinggi layar pendek */
+  #modeSelectionModal>div, #citySelectionModal>div, #lanModal>div{
+    max-height:94dvh !important;
+    overflow:auto !important;
+    padding:14px !important;
+  }
+  .calc{
+    max-height:94dvh !important;
+    overflow:auto !important;
+    width:min(90vw,380px) !important;
+  }
+
+  .wait-room{grid-template-columns:repeat(5,minmax(0,1fr)) !important;gap:5px !important;}
+  .wait-slot{min-height:70px !important;padding:5px 2px !important;}
+  .matchPhoto{font-size:26px !important;margin-bottom:3px !important;}
+
+  .spin-wheel-box{width:min(48vh,240px) !important;height:min(48vh,240px) !important;margin:8px auto !important;}
+  .victory-avatar-container{width:min(34vh,190px) !important;height:min(34vh,190px) !important;}
+  .victory-title{font-size:clamp(20px,5vh,32px) !important;}
+
+  #result .panel, #screen-victory>.panel{
+    margin:6px auto !important;
+    padding:10px !important;
+    max-height:94dvh !important;
+    overflow:auto !important;
+  }
+}
+
+/* Landscape sangat pendek (banyak HP umum: 640-360, 800-360, 812-375 dst) */
+@media screen and (orientation:landscape) and (max-height:420px){
+  .top{min-height:36px !important;}
+  .lobby-left{padding:6px !important;}
+  .hero-display{width:min(18vh,100px) !important;height:min(18vh,100px) !important;}
+  #game .game, .game{gap:4px !important;}
+  .arena{padding:4px !important;}
+  .timer{font-size:clamp(16px,4vh,24px) !important;}
+  .chat{max-height:16dvh !important;}
+  .skill p{display:none;} /* teks penjelasan disembunyikan agar kontrol utama tetap terlihat penuh */
+  .skill h3{font-size:10px !important;margin:0 !important;}
+}
+
+/* Portrait tetap dijaga: stack vertikal supaya tidak ikut rusak oleh aturan landscape di atas */
+@media screen and (orientation:portrait){
+  .lobby-layout{flex-direction:column !important;}
+  #game .game, .game{grid-template-columns:1fr !important;}
+}
+</style>
 </head>
 <body>
 <!-- SPLASH SCREEN -->
 <div id="splash" style="background:#05020a; z-index:10000; position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; transition:opacity 0.6s;">
     <div id="start-screen" style="text-align:center;">
-        <div style="font-size:60px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">&#128160;</div>
+        <div style="font-size:60px; margin-bottom: 20px; animation: float 3s ease-in-out infinite;">💠</div>
         <div class="splash-logo" style="font-size:40px; letter-spacing:4px;">NEXUS SYSTEM</div>
         <button class="btn primary" id="startBtn" style="margin-top:40px; font-size:20px; padding: 15px 40px; animation: pulse 1s infinite alternate; letter-spacing:2px;">AKSES MASUK LELANG</button>
     </div>
@@ -533,11 +1960,11 @@ body {
 
 <div class="app">
 <header class="top">
-    <div class="logo" onclick="show('lobby')" style="cursor:pointer;">&#128160; NEXUS AUCTION</div>
+    <div class="logo" onclick="show('lobby')" style="cursor:pointer;">💠 NEXUS AUCTION</div>
     <div class="stats">
-        <span class="green">&#9679; SYSTEM ONLINE</span>
-        <span style="color:#a385ff">KREDIT: <b id="coins" style="color:#fff;">47.834.466</b></span><span style="color:#00f3ff; margin-left:15px; text-shadow:0 0 10px rgba(0,243,255,0.5);">DIAMOND: <b id="diamondsUI" style="color:#fff;">0</b> &#128142;</span>
-        <button class="btn primary" id="soundBtn" onclick="toggleMusic()">&#128266; AUDIO</button>
+        <span class="green">● SYSTEM ONLINE</span>
+        <span style="color:#a385ff">KREDIT: <b id="coins" style="color:#fff;">47.834.466</b></span><span style="color:#00f3ff; margin-left:15px; text-shadow:0 0 10px rgba(0,243,255,0.5);">DIAMOND: <b id="diamondsUI" style="color:#fff;">0</b> 💎</span>
+        <button class="btn primary" id="soundBtn" onclick="toggleMusic()">🔊 AUDIO</button>
     </div>
 </header>
 
@@ -551,7 +1978,7 @@ body {
             <div class="hero-display" id="lobbyHeroIcon" style="filter:none; width: 250px; height: 250px; margin: 0 auto;"><svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 5px 10px rgba(0,243,255,0.5));"><defs><linearGradient id="gA1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00f3ff"/><stop offset="100%" stop-color="#0055ff"/></linearGradient><linearGradient id="gA2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#111"/><stop offset="100%" stop-color="#333"/></linearGradient></defs><g style="animation: floatArlot 3s ease-in-out infinite; transform-origin: center;"><path d="M15 100 Q50 60 85 100" fill="url(#gA2)" stroke="#00f3ff" stroke-width="2"/><path d="M25 80 L75 80 L70 100 L30 100 Z" fill="#05020a"/><rect x="30" y="25" width="40" height="55" rx="20" fill="url(#gA1)"/><rect x="35" y="40" width="30" height="15" rx="5" fill="#000"/><circle cx="50" cy="47" r="4" fill="#00ff9d" style="animation: pulse 1s infinite alternate;"/><path d="M45 25 L55 25 L50 35 Z" fill="#fff"/></g><style>@keyframes floatArlot { 0%, 100% {transform: translateY(0) scale(1);} 50% {transform: translateY(-4px) scale(1.02);} }
 </style>
 </svg></div>
-            <button class="hero-action" onclick="show('screen-spesifikasi')">&#9881;&#65039; CEK SPESIFIKASI</button>
+            <button class="hero-action" onclick="show('screen-spesifikasi')">⚙️ CEK SPESIFIKASI</button>
         </div>
         <div class="lobby-right">
             <div class="stats-bar">
@@ -561,17 +1988,17 @@ body {
                 <div class="stat-box"><div class="stat-label">Relik Dimiliki</div><div class="stat-val" id="statItems">0</div></div>
             </div>
             <div style="padding: 15px; background: rgba(112,0,255,0.1); border: 1px solid #7000ff; border-radius: 12px; display:flex; justify-content:space-between; align-items:center;">
-                <b style="color:#a385ff; font-size:14px;">&#128160; <span id="galleryCredits">0</span> KREDIT TERSEDIA DARI GALERI</b>
+                <b style="color:#a385ff; font-size:14px;">💠 <span id="galleryCredits">0</span> KREDIT TERSEDIA DARI GALERI</b>
                 <button class="btn" style="background:#7000ff; border:none; padding: 6px 15px;" onclick="claimGallery()">KLAIM</button>
             </div>
             <button class="big-play-btn" onclick="openModeSelection()">INISIASI LELANG</button>
 
             <div id="modeSelectionModal" style="display:none; position:fixed; inset:0; z-index:9998; background:rgba(3,1,10,.92); align-items:center; justify-content:center; padding:20px;">
               <div style="width:min(680px,96vw); background:linear-gradient(145deg,#120722,#07030d); border:2px solid #00f3ff; border-radius:20px; padding:24px; box-shadow:0 0 40px rgba(0,243,255,.25);">
-                <div style="text-align:center;"><div style="font-size:38px;">&#127918;</div><h2 style="margin:8px 0;color:#fff;">PILIH MODE PERMAINAN</h2><p class="muted">Pilih mode terlebih dahulu, kemudian pilih Kota Lelang.</p></div>
+                <div style="text-align:center;"><div style="font-size:38px;">🎮</div><h2 style="margin:8px 0;color:#fff;">PILIH MODE PERMAINAN</h2><p class="muted">Pilih mode terlebih dahulu, kemudian pilih Kota Lelang.</p></div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:20px;">
-                  <button class="btn" onclick="chooseGameMode('SINGLE')" style="padding:26px;text-align:left;border:2px solid #7000ff;background:linear-gradient(145deg,#17082b,#0b0614);border-radius:16px;"><div style="font-size:32px;">&#129302;</div><b style="font-size:20px;color:#a385ff;">SINGLE PLAYER</b><div class="muted" style="margin-top:8px;">Main sendiri melawan bot. Tidak membutuhkan HP lain.</div></button>
-                  <button class="btn" onclick="chooseGameMode('LAN')" style="padding:26px;text-align:left;border:2px solid #00f3ff;background:linear-gradient(145deg,#071b24,#0b0614);border-radius:16px;"><div style="font-size:32px;">&#128225;</div><b style="font-size:20px;color:#00f3ff;">MULTIPLAYER LAN</b><div class="muted" style="margin-top:8px;">Main HP ke HP melalui Wi&#8209;Fi/hotspot yang sama.</div></button>
+                  <button class="btn" onclick="chooseGameMode('SINGLE')" style="padding:26px;text-align:left;border:2px solid #7000ff;background:linear-gradient(145deg,#17082b,#0b0614);border-radius:16px;"><div style="font-size:32px;">🤖</div><b style="font-size:20px;color:#a385ff;">SINGLE PLAYER</b><div class="muted" style="margin-top:8px;">Main sendiri melawan bot. Tidak membutuhkan HP lain.</div></button>
+                  <button class="btn" onclick="chooseGameMode('LAN')" style="padding:26px;text-align:left;border:2px solid #00f3ff;background:linear-gradient(145deg,#071b24,#0b0614);border-radius:16px;"><div style="font-size:32px;">📡</div><b style="font-size:20px;color:#00f3ff;">MULTIPLAYER LAN</b><div class="muted" style="margin-top:8px;">Main HP ke HP melalui Wi‑Fi/hotspot yang sama.</div></button>
                 </div>
                 <button class="btn" onclick="closeModeSelection()" style="width:100%;margin-top:14px;padding:12px;">BATAL</button>
               </div>
@@ -579,31 +2006,31 @@ body {
             <div id="citySelectionModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(3,1,10,.88); align-items:center; justify-content:center; padding:20px;">
               <div style="width:min(720px,96vw); background:linear-gradient(145deg,#120722,#07030d); border:2px solid #7000ff; border-radius:20px; padding:24px; box-shadow:0 0 40px rgba(112,0,255,.35);">
                 <div style="text-align:center;">
-                  <div style="font-size:34px;">&#127959;&#65039;</div>
+                  <div style="font-size:34px;">🏙️</div>
                   <h2 style="margin:8px 0;color:#fff;">PILIH KOTA LELANG</h2>
                   <p class="muted" style="margin:0 0 20px;">Pilih kota sebelum sistem memulai pencarian player.</p>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
                   <button class="btn" onclick="selectAuctionCity('CITY1')" style="padding:22px;text-align:left;border:2px solid #3a1c5e;background:#0b0614;border-radius:16px;">
-                    <div style="font-size:28px;">&#127959;&#65039;</div>
+                    <div style="font-size:28px;">🏙️</div>
                     <b style="font-size:19px;color:#fff;">KOTA 1</b>
                     <div class="muted" style="margin-top:7px;">Distribusi item standar seperti biasanya.</div>
-                    <div style="margin-top:12px;color:#00ff9d;font-weight:900;">&#9878;&#65039; RARITY NORMAL</div>
+                    <div style="margin-top:12px;color:#00ff9d;font-weight:900;">⚖️ RARITY NORMAL</div>
                   </button>
                   <button class="btn" onclick="selectAuctionCity('CITY2')" style="padding:22px;text-align:left;border:2px solid #ffd700;background:linear-gradient(145deg,#160d20,#0b0614);border-radius:16px;">
-                    <div style="font-size:28px;">&#128273;</div>
+                    <div style="font-size:28px;">🔑</div>
                     <b style="font-size:19px;color:#ffd700;">KOTA 2</b>
                     <div class="muted" style="margin-top:7px;">Peluang item kualitas tinggi muncul lebih besar.</div>
-                    <div style="margin-top:12px;color:#ffd700;font-weight:900;">&#11014; HIGH RARITY CHANCE</div>
+                    <div style="margin-top:12px;color:#ffd700;font-weight:900;">⬆️ HIGH RARITY CHANCE</div>
                   </button>
                   <button class="btn" onclick="selectAuctionCity('CITY3')" style="padding:22px;text-align:left;border:2px solid #ff0055;background:linear-gradient(145deg,#210614,#0b0614);border-radius:16px;">
-                    <div style="font-size:28px;">&#128142;</div>
+                    <div style="font-size:28px;">💎</div>
                     <b style="font-size:19px;color:#ff0055;">KOTA 3</b>
-                    <div class="muted" style="margin-top:7px;">Setiap ronde memilih 1&#8211;2 item secara acak untuk mendapat nilai <b>2x harga asli</b>.</div>
-                    <div style="margin-top:12px;color:#ff0055;font-weight:900;">&#215;2 VALUE &#8226; 1&#8211;2 ITEM / RONDE</div>
+                    <div class="muted" style="margin-top:7px;">Setiap ronde memilih 1–2 item secara acak untuk mendapat nilai <b>2x harga asli</b>.</div>
+                    <div style="margin-top:12px;color:#ff0055;font-weight:900;">×2 VALUE • 1–2 ITEM / RONDE</div>
                   </button>
                 </div>
-                <button class="btn" onclick="openLanMode()" style="width:100%;margin-top:16px;padding:14px;border:2px solid #00f3ff;background:rgba(0,243,255,.08);color:#00f3ff;font-weight:900;">&#128225; MULTIPLAYER LAN OFFLINE &#8212; HP KE HP</button>
+                <button class="btn" onclick="openLanMode()" style="width:100%;margin-top:16px;padding:14px;border:2px solid #00f3ff;background:rgba(0,243,255,.08);color:#00f3ff;font-weight:900;">📡 MULTIPLAYER LAN OFFLINE — HP KE HP</button>
                 <button class="btn" onclick="closeCitySelection()" style="width:100%;margin-top:10px;padding:12px;">BATAL</button>
               </div>
             </div>
@@ -612,50 +2039,50 @@ body {
                 
                 <!-- ====== INSTRUKSI LAN AUTO DISCOVERY (TAMBAHAN) ====== -->
                 <div style="background:rgba(0,255,157,0.08); border:1px solid #00ff9d; border-radius:8px; padding:10px 12px; margin-bottom:15px; font-size:13px; color:#e0d8ea;">
-                    <b style="color:#00ff9d;">&#128225; CARA PAKAI LAN (AUTO DISCOVERY):</b><br>
-                    &#128994; <b>HOST:</b> Klik "BUAT ROOM / HOST" &#8594; otomatis aktif.<br>
-                    &#128309; <b>PLAYER:</b> Klik "CARI ROOM" &#8594; pilih room yang muncul &#8594; klik "GABUNG".<br>
+                    <b style="color:#00ff9d;">📡 CARA PAKAI LAN (AUTO DISCOVERY):</b><br>
+                    🟢 <b>HOST:</b> Klik "BUAT ROOM / HOST" → otomatis aktif.<br>
+                    🔵 <b>PLAYER:</b> Klik "CARI ROOM" → pilih room yang muncul → klik "GABUNG".<br>
                     <span style="color:#8b7a9e; font-size:12px;">(Pastikan semua HP terhubung ke WiFi/Hotspot yang sama)</span>
                 </div>
                 
-                <div style="text-align:center;margin-bottom:15px;"><div style="font-size:32px;">&#128225;&#128241;</div><h2 style="margin:5px 0;color:#00f3ff;">MULTIPLAYER LAN OFFLINE</h2><div class="muted" style="font-size:12px;">HP ke HP dalam Wi&#8209;Fi/hotspot yang sama. Tidak membutuhkan laptop/komputer.</div></div>
-                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px;"><button class="btn" onclick="lanShowHost();lanAutoHost()" style="padding:13px;border-color:#00f3ff;color:#00f3ff;">&#128273; BUAT ROOM / HOST</button><button class="btn" onclick="lanShowJoin()" style="padding:13px;">&#128279; GABUNG ROOM</button></div>
+                <div style="text-align:center;margin-bottom:15px;"><div style="font-size:32px;">📡📱</div><h2 style="margin:5px 0;color:#00f3ff;">MULTIPLAYER LAN OFFLINE</h2><div class="muted" style="font-size:12px;">HP ke HP dalam Wi‑Fi/hotspot yang sama. Tidak membutuhkan laptop/komputer.</div></div>
+                <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px;"><button class="btn" onclick="lanShowHost();lanAutoHost()" style="padding:13px;border-color:#00f3ff;color:#00f3ff;">🔑 BUAT ROOM / HOST</button><button class="btn" onclick="lanShowJoin()" style="padding:13px;">🔗 GABUNG ROOM</button></div>
                 <div id="lanHostPanel">
                   <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;"><button class="btn primary" onclick="lanCreateOffer()">BUAT KODE PLAYER</button><span id="lanHostStatus" class="muted" style="font-size:12px;">Belum membuat slot player.</span></div>
                   <textarea id="lanOfferOut" readonly placeholder="Kode koneksi player akan muncul di sini..." style="width:100%;min-height:110px;resize:vertical;background:#05030a;color:#8ffcff;border:1px solid #174a5a;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;"></textarea>
-                  <div style="display:flex;gap:8px;margin:8px 0 14px;flex-wrap:wrap;"><button class="btn" onclick="lanCopy('lanOfferOut')">&#128203; SALIN KODE</button><button class="btn" onclick="lanShare('lanOfferOut')">&#128228; BAGIKAN</button></div>
+                  <div style="display:flex;gap:8px;margin:8px 0 14px;flex-wrap:wrap;"><button class="btn" onclick="lanCopy('lanOfferOut')">📋 SALIN KODE</button><button class="btn" onclick="lanShare('lanOfferOut')">📤 BAGIKAN</button></div>
                   <textarea id="lanAnswerIn" placeholder="Tempel KODE JAWABAN dari HP player di sini..." style="width:100%;min-height:90px;resize:vertical;background:#05030a;color:#fff;border:1px solid #3a1c5e;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;"></textarea>
-                  <button class="btn primary" onclick="lanAcceptAnswer()" style="width:100%;margin-top:8px;">&#9989; HUBUNGKAN PLAYER</button>
+                  <button class="btn primary" onclick="lanAcceptAnswer()" style="width:100%;margin-top:8px;">✅ HUBUNGKAN PLAYER</button>
                   <div id="lanHostPlayers" style="margin-top:14px;display:grid;gap:6px;"></div>
-                  <button class="big-play-btn" onclick="lanStartHostGame()" style="width:100%;margin-top:14px;font-size:16px;">&#128640; MULAI LELANG LAN</button>
+                  <button class="big-play-btn" onclick="lanStartHostGame()" style="width:100%;margin-top:14px;font-size:16px;">🚀 MULAI LELANG LAN</button>
                 </div>
                 <div id="lanAutoPanel" style="margin-bottom:14px;padding:12px;border:1px solid #174a5a;border-radius:12px;background:rgba(0,243,255,.04);">
                   <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;">
-                    <b style="color:#00f3ff;">&#128225; ROOM LAN TERDETEKSI OTOMATIS</b>
-                    <button class="btn" onclick="lanAutoDiscover()">&#128269; CARI ROOM</button>
+                    <b style="color:#00f3ff;">📡 ROOM LAN TERDETEKSI OTOMATIS</b>
+                    <button class="btn" onclick="lanAutoDiscover()">🔎 CARI ROOM</button>
                   </div>
-                  <div id="lanRoomList" class="muted" style="margin-top:10px;font-size:12px;">Tekan CARI ROOM. Pastikan semua HP berada di hotspot/Wi&#8209;Fi yang sama.</div>
+                  <div id="lanRoomList" class="muted" style="margin-top:10px;font-size:12px;">Tekan CARI ROOM. Pastikan semua HP berada di hotspot/Wi‑Fi yang sama.</div>
                 </div>
                 <div id="lanJoinPanel" style="display:none;">
                   <textarea id="lanOfferIn" placeholder="Tempel KODE HOST di sini..." style="width:100%;min-height:120px;resize:vertical;background:#05030a;color:#fff;border:1px solid #3a1c5e;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;"></textarea>
-                  <button class="btn primary" onclick="lanJoinFromOffer()" style="width:100%;margin-top:8px;">&#128279; BUAT KODE JAWABAN</button>
+                  <button class="btn primary" onclick="lanJoinFromOffer()" style="width:100%;margin-top:8px;">🔗 BUAT KODE JAWABAN</button>
                   <textarea id="lanAnswerOut" readonly placeholder="Kode jawaban akan muncul setelah kode host diproses..." style="width:100%;min-height:120px;resize:vertical;background:#05030a;color:#8ffcff;border:1px solid #174a5a;border-radius:10px;padding:10px;box-sizing:border-box;font-size:11px;margin-top:10px;"></textarea>
-                  <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;"><button class="btn" onclick="lanCopy('lanAnswerOut')">&#128203; SALIN JAWABAN</button><button class="btn" onclick="lanShare('lanAnswerOut')">&#128228; BAGIKAN</button></div>
+                  <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;"><button class="btn" onclick="lanCopy('lanAnswerOut')">📋 SALIN JAWABAN</button><button class="btn" onclick="lanShare('lanAnswerOut')">📤 BAGIKAN</button></div>
                   <div id="lanJoinStatus" class="muted" style="margin-top:12px;text-align:center;font-size:12px;">Setelah tersambung, tunggu host memulai lelang.</div>
                 </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px;gap:8px;"><span class="muted" style="font-size:11px;line-height:1.4;">Cara: Host buat kode &#8594; Player tempel &#8594; Player kirim jawaban &#8594; Host tempel jawaban &#8594; ulangi untuk player berikutnya &#8594; Host mulai.</span><button class="btn" onclick="closeLanMode()">TUTUP</button></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px;gap:8px;"><span class="muted" style="font-size:11px;line-height:1.4;">Cara: Host buat kode → Player tempel → Player kirim jawaban → Host tempel jawaban → ulangi untuk player berikutnya → Host mulai.</span><button class="btn" onclick="closeLanMode()">TUTUP</button></div>
               </div>
             </div>
             <div class="menu-grid">
-                <div class="menu-card" onclick="show('screen-roster')"><div class="menu-icon">&#128101;</div><div class="menu-label">Roster Agen</div></div>
-                <div class="menu-card" onclick="show('screen-inventory')"><div class="badge" id="badgeInventory">0</div><div class="menu-icon">&#128230;</div><div class="menu-label">Gudang Loot</div></div>
-                <div class="menu-card" onclick="show('screen-showcase')"><div class="badge" style="background:#00f3ff; color:#000;">TOP 3</div><div class="menu-icon">&#10024;</div><div class="menu-label">Ruang Pamer</div></div>
-                <div class="menu-card" onclick="show('screen-shop')"><div class="menu-icon">&#127978;</div><div class="menu-label">Pasar Gelap</div></div>
-                <div class="menu-card" onclick="show('screen-inbox')"><div class="badge" style="background:#ff007b;">1</div><div class="menu-icon">&#9993;&#65039;</div><div class="menu-label">Pesan</div></div>
-                <div class="menu-card" onclick="show('screen-leaderboard')"><div class="menu-icon">&#127942;</div><div class="menu-label">Top Peringkat</div></div>
-                <div class="menu-card" onclick="show('screen-archive')"><div class="menu-icon">&#128214;</div><div class="menu-label">Arsip Relik</div></div>
-                <div class="menu-card" onclick="openSpinUI()"><div class="badge" id="spinBadge" style="background:#00ff9d; color:#000;">3/3</div><div class="menu-icon">&#127921;</div><div class="menu-label">Lucky Spin</div></div>
-                <div class="menu-card" onclick="show('screen-alliance')"><div class="menu-icon">&#129309;</div><div class="menu-label">Aliansi</div></div>
+                <div class="menu-card" onclick="show('screen-roster')"><div class="menu-icon">👥</div><div class="menu-label">Roster Agen</div></div>
+                <div class="menu-card" onclick="show('screen-inventory')"><div class="badge" id="badgeInventory">0</div><div class="menu-icon">📦</div><div class="menu-label">Gudang Loot</div></div>
+                <div class="menu-card" onclick="show('screen-showcase')"><div class="badge" style="background:#00f3ff; color:#000;">TOP 3</div><div class="menu-icon">✨</div><div class="menu-label">Ruang Pamer</div></div>
+                <div class="menu-card" onclick="show('screen-shop')"><div class="menu-icon">🏪</div><div class="menu-label">Pasar Gelap</div></div>
+                <div class="menu-card" onclick="show('screen-inbox')"><div class="badge" style="background:#ff007b;">1</div><div class="menu-icon">✉️</div><div class="menu-label">Pesan</div></div>
+                <div class="menu-card" onclick="show('screen-leaderboard')"><div class="menu-icon">🏆</div><div class="menu-label">Top Peringkat</div></div>
+                <div class="menu-card" onclick="show('screen-archive')"><div class="menu-icon">📖</div><div class="menu-label">Arsip Relik</div></div>
+                <div class="menu-card" onclick="openSpinUI()"><div class="badge" id="spinBadge" style="background:#00ff9d; color:#000;">3/3</div><div class="menu-icon">🎡</div><div class="menu-label">Lucky Spin</div></div>
+                <div class="menu-card" onclick="show('screen-alliance')"><div class="menu-icon">🤝</div><div class="menu-label">Aliansi</div></div>
             </div>
             <div class="bottom-bar" onclick="showToast('Sistem AI sedang dikalibrasi.')">
                 <b style="font-size:14px; letter-spacing:1px; color:#8b7a9e;">SIMULASI MELAWAN AI</b>
@@ -678,12 +2105,12 @@ body {
         <div style="text-align: left; margin-bottom: 15px;">
             <label style="color:#a385ff; font-weight:700; font-size:14px;">NEGARA / WILAYAH</label>
             <select id="regCountry" style="width:100%; padding: 12px; margin-top:5px; background:#05020a; border:1px solid #4a2575; border-radius:8px; color:#fff; font-family:inherit;">
-                <option value="ID">&#127470;&#127471; Indonesia</option>
-                <option value="MY">&#127474;&#127486; Malaysia</option>
-                <option value="SG">&#127480;&#127468; Singapore</option>
-                <option value="JP">&#127471;&#127477; Japan</option>
-                <option value="US">&#127482;&#127480; United States</option>
-                <option value="GL">&#127760; Global</option>
+                <option value="🇮🇩">🇮🇩 Indonesia</option>
+                <option value="🇲🇾">🇲🇾 Malaysia</option>
+                <option value="🇸🇬">🇸🇬 Singapore</option>
+                <option value="🇯🇵">🇯🇵 Japan</option>
+                <option value="🇺🇸">🇺🇸 United States</option>
+                <option value="🌐">🌐 Global</option>
             </select>
         </div>
         
@@ -702,18 +2129,18 @@ body {
 </section>
 
 <!-- MENU SCREENS (Simplified internally) -->
-<section id="screen-spesifikasi" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>&#9881;&#65039; Spesifikasi Profil</h2><button class="btn" onclick="show('lobby')">X</button></div><div style="display:flex; gap:20px; align-items:center;"><div style="width:120px; height:120px; padding:10px; border:2px solid #00f3ff; border-radius:16px; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle, #1a0f2e, #05020a);" id="specIcon"><svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 5px 10px rgba(0,243,255,0.5));"><defs><linearGradient id="gA1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00f3ff"/><stop offset="100%" stop-color="#0055ff"/></linearGradient><linearGradient id="gA2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#111"/><stop offset="100%" stop-color="#333"/></linearGradient></defs><g style="animation: floatArlot 3s ease-in-out infinite; transform-origin: center;"><path d="M15 100 Q50 60 85 100" fill="url(#gA2)" stroke="#00f3ff" stroke-width="2"/><path d="M25 80 L75 80 L70 100 L30 100 Z" fill="#05020a"/><rect x="30" y="25" width="40" height="55" rx="20" fill="url(#gA1)"/><rect x="35" y="40" width="30" height="15" rx="5" fill="#000"/><circle cx="50" cy="47" r="4" fill="#00ff9d" style="animation: pulse 1s infinite alternate;"/><path d="M45 25 L55 25 L50 35 Z" fill="#fff"/></g><style>@keyframes floatArlot { 0%, 100% {transform: translateY(0) scale(1);} 50% {transform: translateY(-4px) scale(1.02);} }
+<section id="screen-spesifikasi" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>⚙️ Spesifikasi Profil</h2><button class="btn" onclick="show('lobby')">X</button></div><div style="display:flex; gap:20px; align-items:center;"><div style="width:120px; height:120px; padding:10px; border:2px solid #00f3ff; border-radius:16px; display:flex; align-items:center; justify-content:center; background:radial-gradient(circle, #1a0f2e, #05020a);" id="specIcon"><svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 5px 10px rgba(0,243,255,0.5));"><defs><linearGradient id="gA1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00f3ff"/><stop offset="100%" stop-color="#0055ff"/></linearGradient><linearGradient id="gA2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#111"/><stop offset="100%" stop-color="#333"/></linearGradient></defs><g style="animation: floatArlot 3s ease-in-out infinite; transform-origin: center;"><path d="M15 100 Q50 60 85 100" fill="url(#gA2)" stroke="#00f3ff" stroke-width="2"/><path d="M25 80 L75 80 L70 100 L30 100 Z" fill="#05020a"/><rect x="30" y="25" width="40" height="55" rx="20" fill="url(#gA1)"/><rect x="35" y="40" width="30" height="15" rx="5" fill="#000"/><circle cx="50" cy="47" r="4" fill="#00ff9d" style="animation: pulse 1s infinite alternate;"/><path d="M45 25 L55 25 L50 35 Z" fill="#fff"/></g><style>@keyframes floatArlot { 0%, 100% {transform: translateY(0) scale(1);} 50% {transform: translateY(-4px) scale(1.02);} }
 </style>
-</svg></div><div><h3 style="color:#00f3ff; margin:0; font-size:24px;" id="specName">ARLOT</h3><div style="color:#a385ff; font-weight:700; margin-bottom:10px;" id="specRole">Cyber Warden</div><p>Status: <b class="green">Active</b><br>ID Nexus: <b><span id="specId">NX-00000000</span></b><br>Wilayah: <b id="specCountry">&#127470;&#127471;</b><br>Rank: <b style="color:#ffae00">Elite</b></p><button class="btn" style="background:#170a29; border:1px solid #00f3ff; color:#00f3ff; font-size:12px; padding:6px 12px; margin-top:5px; border-radius:6px;" onclick="promptChangeName()" id="btnChangeName">GANTI NAMA (GRATIS)</button></div></div><div style="margin-top:20px; background:rgba(0,0,0,0.5); padding:15px; border-radius:8px;"><b style="color:#00f3ff;">Modul Skill Aktif:</b><p style="margin:5px 0 0 0;">Meretas 3 grid rahasia secara otomatis setiap awal fase lelang untuk memberikan keuntungan intelijen.</p></div></div></section>
-<section id="screen-roster" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>&#128101; Roster Agen</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><p class="muted">Pilih agen operasional Anda.</p><div class="grid-container" id="rosterGrid"></div></div></section>
+</svg></div><div><h3 style="color:#00f3ff; margin:0; font-size:24px;" id="specName">ARLOT</h3><div style="color:#a385ff; font-weight:700; margin-bottom:10px;" id="specRole">Cyber Warden</div><p>Status: <b class="green">Active</b><br>ID Nexus: <b><span id="specId">NX-00000000</span></b><br>Wilayah: <b id="specCountry">🇮🇩</b><br>Rank: <b style="color:#ffae00">Elite</b></p><button class="btn" style="background:#170a29; border:1px solid #00f3ff; color:#00f3ff; font-size:12px; padding:6px 12px; margin-top:5px; border-radius:6px;" onclick="promptChangeName()" id="btnChangeName">GANTI NAMA (GRATIS)</button></div></div><div style="margin-top:20px; background:rgba(0,0,0,0.5); padding:15px; border-radius:8px;"><b style="color:#00f3ff;">Modul Skill Aktif:</b><p style="margin:5px 0 0 0;">Meretas 3 grid rahasia secara otomatis setiap awal fase lelang untuk memberikan keuntungan intelijen.</p></div></div></section>
+<section id="screen-roster" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>👥 Roster Agen</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><p class="muted">Pilih agen operasional Anda.</p><div class="grid-container" id="rosterGrid"></div></div></section>
 <section id="screen-inventory" class="screen"><div class="panel menu-screen">
-    <div class="menu-header"><h2>&#128230; Manajemen Gudang</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
+    <div class="menu-header"><h2>📦 Manajemen Gudang</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
     <div style="display:flex; gap:10px; margin-bottom:15px; border-bottom:2px solid #3a1c5e; padding-bottom:10px;">
         <button class="btn primary" id="tabBenda" onclick="switchInvTab('Benda')">KATEGORI BENDA</button>
         <button class="btn" id="tabFigure" style="background:#170a29; color:#fff;" onclick="switchInvTab('Figure')">KATEGORI FIGURE</button>
     </div>
     <div style="background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; border:1px solid #3a1c5e; display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap; align-items:center;">
-        <b style="color:#e0d8ea; font-size:12px; margin-right:5px;">&#128465;&#65039; OPSI HAPUS MASSAL:</b>
+        <b style="color:#e0d8ea; font-size:12px; margin-right:5px;">🗑️ OPSI HAPUS MASSAL:</b>
         <button class="btn" style="background:#2a2a2a; color:#8b7a9e; border-color:#8b7a9e; font-size:11px; padding:6px 12px;" onclick="bulkDelete('COMMON')">SEMUA COMMON</button>
         <button class="btn" style="background:#0b4d34; color:#00ff9d; border-color:#00ff9d; font-size:11px; padding:6px 12px;" onclick="bulkDelete('UNCOMMON')">SEMUA UNCOMMON</button>
         <button class="btn" style="background:#0b3b4d; color:#00f3ff; border-color:#00f3ff; font-size:11px; padding:6px 12px;" onclick="bulkDelete('RARE')">SEMUA RARE</button>
@@ -723,21 +2150,21 @@ body {
     </div>
     <div class="grid-container" id="inventoryGrid"></div>
 </div></section>
-<section id="screen-showcase" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>&#10024; Ruang Pamer</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div class="grid-container" id="showcaseGrid" style="grid-template-columns: repeat(3, 1fr);"></div></div></section>
+<section id="screen-showcase" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>✨ Ruang Pamer</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div class="grid-container" id="showcaseGrid" style="grid-template-columns: repeat(3, 1fr);"></div></div></section>
 <section id="screen-shop" class="screen"><div class="panel menu-screen">
-    <div class="menu-header"><h2>&#127978; Pasar Gelap</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
+    <div class="menu-header"><h2>🏪 Pasar Gelap</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
     
     <div style="display:flex; gap:10px; margin-bottom:15px; border-bottom:2px solid #3a1c5e; padding-bottom:10px; overflow-x:auto;">
         <button class="btn primary" id="tabTokoSistem" onclick="switchShopTab('Sistem')">TOKO SISTEM</button>
         <button class="btn" id="tabTokoP2P" style="background:#170a29; color:#fff;" onclick="switchShopTab('P2P')">PASAR P2P</button>
-        <button class="btn" id="tabBursaDiamond" style="background:#170a29; color:#00f3ff; border:1px solid #00f3ff;" onclick="switchShopTab('Diamond')">BURSA DIAMOND &#128142;</button>
+        <button class="btn" id="tabBursaDiamond" style="background:#170a29; color:#00f3ff; border:1px solid #00f3ff;" onclick="switchShopTab('Diamond')">BURSA DIAMOND 💎</button>
     </div>
     
     <div id="shopSistemMode">
         <div class="grid-container">
-            <div class="grid-item"><div class="grid-icon">&#128230;</div><div class="grid-title">Mystery Box</div><div class="grid-sub">&#129689; 50.000</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyItem(50000, 'COMMON')">BELI</button></div>
-            <div class="grid-item"><div class="grid-icon">&#10024;</div><div class="grid-title">Elite Relic</div><div class="grid-sub">&#129689; 350.000</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyItem(350000, 'RARE')">BELI</button></div>
-            <div class="grid-item"><div class="grid-icon">&#128302;</div><div class="grid-title">Cyber Core</div><div class="grid-sub">&#129689; 850.000</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyItem(850000, 'EPIC')">BELI</button></div>
+            <div class="grid-item"><div class="grid-icon">📦</div><div class="grid-title">Mystery Box</div><div class="grid-sub">🪙 50.000</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyItem(50000, 'COMMON')">BELI</button></div>
+            <div class="grid-item"><div class="grid-icon">✨</div><div class="grid-title">Elite Relic</div><div class="grid-sub">🪙 350.000</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyItem(350000, 'RARE')">BELI</button></div>
+            <div class="grid-item"><div class="grid-icon">🔮</div><div class="grid-title">Cyber Core</div><div class="grid-sub">🪙 850.000</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyItem(850000, 'EPIC')">BELI</button></div>
         </div>
     </div>
     
@@ -765,19 +2192,19 @@ body {
             <p class="muted" style="margin:5px 0 0 0; font-size:12px;">Cairkan Diamond Anda untuk mendapatkan suntikan modal kredit instan tanpa pajak.</p>
         </div>
         <div class="grid-container">
-            <div class="grid-item" style="border-color:#00f3ff;"><div class="grid-icon">&#129689;</div><div class="grid-title">1 Juta Kredit</div><div class="grid-sub" style="color:#00f3ff;">10 &#128142;</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(10, 1000000)">TUKAR</button></div>
-            <div class="grid-item" style="border-color:#a385ff;"><div class="grid-icon">&#128176;</div><div class="grid-title">5 Juta Kredit</div><div class="grid-sub" style="color:#00f3ff;">50 &#128142;</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(50, 5000000)">TUKAR</button></div>
-            <div class="grid-item" style="border-color:#ffae00;"><div class="grid-icon">&#127974;</div><div class="grid-title">10 Juta Kredit</div><div class="grid-sub" style="color:#00f3ff;">100 &#128142;</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(100, 10000000)">TUKAR</button></div>
-            <div class="grid-item" style="border-color:#ff0055;"><div class="grid-icon">&#128142;</div><div class="grid-title">120 Juta Kredit</div><div class="grid-sub" style="color:#00ff9d;">1000 &#128142;</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(1000, 120000000)">TUKAR (BONUS)</button></div>
+            <div class="grid-item" style="border-color:#00f3ff;"><div class="grid-icon">🪙</div><div class="grid-title">1 Juta Kredit</div><div class="grid-sub" style="color:#00f3ff;">10 💎</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(10, 1000000)">TUKAR</button></div>
+            <div class="grid-item" style="border-color:#a385ff;"><div class="grid-icon">💰</div><div class="grid-title">5 Juta Kredit</div><div class="grid-sub" style="color:#00f3ff;">50 💎</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(50, 5000000)">TUKAR</button></div>
+            <div class="grid-item" style="border-color:#ffae00;"><div class="grid-icon">🏦</div><div class="grid-title">10 Juta Kredit</div><div class="grid-sub" style="color:#00f3ff;">100 💎</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(100, 10000000)">TUKAR</button></div>
+            <div class="grid-item" style="border-color:#ff0055;"><div class="grid-icon">💎</div><div class="grid-title">120 Juta Kredit</div><div class="grid-sub" style="color:#00ff9d;">1000 💎</div><button class="btn primary" style="width:100%; margin-top:10px;" onclick="buyCreditsWithDiamonds(1000, 120000000)">TUKAR (BONUS)</button></div>
         </div>
     </div>
     
 </div></section>
-<section id="screen-inbox" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>&#9993;&#65039; Pesan</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div style="background:rgba(15,8,30,0.8); border:1px solid #4a2575; border-radius:8px; padding:15px; margin-bottom: 15px;"><b style="color:#00f3ff;">[SYSTEM ADMIN] - Bonus Diamond &#128142;</b><p style="font-size:14px; margin-top:5px; color:#e0d8ea;">Sesuai dengan instruksi terbaru, seluruh agen telah diberikan bonus modal sebesar <b>500 Diamond</b>. Silakan gunakan fitur Bursa Diamond di dalam menu Pasar Gelap untuk menukarkannya dengan suntikan Kredit.</p></div><div style="background:rgba(15,8,30,0.8); border:1px solid #4a2575; border-radius:8px; padding:15px;"><b style="color:#00f3ff;">[SYSTEM ADMIN] - Lelang v3.0</b><p style="font-size:14px; margin-top:5px; color:#e0d8ea;">Sistem lelang kini menampilkan persaingan grafik bid dan proses unboxing relik satu persatu seperti yang Anda perintahkan.</p></div></div></section>
-<section id="screen-leaderboard" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>&#127942; Top Peringkat</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div style="display:flex; flex-direction:column; gap:10px;" id="leaderboardList"></div></div></section>
-<section id="screen-archive" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>&#128214; Arsip Relik</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div class="grid-container" id="archiveGrid"></div></div></section>
+<section id="screen-inbox" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>✉️ Pesan</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div style="background:rgba(15,8,30,0.8); border:1px solid #4a2575; border-radius:8px; padding:15px; margin-bottom: 15px;"><b style="color:#00f3ff;">[SYSTEM ADMIN] - Bonus Diamond 💎</b><p style="font-size:14px; margin-top:5px; color:#e0d8ea;">Sesuai dengan instruksi terbaru, seluruh agen telah diberikan bonus modal sebesar <b>500 Diamond</b>. Silakan gunakan fitur Bursa Diamond di dalam menu Pasar Gelap untuk menukarkannya dengan suntikan Kredit.</p></div><div style="background:rgba(15,8,30,0.8); border:1px solid #4a2575; border-radius:8px; padding:15px;"><b style="color:#00f3ff;">[SYSTEM ADMIN] - Lelang v3.0</b><p style="font-size:14px; margin-top:5px; color:#e0d8ea;">Sistem lelang kini menampilkan persaingan grafik bid dan proses unboxing relik satu persatu seperti yang Anda perintahkan.</p></div></div></section>
+<section id="screen-leaderboard" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>🏆 Top Peringkat</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div style="display:flex; flex-direction:column; gap:10px;" id="leaderboardList"></div></div></section>
+<section id="screen-archive" class="screen"><div class="panel menu-screen"><div class="menu-header"><h2>📖 Arsip Relik</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div><div class="grid-container" id="archiveGrid"></div></div></section>
 <section id="screen-alliance" class="screen"><div class="panel menu-screen">
-    <div class="menu-header"><h2>&#129309; Aliansi</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
+    <div class="menu-header"><h2>🤝 Aliansi</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
     <div style="display:flex; gap:10px; margin-bottom:20px;">
         <input type="text" id="friendIdInput" placeholder="Cari Nama/ID Teman..." style="flex:1; padding:12px; border-radius:8px; background:#05020a; color:#00f3ff; border:1px solid #4a2575;">
         <button class="btn primary" onclick="searchAndAddFriend()">CARI & TAMBAH</button>
@@ -789,7 +2216,7 @@ body {
 <!-- SPIN WHEEL SECTION -->
 <section id="screen-spin" class="screen">
     <div class="panel menu-screen" style="text-align:center; max-width: 600px;">
-        <div class="menu-header"><h2>&#127921; WHEEL OF NEXUS</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
+        <div class="menu-header"><h2>🎡 WHEEL OF NEXUS</h2><button class="btn" onclick="show('lobby')">X KEMBALI</button></div>
         <p class="muted" style="font-size:15px;">Dapatkan Kredit bernilai tinggi atau <b>Diamond</b> langka. Semakin besar nilai hadiah, semakin berat probabilitas sistemnya.<br>Batas putaran harian tersisa: <b id="spinLeftText" style="color:#00ff9d; font-size:18px;">3/3</b></p>
         
         <div class="spin-wheel-box">
@@ -797,14 +2224,14 @@ body {
             <div class="wheel-center"></div>
             <div class="wheel" id="nexusWheel">
                 <div class="wheel-labels">
-                    <div class="wheel-label" style="transform: rotate(-90deg); color:#8b7a9e;">50K &#129689;</div>
-                    <div class="wheel-label" style="transform: rotate(-45deg); color:#00f3ff;">2 &#128142;</div>
-                    <div class="wheel-label" style="transform: rotate(0deg); color:#00ff9d;">250K &#129689;</div>
-                    <div class="wheel-label" style="transform: rotate(45deg); color:#a385ff;">10 &#128142;</div>
-                    <div class="wheel-label" style="transform: rotate(90deg); color:#ffae00;">1M &#129689;</div>
-                    <div class="wheel-label" style="transform: rotate(135deg); color:#ff007b;">100 &#128142;</div>
-                    <div class="wheel-label" style="transform: rotate(180deg); color:#ff0055;">5M &#129689;</div>
-                    <div class="wheel-label" style="transform: rotate(225deg); color:#fff;">1000 &#128142;</div>
+                    <div class="wheel-label" style="transform: rotate(-90deg); color:#8b7a9e;">50K 🪙</div>
+                    <div class="wheel-label" style="transform: rotate(-45deg); color:#00f3ff;">2 💎</div>
+                    <div class="wheel-label" style="transform: rotate(0deg); color:#00ff9d;">250K 🪙</div>
+                    <div class="wheel-label" style="transform: rotate(45deg); color:#a385ff;">10 💎</div>
+                    <div class="wheel-label" style="transform: rotate(90deg); color:#ffae00;">1M 🪙</div>
+                    <div class="wheel-label" style="transform: rotate(135deg); color:#ff007b;">100 💎</div>
+                    <div class="wheel-label" style="transform: rotate(180deg); color:#ff0055;">5M 🪙</div>
+                    <div class="wheel-label" style="transform: rotate(225deg); color:#fff;">1000 💎</div>
                 </div>
             </div>
         </div>
@@ -826,7 +2253,7 @@ body {
   </div>
   <div class="wait-room" id="waitRoom"></div>
   <div style="margin-top: 40px; text-align: left; background: rgba(15,8,30,0.8); padding: 20px; border-radius: 12px; border-left: 4px solid #00f3ff;">
-    <b style="color:#00f3ff; font-size:18px;">&#128160; INFO PROTOKOL</b>
+    <b style="color:#00f3ff; font-size:18px;">💠 INFO PROTOKOL</b>
     <p class="muted" style="margin: 8px 0 0 0; font-size: 16px;">Jika ada kandidat yang berhasil memenangkan bid di atas batas minimum, lelang ditutup dan pemenang langsung mengekstrak seluruh kotak relik satu per satu.</p>
   </div>
   <div style="margin-top:30px; text-align:right;">
@@ -838,7 +2265,7 @@ body {
 <section id="game" class="screen">
 <div class="game">
 <aside class="panel players" style="height: fit-content;">
-    <div style="padding: 15px; border-bottom: 1px solid #3a1c5e; font-weight: 900; color: #00f3ff; font-size: 18px;">KANDIDAT AKTIF</div><div style="padding:6px 12px;border-bottom:1px solid #2a1545;color:#8b7a9e;font-size:10px;font-weight:700;">&#128274; = BID TERKUNCI &#8226; &#10003; = SUDAH BID RONDE</div>
+    <div style="padding: 15px; border-bottom: 1px solid #3a1c5e; font-weight: 900; color: #00f3ff; font-size: 18px;">KANDIDAT AKTIF</div><div style="padding:6px 12px;border-bottom:1px solid #2a1545;color:#8b7a9e;font-size:10px;font-weight:700;">🔒 = BID TERKUNCI • ✓ = SUDAH BID RONDE</div>
     <div id="gamePlayers" style="padding:10px;"></div>
 </aside>
 <main class="panel arena">
@@ -851,7 +2278,7 @@ body {
 <span id="roundMultiplier" style="color:#ffd700; font-size:22px; font-weight:900; text-shadow:0 0 12px rgba(255,215,0,0.45);">2.0x</span>
 </div>
 <div id="judgeBox" style="margin:12px 0;padding:15px;border:1px solid #7000ff;border-radius:10px;background:rgba(112,0,255,0.1)">
-<b style="color:#00f3ff;">&#128160; AI Arbiter:</b> <span id="judgeText" style="color: #fff; font-weight: 500; font-size: 15px;">Pindai brankas dan masukkan penawaran kredit Anda.</span>
+<b style="color:#00f3ff;">💠 AI Arbiter:</b> <span id="judgeText" style="color: #fff; font-weight: 500; font-size: 15px;">Pindai brankas dan masukkan penawaran kredit Anda.</span>
 </div>
 
 <!-- Game Board -->
@@ -868,7 +2295,7 @@ body {
 <div class="value-box">
     <div style="display:flex; justify-content:space-between; border-bottom: 1px solid rgba(0,243,255,0.3); padding-bottom: 10px; margin-bottom: 10px; font-size: 16px;">
         <span style="font-weight: 700; color: #a385ff;">Nilai Minimum Bid:</span>
-        <b style="color: #00ff9d; font-size: 18px;">&#129689; <span id="roundMinBidUI">?</span></b>
+        <b style="color: #00ff9d; font-size: 18px;">🪙 <span id="roundMinBidUI">?</span></b>
     </div>
     <div style="font-size: 16px; font-weight: 700; display:flex; justify-content:flex-end;">
         <span>Status Anda: <b id="myBidStatus" style="color:#ff007b;">BELUM INPUT</b></span>
@@ -877,11 +2304,11 @@ body {
 </main>
 <aside class="panel right" style="display: flex; flex-direction: column;">
 <div class="skill">
-<h3>&#9876;&#65039; Sistem Lelang Rahasia</h3>
+<h3>⚔️ Sistem Lelang Rahasia</h3>
 <p>Input kredit disembunyikan. Jika tawaran tertinggi melampaui <b>ambang batas</b>, pelelangan langsung berakhir dan pemenang mengambil semuanya.</p>
 </div>
 <div class="skill" id="heroSkillBox" style="background:rgba(0,243,255,0.05); border-color:#00f3ff;">
-<h3>&#9889; Modul Unik: <span id="ingameHeroName">ARLOT</span></h3>
+<h3>⚡ Modul Unik: <span id="ingameHeroName">ARLOT</span></h3>
 <p>Sistem meretas sebagian sel brankas secara otomatis setiap memulai fase baru.</p>
 <button class="btn" style="background:rgba(0,243,255,0.2); color:#00f3ff; border-color:#00f3ff; width: 100%; cursor:default;" disabled>AUTO-BYPASS AKTIF</button>
 </div>
@@ -919,16 +2346,16 @@ body {
         <h2 id="resTitle" style="margin:0; font-size: 38px; color: #00ff9d; text-transform: uppercase; text-shadow: 0 0 15px rgba(0,255,157,0.4);">BRANKAS JADI MILIKMU</h2>
         <div id="resSub" class="muted" style="font-size: 18px; font-weight: 700; margin-top: 8px;">HikariSora Bayar 5.555.555</div>
 <div class="v10-rarity-info" id="v10RarityInfo">
-<span>&#128308; MYTHIC 3%</span><span>&#128993; LEGENDARY 7%</span><span>&#128995; EPIC 12%</span>
-<span>&#128309; RARE 20%</span><span>&#128994; UNCOMMON 26%</span><span>&#9899; COMMON 32%</span>
+<span>🔴 MYTHIC 3%</span><span>🟡 LEGENDARY 7%</span><span>🟣 EPIC 12%</span>
+<span>🔵 RARE 20%</span><span>🟢 UNCOMMON 26%</span><span>⚪ COMMON 32%</span>
 </div>
 
     </div>
     <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:20px; align-items:stretch; text-align:left;">
         <div style="width:100%; background:rgba(15,8,30,0.8); padding:12px; box-sizing:border-box; border-radius:12px; border:1px solid #4a2575; box-shadow:0 5px 15px rgba(0,0,0,0.5);">
             <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;border-bottom:1px solid #3a1c5e;padding-bottom:7px;">
-              <div class="muted" style="font-size:13px;font-weight:900;letter-spacing:1px;">&#128202; BID + HASIL PROFIT (5 KANDIDAT)</div>
-              <div style="font-size:10px;color:#8b7a9e;">Nilai Item: <b id="revVaultValue" style="color:#a385ff;">0</b> &#8226; Menang: <b id="revWinBid" style="color:#00f3ff;">0</b> &#8226; Hasil: <b id="revProfit" style="color:#00ff9d;">0</b></div>
+              <div class="muted" style="font-size:13px;font-weight:900;letter-spacing:1px;">📊 BID + HASIL PROFIT (5 KANDIDAT)</div>
+              <div style="font-size:10px;color:#8b7a9e;">Nilai Item: <b id="revVaultValue" style="color:#a385ff;">0</b> • Menang: <b id="revWinBid" style="color:#00f3ff;">0</b> • Hasil: <b id="revProfit" style="color:#00ff9d;">0</b></div>
             </div>
             <div id="resLeaderboard" style="display:flex;flex-direction:column;gap:4px;"></div>
         </div>
@@ -937,7 +2364,7 @@ body {
     <div style="width: 100%; max-width: 700px; margin: 0 auto;"><div class="board" id="revealBoard"></div></div>
     
     <div id="resultSellTools" style="display:none; background:rgba(0,0,0,0.3); padding:12px; border-radius:10px; border:1px solid #3a1c5e; justify-content:center; gap:10px; margin-top:20px; flex-wrap:wrap; align-items:center;">
-        <b style="color:#e0d8ea; font-size:12px; margin-right:5px;">&#128465;&#65039; OPSI JUAL CEPAT (HASIL LELANG):</b>
+        <b style="color:#e0d8ea; font-size:12px; margin-right:5px;">🗑️ OPSI JUAL CEPAT (HASIL LELANG):</b>
         <button class="btn" style="background:#2a2a2a; color:#8b7a9e; border-color:#8b7a9e; font-size:11px; padding:6px 12px;" onclick="sellWonBulk('COMMON')">SEMUA COMMON</button>
         <button class="btn" style="background:#0b4d34; color:#00ff9d; border-color:#00ff9d; font-size:11px; padding:6px 12px;" onclick="sellWonBulk('UNCOMMON')">SEMUA UNCOMMON</button>
         <button class="btn" style="background:#0b3b4d; color:#00f3ff; border-color:#00f3ff; font-size:11px; padding:6px 12px;" onclick="sellWonBulk('RARE')">SEMUA RARE</button>
@@ -992,7 +2419,7 @@ body {
 <div id="intelModal" style="position:fixed;inset:0;background:rgba(5,2,10,0.9);z-index:9999;padding:10px;display:none; backdrop-filter: blur(5px); flex-direction:column; align-items:center; justify-content:center;">
     <div class="panel" style="width:100%; max-width:480px; max-height:85vh; display:flex; flex-direction:column; border-radius:16px; padding:20px; box-sizing:border-box; border:1px solid #00f3ff; box-shadow: 0 0 50px rgba(0,243,255,0.15);">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #3a1c5e; padding-bottom:15px;">
-            <h2 style="color:#00f3ff; margin:0; font-size: 22px;">&#128269; ANALISIS DATABASE</h2>
+            <h2 style="color:#00f3ff; margin:0; font-size: 22px;">🔍 ANALISIS DATABASE</h2>
             <button class="btn" style="padding:5px 15px; background:transparent;" onclick="closeIntel()">X</button>
         </div>
         <div id="intelStatus" style="font-size:13px; color:#00ff9d; margin-bottom:15px; font-weight:700; text-align:center; background:rgba(0,255,157,0.1); padding:10px; border-radius:8px; border:1px solid rgba(0,255,157,0.3);"></div>
@@ -1168,153 +2595,25 @@ function getGenericTypeIcon(type,color){
 }
 
 const roster = [
-    {id:"Arlot", role:"Cyber Warden", country:"&#127470;&#127471;", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(0,243,255,0.4)); overflow:visible;"><defs><radialGradient id="skinA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffe0cc"/><stop offset="100%" stop-color="#d4a373"/></radialGradient><linearGradient id="suitA" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00f3ff"/><stop offset="100%" stop-color="#0033aa"/></linearGradient></defs><g style="animation: breathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Cape/Back --><path d="M 25 50 L 15 95 L 85 95 L 75 50 Z" fill="#0a0514" stroke="#00f3ff" stroke-width="2"/><!-- Torso --><rect x="30" y="45" width="40" height="45" rx="12" fill="url(#suitA)"/><!-- Left Arm --><g style="animation: swingL 3s ease-in-out infinite alternate; transform-origin: 30px 50px;"><path d="M 30 50 L 15 75" stroke="url(#suitA)" stroke-width="14" stroke-linecap="round"/><circle cx="15" cy="75" r="7" fill="url(#skinA)"/></g><!-- Right Arm --><g style="animation: swingR 3s ease-in-out infinite alternate; transform-origin: 70px 50px;"><path d="M 70 50 L 85 75" stroke="url(#suitA)" stroke-width="14" stroke-linecap="round"/><circle cx="85" cy="75" r="7" fill="url(#skinA)"/></g><!-- Head --><g style="animation: bob 3s ease-in-out infinite alternate; transform-origin: 50% 25px;"><circle cx="50" cy="25" r="16" fill="url(#skinA)"/><!-- Hair --><path d="M 32 25 Q 50 -5 68 25 L 65 15 Q 50 -10 35 15 Z" fill="#111"/><!-- Visor/Headset --><path d="M 32 25 Q 50 15 68 25" fill="none" stroke="#111" stroke-width="6"/><circle cx="32" cy="25" r="5" fill="#00f3ff"/><circle cx="68" cy="25" r="5" fill="#00f3ff"/></g></g><style>@keyframes breathe { 0% {transform: scaleY(1);} 100% {transform: scaleY(0.96) translateY(2px);} } @keyframes bob { 0% {transform: rotate(-3deg);} 100% {transform: rotate(3deg);} } @keyframes swingL { 0% {transform: rotate(10deg);} 100% {transform: rotate(-10deg);} } @keyframes swingR { 0% {transform: rotate(-10deg);} 100% {transform: rotate(10deg);} }
+    {id:"Arlot", role:"Cyber Warden", country:"🇮🇩", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(0,243,255,0.4)); overflow:visible;"><defs><radialGradient id="skinA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffe0cc"/><stop offset="100%" stop-color="#d4a373"/></radialGradient><linearGradient id="suitA" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00f3ff"/><stop offset="100%" stop-color="#0033aa"/></linearGradient></defs><g style="animation: breathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Cape/Back --><path d="M 25 50 L 15 95 L 85 95 L 75 50 Z" fill="#0a0514" stroke="#00f3ff" stroke-width="2"/><!-- Torso --><rect x="30" y="45" width="40" height="45" rx="12" fill="url(#suitA)"/><!-- Left Arm --><g style="animation: swingL 3s ease-in-out infinite alternate; transform-origin: 30px 50px;"><path d="M 30 50 L 15 75" stroke="url(#suitA)" stroke-width="14" stroke-linecap="round"/><circle cx="15" cy="75" r="7" fill="url(#skinA)"/></g><!-- Right Arm --><g style="animation: swingR 3s ease-in-out infinite alternate; transform-origin: 70px 50px;"><path d="M 70 50 L 85 75" stroke="url(#suitA)" stroke-width="14" stroke-linecap="round"/><circle cx="85" cy="75" r="7" fill="url(#skinA)"/></g><!-- Head --><g style="animation: bob 3s ease-in-out infinite alternate; transform-origin: 50% 25px;"><circle cx="50" cy="25" r="16" fill="url(#skinA)"/><!-- Hair --><path d="M 32 25 Q 50 -5 68 25 L 65 15 Q 50 -10 35 15 Z" fill="#111"/><!-- Visor/Headset --><path d="M 32 25 Q 50 15 68 25" fill="none" stroke="#111" stroke-width="6"/><circle cx="32" cy="25" r="5" fill="#00f3ff"/><circle cx="68" cy="25" r="5" fill="#00f3ff"/></g></g><style>@keyframes breathe { 0% {transform: scaleY(1);} 100% {transform: scaleY(0.96) translateY(2px);} } @keyframes bob { 0% {transform: rotate(-3deg);} 100% {transform: rotate(3deg);} } @keyframes swingL { 0% {transform: rotate(10deg);} 100% {transform: rotate(-10deg);} } @keyframes swingR { 0% {transform: rotate(-10deg);} 100% {transform: rotate(10deg);} }
 </style>
 </svg>`},
-    {id:"Karina", role:"Shadow Blade", country:"&#127471;&#127477;", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(163,133,255,0.4)); overflow:visible;"><defs><radialGradient id="skinK" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff0e6"/><stop offset="100%" stop-color="#e0bba3"/></radialGradient><linearGradient id="suitK" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a385ff"/><stop offset="100%" stop-color="#3a1c5e"/></linearGradient></defs><g style="animation: breathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Torso --><path d="M 35 45 L 65 45 L 60 90 L 40 90 Z" fill="url(#suitK)"/><!-- Left Arm & Blade --><g style="animation: bladeL 2.5s ease-in-out infinite alternate; transform-origin: 35px 50px;"><path d="M 35 50 L 20 70" stroke="url(#suitK)" stroke-width="10" stroke-linecap="round"/><circle cx="20" cy="70" r="5" fill="url(#skinK)"/><path d="M 20 70 L 10 35" stroke="#00f3ff" stroke-width="4" stroke-linecap="round" fill="none"/></g><!-- Right Arm & Blade --><g style="animation: bladeR 2.5s ease-in-out infinite alternate; transform-origin: 65px 50px;"><path d="M 65 50 L 80 70" stroke="url(#suitK)" stroke-width="10" stroke-linecap="round"/><circle cx="80" cy="70" r="5" fill="url(#skinK)"/><path d="M 80 70 L 90 35" stroke="#00f3ff" stroke-width="4" stroke-linecap="round" fill="none"/></g><!-- Head --><g style="animation: bob 2.5s ease-in-out infinite alternate; transform-origin: 50% 25px;"><!-- Long Hair Back --><path d="M 35 25 L 25 60 L 45 30 Z M 65 25 L 75 60 L 55 30 Z" fill="#fff"/><circle cx="50" cy="25" r="14" fill="url(#skinK)"/><!-- Hair Front --><path d="M 36 25 Q 50 0 64 25 L 50 10 Z" fill="#fff"/><path d="M 36 22 L 64 22" stroke="#111" stroke-width="3"/></g></g><style>@keyframes bladeL { 0% {transform: rotate(5deg);} 100% {transform: rotate(-15deg);} } @keyframes bladeR { 0% {transform: rotate(-5deg);} 100% {transform: rotate(15deg);} }
+    {id:"Karina", role:"Shadow Blade", country:"🇯🇵", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(163,133,255,0.4)); overflow:visible;"><defs><radialGradient id="skinK" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff0e6"/><stop offset="100%" stop-color="#e0bba3"/></radialGradient><linearGradient id="suitK" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a385ff"/><stop offset="100%" stop-color="#3a1c5e"/></linearGradient></defs><g style="animation: breathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Torso --><path d="M 35 45 L 65 45 L 60 90 L 40 90 Z" fill="url(#suitK)"/><!-- Left Arm & Blade --><g style="animation: bladeL 2.5s ease-in-out infinite alternate; transform-origin: 35px 50px;"><path d="M 35 50 L 20 70" stroke="url(#suitK)" stroke-width="10" stroke-linecap="round"/><circle cx="20" cy="70" r="5" fill="url(#skinK)"/><path d="M 20 70 L 10 35" stroke="#00f3ff" stroke-width="4" stroke-linecap="round" fill="none"/></g><!-- Right Arm & Blade --><g style="animation: bladeR 2.5s ease-in-out infinite alternate; transform-origin: 65px 50px;"><path d="M 65 50 L 80 70" stroke="url(#suitK)" stroke-width="10" stroke-linecap="round"/><circle cx="80" cy="70" r="5" fill="url(#skinK)"/><path d="M 80 70 L 90 35" stroke="#00f3ff" stroke-width="4" stroke-linecap="round" fill="none"/></g><!-- Head --><g style="animation: bob 2.5s ease-in-out infinite alternate; transform-origin: 50% 25px;"><!-- Long Hair Back --><path d="M 35 25 L 25 60 L 45 30 Z M 65 25 L 75 60 L 55 30 Z" fill="#fff"/><circle cx="50" cy="25" r="14" fill="url(#skinK)"/><!-- Hair Front --><path d="M 36 25 Q 50 0 64 25 L 50 10 Z" fill="#fff"/><path d="M 36 22 L 64 22" stroke="#111" stroke-width="3"/></g></g><style>@keyframes bladeL { 0% {transform: rotate(5deg);} 100% {transform: rotate(-15deg);} } @keyframes bladeR { 0% {transform: rotate(-5deg);} 100% {transform: rotate(15deg);} }
 </style>
 </svg>`},
-    {id:"Kael", role:"Net Runner", country:"&#127482;&#127480;", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(0,255,157,0.4)); overflow:visible;"><defs><radialGradient id="skinKl" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5d6c6"/><stop offset="100%" stop-color="#b88a76"/></radialGradient><linearGradient id="suitKl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="100%" stop-color="#0a0a0a"/></linearGradient></defs><g style="animation: breathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Torso --><rect x="30" y="45" width="40" height="50" rx="15" fill="url(#suitKl)"/><!-- Floating Keyboard --><rect x="25" y="75" width="50" height="10" rx="2" fill="#00ff9d" opacity="0.3" style="animation: glitch 3s infinite;"/><!-- Left Arm --><g style="animation: typeL 0.2s infinite alternate; transform-origin: 30px 50px;"><path d="M 30 50 L 35 75" stroke="url(#suitKl)" stroke-width="12" stroke-linecap="round"/><circle cx="35" cy="75" r="6" fill="url(#skinKl)"/></g><!-- Right Arm --><g style="animation: typeR 0.3s infinite alternate; transform-origin: 70px 50px;"><path d="M 70 50 L 65 75" stroke="url(#suitKl)" stroke-width="12" stroke-linecap="round"/><circle cx="65" cy="75" r="6" fill="url(#skinKl)"/></g><!-- Head & Hoodie --><g style="animation: bob 3s ease-in-out infinite alternate; transform-origin: 50% 25px;"><circle cx="50" cy="25" r="16" fill="url(#skinKl)"/><!-- Visor --><rect x="38" y="20" width="24" height="8" rx="4" fill="#00ff9d"/><path d="M 32 25 Q 50 -10 68 25 Q 50 -15 32 25" fill="url(#suitKl)"/><!-- Hoodie rim --><path d="M 34 25 A 16 16 0 0 1 66 25" fill="none" stroke="#444" stroke-width="3"/></g></g><style>@keyframes typeL { 0% {transform: rotate(5deg) translateY(0);} 100% {transform: rotate(0deg) translateY(2px);} } @keyframes typeR { 0% {transform: rotate(-5deg) translateY(2px);} 100% {transform: rotate(0deg) translateY(0);} } @keyframes glitch { 0%, 98%, 100% {opacity:0.3;} 99% {opacity:0.8; transform: skewX(10deg);} }
+    {id:"Kael", role:"Net Runner", country:"🇺🇸", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(0,255,157,0.4)); overflow:visible;"><defs><radialGradient id="skinKl" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5d6c6"/><stop offset="100%" stop-color="#b88a76"/></radialGradient><linearGradient id="suitKl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a2a2a"/><stop offset="100%" stop-color="#0a0a0a"/></linearGradient></defs><g style="animation: breathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Torso --><rect x="30" y="45" width="40" height="50" rx="15" fill="url(#suitKl)"/><!-- Floating Keyboard --><rect x="25" y="75" width="50" height="10" rx="2" fill="#00ff9d" opacity="0.3" style="animation: glitch 3s infinite;"/><!-- Left Arm --><g style="animation: typeL 0.2s infinite alternate; transform-origin: 30px 50px;"><path d="M 30 50 L 35 75" stroke="url(#suitKl)" stroke-width="12" stroke-linecap="round"/><circle cx="35" cy="75" r="6" fill="url(#skinKl)"/></g><!-- Right Arm --><g style="animation: typeR 0.3s infinite alternate; transform-origin: 70px 50px;"><path d="M 70 50 L 65 75" stroke="url(#suitKl)" stroke-width="12" stroke-linecap="round"/><circle cx="65" cy="75" r="6" fill="url(#skinKl)"/></g><!-- Head & Hoodie --><g style="animation: bob 3s ease-in-out infinite alternate; transform-origin: 50% 25px;"><circle cx="50" cy="25" r="16" fill="url(#skinKl)"/><!-- Visor --><rect x="38" y="20" width="24" height="8" rx="4" fill="#00ff9d"/><path d="M 32 25 Q 50 -10 68 25 Q 50 -15 32 25" fill="url(#suitKl)"/><!-- Hoodie rim --><path d="M 34 25 A 16 16 0 0 1 66 25" fill="none" stroke="#444" stroke-width="3"/></g></g><style>@keyframes typeL { 0% {transform: rotate(5deg) translateY(0);} 100% {transform: rotate(0deg) translateY(2px);} } @keyframes typeR { 0% {transform: rotate(-5deg) translateY(2px);} 100% {transform: rotate(0deg) translateY(0);} } @keyframes glitch { 0%, 98%, 100% {opacity:0.3;} 99% {opacity:0.8; transform: skewX(10deg);} }
 </style>
 </svg>`},
-    {id:"Lyra", role:"Holo Tech", country:"&#127480;&#127468;", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(255,0,123,0.4)); overflow:visible;"><defs><radialGradient id="skinLy" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffebf0"/><stop offset="100%" stop-color="#d4a3b3"/></radialGradient><linearGradient id="suitLy" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff007b"/><stop offset="100%" stop-color="#4a0024"/></linearGradient></defs><g style="animation: floatUp 3s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Torso --><path d="M 35 45 L 65 45 L 75 90 L 25 90 Z" fill="url(#suitLy)"/><!-- Left Arm --><g style="animation: wave 2s ease-in-out infinite alternate; transform-origin: 35px 50px;"><path d="M 35 50 L 15 40" stroke="url(#suitLy)" stroke-width="10" stroke-linecap="round"/><circle cx="15" cy="40" r="5" fill="url(#skinLy)"/><circle cx="10" cy="30" r="3" fill="#fff" style="animation: blink 1s infinite;"/></g><!-- Right Arm --><g style="animation: swingR 2s ease-in-out infinite alternate; transform-origin: 65px 50px;"><path d="M 65 50 L 80 70" stroke="url(#suitLy)" stroke-width="10" stroke-linecap="round"/><circle cx="80" cy="70" r="5" fill="url(#skinLy)"/></g><!-- Head --><g style="animation: bob 2s ease-in-out infinite alternate; transform-origin: 50% 25px;"><!-- Pigtails --><path d="M 36 20 Q 15 10 20 40 Z" fill="#ff007b"/><path d="M 64 20 Q 85 10 80 40 Z" fill="#ff007b"/><circle cx="50" cy="25" r="14" fill="url(#skinLy)"/><!-- Goggles --><rect x="38" y="15" width="24" height="6" rx="3" fill="#00f3ff"/></g></g><style>@keyframes floatUp { 0% {transform: translateY(0);} 100% {transform: translateY(-8px);} } @keyframes wave { 0% {transform: rotate(10deg);} 100% {transform: rotate(-20deg);} } @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+    {id:"Lyra", role:"Holo Tech", country:"🇸🇬", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(255,0,123,0.4)); overflow:visible;"><defs><radialGradient id="skinLy" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ffebf0"/><stop offset="100%" stop-color="#d4a3b3"/></radialGradient><linearGradient id="suitLy" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff007b"/><stop offset="100%" stop-color="#4a0024"/></linearGradient></defs><g style="animation: floatUp 3s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Torso --><path d="M 35 45 L 65 45 L 75 90 L 25 90 Z" fill="url(#suitLy)"/><!-- Left Arm --><g style="animation: wave 2s ease-in-out infinite alternate; transform-origin: 35px 50px;"><path d="M 35 50 L 15 40" stroke="url(#suitLy)" stroke-width="10" stroke-linecap="round"/><circle cx="15" cy="40" r="5" fill="url(#skinLy)"/><circle cx="10" cy="30" r="3" fill="#fff" style="animation: blink 1s infinite;"/></g><!-- Right Arm --><g style="animation: swingR 2s ease-in-out infinite alternate; transform-origin: 65px 50px;"><path d="M 65 50 L 80 70" stroke="url(#suitLy)" stroke-width="10" stroke-linecap="round"/><circle cx="80" cy="70" r="5" fill="url(#skinLy)"/></g><!-- Head --><g style="animation: bob 2s ease-in-out infinite alternate; transform-origin: 50% 25px;"><!-- Pigtails --><path d="M 36 20 Q 15 10 20 40 Z" fill="#ff007b"/><path d="M 64 20 Q 85 10 80 40 Z" fill="#ff007b"/><circle cx="50" cy="25" r="14" fill="url(#skinLy)"/><!-- Goggles --><rect x="38" y="15" width="24" height="6" rx="3" fill="#00f3ff"/></g></g><style>@keyframes floatUp { 0% {transform: translateY(0);} 100% {transform: translateY(-8px);} } @keyframes wave { 0% {transform: rotate(10deg);} 100% {transform: rotate(-20deg);} } @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 </style>
 </svg>`},
-    {id:"Zane", role:"Heavy Gunner", country:"&#127474;&#127486;", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(255,174,0,0.4)); overflow:visible;"><defs><radialGradient id="skinZ" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e6cba3"/><stop offset="100%" stop-color="#b38b60"/></radialGradient><linearGradient id="suitZ" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffae00"/><stop offset="100%" stop-color="#880000"/></linearGradient></defs><g style="animation: heavyBreathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Huge Shoulders --><rect x="15" y="40" width="70" height="25" rx="10" fill="url(#suitZ)"/><!-- Torso --><rect x="25" y="50" width="50" height="45" rx="5" fill="#331100" stroke="#ffae00" stroke-width="3"/><!-- Left Arm --><path d="M 25 55 L 20 85" stroke="url(#suitZ)" stroke-width="16" stroke-linecap="round"/><circle cx="20" cy="85" r="8" fill="url(#skinZ)"/><!-- Right Arm --><path d="M 75 55 L 80 85" stroke="url(#suitZ)" stroke-width="16" stroke-linecap="round"/><circle cx="80" cy="85" r="8" fill="url(#skinZ)"/><!-- Head --><g style="animation: bob 2s ease-in-out infinite alternate; transform-origin: 50% 25px;"><circle cx="50" cy="25" r="14" fill="url(#skinZ)"/><!-- Helmet/Jaw --><path d="M 36 25 L 64 25 L 60 40 L 40 40 Z" fill="#222"/><rect x="42" y="28" width="16" height="5" fill="#ffae00"/></g></g><style>@keyframes heavyBreathe { 0% {transform: scaleY(1);} 100% {transform: scaleY(0.98) translateY(2px) scaleX(1.02);} }
-
-/* ============================================================
-   NEXUS RESPONSIVE ENGINE v3
-   Full-layout Android: phone + tablet, landscape first.
-   Prevents page-level vertical scrolling in landscape; long
-   content scrolls only inside its own panel/modal.
-   ============================================================ */
-html,body{width:100%;min-width:0;min-height:100%;}
-body{overflow-x:hidden;}
-.app{width:100%;max-width:1450px;min-height:100dvh;height:auto;margin:0 auto;padding:clamp(6px,1.2vw,12px);}
-.top{min-width:0;}
-.stats{min-width:0;}
-.screen{min-width:0;}
-.panel{min-width:0;}
-
-/* Compact desktop/tablet landscape baseline */
-@media (orientation:landscape){
-  html,body{height:100%;overflow:hidden;}
-  .app{height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
-  .top{height:clamp(46px,8vh,62px);min-height:46px;flex:0 0 auto;padding:6px 12px;}
-  .logo{font-size:clamp(15px,2.2vw,22px);}
-  .stats{gap:clamp(6px,1vw,16px);font-size:clamp(11px,1.45vw,16px);}
-  .stats .btn{padding:7px 10px;font-size:11px;}
-  .screen.active{flex:1;min-height:0;overflow:hidden;}
-
-  /* Lobby: all major menu sections fit inside one viewport. */
-  #lobby.active{height:100%;overflow:hidden;}
-  .lobby-layout{height:100%;min-height:0;margin-top:8px;gap:10px;}
-  .lobby-left{flex:0 0 clamp(190px,20vw,300px);width:auto;padding:12px;min-height:0;}
-  .hero-title{font-size:clamp(18px,2.1vw,26px);}
-  .hero-sub{font-size:clamp(10px,1.2vw,14px);margin-bottom:8px;}
-  .hero-display{font-size:clamp(65px,9vw,125px);min-height:0;}
-  .hero-action{padding:9px;font-size:12px;}
-  .lobby-right{min-width:0;min-height:0;gap:8px;}
-  .stats-bar{padding:9px 12px;min-height:0;}
-  .stat-label{font-size:9px;}
-  .stat-val{font-size:clamp(14px,1.8vw,22px);margin-top:2px;}
-  .big-play-btn{padding:10px 14px;font-size:clamp(14px,1.9vw,22px);}
-  .menu-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;min-height:0;}
-  .menu-card{min-width:0;min-height:0;gap:4px;padding:6px;}
-  .menu-icon{font-size:clamp(20px,2.6vw,31px);}
-  .menu-label{font-size:clamp(8px,1vw,12px);text-align:center;line-height:1.05;}
-  .badge{top:5px;right:5px;font-size:8px;padding:2px 5px;}
-  .bottom-bar{padding:8px;font-size:11px;}
-
-  /* In-game: player | board | utility, with the board receiving the remaining space. */
-  #game.active{height:100%;min-height:0;overflow:hidden;}
-  .game{height:100%;min-height:0;grid-template-columns:clamp(145px,18vw,220px) minmax(0,1fr) clamp(190px,24vw,290px);gap:7px;margin-top:4px;}
-  .game > .panel{min-width:0;min-height:0;overflow:hidden;}
-  .game-player-card{padding:5px 3px;gap:5px;}
-  .game-player-avatar,.game-player-avatar .matchPhoto{width:clamp(38px,5vw,58px);height:clamp(38px,5vw,58px);flex-basis:clamp(38px,5vw,58px);}
-  .bid-round-dot{width:18px;height:15px;font-size:8px;}
-  .bid-lock-badge{font-size:8px;padding:3px 5px;}
-  .arena{height:100%;min-height:0;padding:clamp(5px,.8vw,10px);display:flex;flex-direction:column;overflow:hidden;}
-  .arenahead{flex:0 0 auto;margin-bottom:5px;padding-bottom:5px;gap:6px;}
-  .timer{font-size:clamp(24px,4vw,38px);line-height:1;}
-  .board{flex:0 1 auto;min-height:0;max-height:calc(100% - 150px) !important;width:min(100%,calc((100vh - 150px)*1.25));aspect-ratio:10/8;height:auto;margin:auto;}
-  .cell{font-size:clamp(7px,.85vw,11px);}
-  .skill{padding:7px;}
-  .skill h3{font-size:clamp(12px,1.4vw,17px);margin-bottom:4px;}
-  .value-box{padding:7px;margin-top:6px;}
-  .chat{min-height:0!important;height:auto;flex:1;overflow:auto;margin-top:6px;padding:7px;}
-  .msg{font-size:11px;line-height:1.2;}
-  .chatbar{margin-top:5px;}
-  .chatbar input{padding:7px;font-size:11px;}
-
-  /* Result / bid-line / profit phases: scale to viewport instead of document height. */
-  #result.active,#victory.active,#unboxing.active{height:100%;min-height:0;overflow:hidden;}
-  #result .panel,#victory .panel,#unboxing .panel{max-height:100%;overflow:auto;}
-  .unboxing-header{padding:10px;margin-bottom:8px;}
-  .unboxing-stats span{font-size:15px;min-width:90px;}
-
-  /* Modals keep their own scroll, never force the whole page downward. */
-  [id$="Modal"],[id$="modal"]{max-height:100dvh!important;overflow:auto!important;}
-}
-
-/* Very short phone landscape: aggressively compact every section. */
-@media (orientation:landscape) and (max-height:480px){
-  .app{padding:4px;}
-  .top{height:42px;min-height:42px;padding:4px 8px;}
-  .logo{font-size:14px;}
-  .stats{gap:5px;font-size:9px;}
-  .stats .green{display:none;}
-  .stats .btn{padding:5px 7px;font-size:9px;}
-  .lobby-layout{gap:6px;margin-top:4px;}
-  .lobby-left{flex-basis:150px;padding:8px;}
-  .hero-title{font-size:15px;}.hero-sub{font-size:8px;margin-bottom:3px;}
-  .hero-display{font-size:55px;}
-  .hero-action{padding:6px;font-size:9px;}
-  .menu-grid{gap:4px;}
-  .menu-icon{font-size:18px;}.menu-label{font-size:7px;}
-  .bottom-bar{padding:5px;font-size:8px;}
-  .game{grid-template-columns:125px minmax(0,1fr) 165px;gap:4px;}
-  .board{max-height:calc(100% - 105px)!important;width:min(100%,calc((100vh - 105px)*1.25));}
-  .arenahead{padding-bottom:3px;margin-bottom:3px;}
-  .timer{font-size:23px;}
-  .skill{padding:5px;}.skill h3{font-size:11px;}
-  .value-box{padding:5px;margin-top:4px;font-size:10px;}
-  .chat{padding:5px;margin-top:4px;}.msg{font-size:9px;}
-}
-
-/* Tablet landscape: slightly more breathing room while still fitting one viewport. */
-@media (orientation:landscape) and (min-width:900px) and (min-height:550px){
-  .app{padding:8px 10px;}
-  .top{height:56px;}
-  .lobby-layout{gap:12px;}
-  .lobby-left{flex-basis:230px;padding:14px;}
-  .menu-grid{gap:8px;}
-  .menu-card{padding:8px;}
-  .game{grid-template-columns:190px minmax(0,1fr) 260px;gap:8px;}
-  .board{max-height:calc(100% - 170px)!important;width:min(100%,calc((100vh - 170px)*1.25));}
-}
-@media (orientation:landscape) and (min-width:1200px){
-  .game{grid-template-columns:210px minmax(0,1fr) 300px;}
-  .lobby-left{flex-basis:270px;}
-}
-
-/* Portrait remains scrollable, but each large feature has a bounded internal area. */
-@media (orientation:portrait){
-  html,body{overflow-x:hidden;overflow-y:auto;}
-  .app{min-height:100dvh;height:auto;}
-  .top{position:relative;top:0;height:auto;min-height:54px;}
-  .stats{flex-wrap:wrap;justify-content:flex-end;gap:6px;}
-  .lobby-layout{min-height:auto;}
-  .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
-  .game{grid-template-columns:1fr;}
-  .board{max-height:none;}
-}
+    {id:"Zane", role:"Heavy Gunner", country:"🇲🇾", photo:`<svg viewBox="0 0 100 100" style="width:100%; height:100%; filter: drop-shadow(0 8px 10px rgba(255,174,0,0.4)); overflow:visible;"><defs><radialGradient id="skinZ" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#e6cba3"/><stop offset="100%" stop-color="#b38b60"/></radialGradient><linearGradient id="suitZ" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffae00"/><stop offset="100%" stop-color="#880000"/></linearGradient></defs><g style="animation: heavyBreathe 2s ease-in-out infinite alternate; transform-origin: center bottom;"><!-- Huge Shoulders --><rect x="15" y="40" width="70" height="25" rx="10" fill="url(#suitZ)"/><!-- Torso --><rect x="25" y="50" width="50" height="45" rx="5" fill="#331100" stroke="#ffae00" stroke-width="3"/><!-- Left Arm --><path d="M 25 55 L 20 85" stroke="url(#suitZ)" stroke-width="16" stroke-linecap="round"/><circle cx="20" cy="85" r="8" fill="url(#skinZ)"/><!-- Right Arm --><path d="M 75 55 L 80 85" stroke="url(#suitZ)" stroke-width="16" stroke-linecap="round"/><circle cx="80" cy="85" r="8" fill="url(#skinZ)"/><!-- Head --><g style="animation: bob 2s ease-in-out infinite alternate; transform-origin: 50% 25px;"><circle cx="50" cy="25" r="14" fill="url(#skinZ)"/><!-- Helmet/Jaw --><path d="M 36 25 L 64 25 L 60 40 L 40 40 Z" fill="#222"/><rect x="42" y="28" width="16" height="5" fill="#ffae00"/></g></g><style>@keyframes heavyBreathe { 0% {transform: scaleY(1);} 100% {transform: scaleY(0.98) translateY(2px) scaleX(1.02);} }
 </style>
 </svg>`}
 ];
 let activeUserHero = roster[0];
 let myInventory = [];
-let playerProfile = { name: 'Agen Baru', country: '&#127470;&#127471;', id: '00000000' };
+let playerProfile = { name: 'Agen Baru', country: '🇮🇩', id: '00000000' };
 let coins = 50000000;
 let matchesPlayed = 0;
 let safesWon = 0;
@@ -1340,7 +2639,7 @@ let activeChatFriendId = null;
 
 function promptChangeName() {
     let isFree = !playerProfile.freeNameChangeUsed;
-    let costMsg = isFree ? "Pertama kali ganti nama GRATIS!" : "Biaya ganti nama: 250 &#128142; Diamond.";
+    let costMsg = isFree ? "Pertama kali ganti nama GRATIS!" : "Biaya ganti nama: 250 💎 Diamond.";
     let newName = prompt(costMsg + "\nMasukkan nama baru Anda (maks 12 karakter):", playerProfile.name);
     
     if (newName === null) return;
@@ -1351,7 +2650,7 @@ function promptChangeName() {
     
     if (!isFree) {
         if (diamonds < 250) {
-            return showToast("Diamond tidak cukup! Butuh 250 &#128142;.");
+            return showToast("Diamond tidak cukup! Butuh 250 💎.");
         }
         diamonds -= 250;
         if(document.getElementById('diamondsUI')) document.getElementById('diamondsUI').textContent = diamonds;
@@ -1379,14 +2678,14 @@ function updateSpecNameBtn() {
             btn.style.color = "#00ff9d";
             btn.style.borderColor = "#00ff9d";
         } else {
-            btn.textContent = "GANTI NAMA (250 &#128142;)";
+            btn.textContent = "GANTI NAMA (250 💎)";
             btn.style.color = "#00f3ff";
             btn.style.borderColor = "#00f3ff";
         }
     }
     const countryEl = document.getElementById('specCountry');
     if (countryEl) {
-        countryEl.textContent = playerProfile.country || '&#127470;&#127471;';
+        countryEl.textContent = playerProfile.country || '🇮🇩';
     }
 }
 
@@ -1494,7 +2793,7 @@ function getRevealedHTML(item, forceShowPrice = false) {
                       white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1;
                       text-shadow:0 0 7px ${rc.c};">${item.name}</div>
           <div style="font-size:${isFigureVertical?'0.68rem':'0.72rem'};color:#00ff9d;font-weight:900;margin-top:3px;
-                      text-shadow:0 0 6px rgba(0,255,157,.45);">&#129689; ${money(item.price)}</div>
+                      text-shadow:0 0 6px rgba(0,255,157,.45);">🪙 ${money(item.price)}</div>
         </div>
       </div>`;
 }
@@ -1508,18 +2807,13 @@ window.onload = () => {
     const startBtn = document.getElementById('startBtn');
     
     if(splash && startBtn) {
-        // Teks tombol harus menampilkan AKSES MASUK LELANG selama 2 detik.
-        // Setelah jeda 2 detik, bila data tersimpan, baru berubah menjadi SINKRONISASI ULANG.
-        startBtn.textContent = 'AKSES MASUK LELANG';
         setTimeout(() => {
             if (localStorage.getItem('nexus_save')) {
                 startBtn.textContent = 'SINKRONISASI ULANG';
             }
-        }, 2000);
+        }, 50);
         
         startBtn.onclick = () => {
-            ensureAudio();
-            playIntroSound();
             document.getElementById('start-screen').style.display = 'none';
             
             splash.innerHTML = `
@@ -1535,8 +2829,24 @@ window.onload = () => {
                 setTimeout(() => { 
                     splash.style.display = 'none'; 
                     
-                    // Audio sudah dipicu oleh gesture pengguna di awal intro.
+                    // Inisialisasi audio setelah splash hilang (lebih ringan)
                     ensureAudio();
+                    // Suara pendek sederhana
+                    if(audioCtx) {
+                        try {
+                            const o = audioCtx.createOscillator();
+                            const g = audioCtx.createGain();
+                            o.type = 'sine';
+                            o.frequency.value = 660;
+                            g.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+                            g.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.02);
+                            g.gain.linearRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
+                            o.connect(g);
+                            g.connect(master);
+                            o.start();
+                            o.stop(audioCtx.currentTime + 0.3);
+                        } catch(e) {}
+                    }
                     
                     if (localStorage.getItem('nexus_save')) {
                         loadData();
@@ -1638,7 +2948,7 @@ function initMenus() {
             <div class="grid-sub" style="color:#e0d8ea; font-size:11px; margin-top:5px; line-height:1.4;">
                 Tipe: ${x[4]}<br>Ukuran: ${x[5]}x${x[6]}<br>
                 Rarity: ${x[2]}<br>
-                <b style="color:#00ff9d; display:block; margin-top:4px; font-size:13px; text-shadow:0 0 5px rgba(0,255,157,0.5);">&#129689; ${money(x[3])}</b>
+                <b style="color:#00ff9d; display:block; margin-top:4px; font-size:13px; text-shadow:0 0 5px rgba(0,255,157,0.5);">🪙 ${money(x[3])}</b>
             </div>
         </div>`;
     }).join('');
@@ -1649,7 +2959,7 @@ function initMenus() {
         <div class="player" style="border-bottom: 1px solid #2a1545; background: rgba(0,0,0,0.2); border-radius:8px; padding:10px 15px;">
             <b style="color:#00f3ff; font-size:18px; margin-right:15px;">#${i+1}</b>
             <div style="flex:1;"><b style="color:#e0d8ea">${l.n}</b></div>
-            <div style="color:#00ff9d; font-weight:900;">&#129689; ${money(l.s)}</div>
+            <div style="color:#00ff9d; font-weight:900;">🪙 ${money(l.s)}</div>
         </div>
     `).join('');
 }
@@ -1692,11 +3002,11 @@ function formatItem(x, index) {
 
     if (isFig) {
         if (x.equipped) {
-            badgeHTML = `<div style="position:absolute; top:5px; right:5px; background:#00f3ff; color:#000; font-size:9px; padding:3px 6px; border-radius:4px; font-weight:900; z-index:5; box-shadow:0 2px 5px rgba(0,0,0,0.5);">&#10024; DIPAJANG</div>`;
-            btnHTML = `<button class="btn" style="position:absolute; bottom:8px; left:5%; right:5%; width:90%; background:#1c3a5e; color:#00f3ff; border-color:#00f3ff; font-size:10px; padding:6px;" onclick="toggleEquip(${index})">&#128229; SIMPAN KEMBALI</button>`;
+            badgeHTML = `<div style="position:absolute; top:5px; right:5px; background:#00f3ff; color:#000; font-size:9px; padding:3px 6px; border-radius:4px; font-weight:900; z-index:5; box-shadow:0 2px 5px rgba(0,0,0,0.5);">✨ DIPAJANG</div>`;
+            btnHTML = `<button class="btn" style="position:absolute; bottom:8px; left:5%; right:5%; width:90%; background:#1c3a5e; color:#00f3ff; border-color:#00f3ff; font-size:10px; padding:6px;" onclick="toggleEquip(${index})">📥 SIMPAN KEMBALI</button>`;
         } else {
             btnHTML = `
-            <button class="btn" style="position:absolute; bottom:8px; left:5%; background:#3a1c5e; color:#a385ff; border-color:#a385ff; font-size:10px; padding:6px; width:50%;" onclick="toggleEquip(${index})">&#10024; PAJANG</button>
+            <button class="btn" style="position:absolute; bottom:8px; left:5%; background:#3a1c5e; color:#a385ff; border-color:#a385ff; font-size:10px; padding:6px; width:50%;" onclick="toggleEquip(${index})">✨ PAJANG</button>
             <button class="btn" style="position:absolute; bottom:8px; right:5%; background:#4a1525; color:#ff007b; border-color:#ff007b; font-size:10px; padding:6px; width:35%;" onclick="deleteItem(${index})">JUAL</button>
             `;
         }
@@ -1708,7 +3018,7 @@ function formatItem(x, index) {
         ${badgeHTML}
         <div class="grid-icon">${renderIcon(x.icon||x[0], "60px", x.rarity||x[2])}</div>
         <div class="grid-title" style="font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${x.name||x[1]}</div>
-        <div class="grid-sub" style="color:#00ff9d; font-size:11px;">&#129689; ${money(x.price||x[3])}</div>
+        <div class="grid-sub" style="color:#00ff9d; font-size:11px;">🪙 ${money(x.price||x[3])}</div>
         ${btnHTML}
     </div>`;
 }
@@ -1728,8 +3038,8 @@ function updateInventoryUI() {
                     <div class="grid-item" style="position:relative; padding-bottom:45px;">
                         <div class="grid-icon">${renderIcon(obj.item.icon||obj.item[0], "60px", obj.item.rarity||obj.item[2])}</div>
                         <div class="grid-title">${obj.item.name||obj.item[1]}</div>
-                        <div class="grid-sub" style="color:#00ff9d;">&#129689; ${money(obj.item.price||obj.item[3])}</div>
-                        <button class="btn" style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); background:#3a1c5e; color:#a385ff; border-color:#a385ff; font-size:10px; padding:4px 10px; width:80%;" onclick="toggleEquip(${obj.originalIndex})">&#128229; SIMPAN KEMBALI</button>
+                        <div class="grid-sub" style="color:#00ff9d;">🪙 ${money(obj.item.price||obj.item[3])}</div>
+                        <button class="btn" style="position:absolute; bottom:8px; left:50%; transform:translateX(-50%); background:#3a1c5e; color:#a385ff; border-color:#a385ff; font-size:10px; padding:4px 10px; width:80%;" onclick="toggleEquip(${obj.originalIndex})">📥 SIMPAN KEMBALI</button>
                     </div>
                 `).join('');
             } else {
@@ -1766,7 +3076,7 @@ function deleteItem(index) {
         document.getElementById('coins').textContent = money(coins);
   if(document.getElementById('diamondsUI')) document.getElementById('diamondsUI').textContent = diamonds;
   if(document.getElementById('spinBadge')) document.getElementById('spinBadge').textContent = (3 - spinsToday) + '/3';
-        showToast(`${removed.name || removed[1]} terjual (+&#129689; ${money(val)}).`);
+        showToast(`${removed.name || removed[1]} terjual (+🪙 ${money(val)}).`);
         updateInventoryUI();
         touchSound();
         saveData();
@@ -1808,7 +3118,7 @@ function bulkDelete(rarity) {
   if(document.getElementById('spinBadge')) document.getElementById('spinBadge').textContent = (3 - spinsToday) + '/3';
     }
     
-    showToast(`Berhasil menjual ${deletedCount} item ${rarity} (+&#129689; ${money(earned)}).`);
+    showToast(`Berhasil menjual ${deletedCount} item ${rarity} (+🪙 ${money(earned)}).`);
     updateInventoryUI();
     touchSound();
     saveData();
@@ -1839,7 +3149,7 @@ function claimGallery() {
         coins += amount;
         pendingGalleryCredits = 0;
         document.getElementById('galleryCredits').textContent = "0";
-        showToast(`Berhasil klaim &#129689; ${money(amount)} kredit dari Galeri.`);
+        showToast(`Berhasil klaim 🪙 ${money(amount)} kredit dari Galeri.`);
         enterLobby();
     } else {
         showToast("Belum ada kredit terkumpul.");
@@ -1859,7 +3169,7 @@ function lanDecode(t){return JSON.parse(decodeURIComponent(escape(atob(t.trim())
 function lanWaitIce(pc){if(pc.iceGatheringState==='complete')return Promise.resolve();return new Promise(r=>{const f=()=>{if(pc.iceGatheringState==='complete'){pc.removeEventListener('icegatheringstatechange',f);r();}};pc.addEventListener('icegatheringstatechange',f);setTimeout(r,6000);});}
 function lanSend(dc,m){try{if(dc&&dc.readyState==='open')dc.send(JSON.stringify(m));}catch(e){}}
 function lanBroadcast(m){lanPeers.forEach(p=>lanSend(p.dc,m));}
-function lanCopy(id){const e=document.getElementById(id);if(!e||!e.value)return showToast('Belum ada kode.');navigator.clipboard?.writeText(e.value).then(()=>showToast('&#128203; Kode disalin.')).catch(()=>{e.select();document.execCommand('copy');showToast('&#128203; Kode disalin.');});}
+function lanCopy(id){const e=document.getElementById(id);if(!e||!e.value)return showToast('Belum ada kode.');navigator.clipboard?.writeText(e.value).then(()=>showToast('📋 Kode disalin.')).catch(()=>{e.select();document.execCommand('copy');showToast('📋 Kode disalin.');});}
 async function lanShare(id){const e=document.getElementById(id);if(!e||!e.value)return showToast('Belum ada kode.');try{if(navigator.share)await navigator.share({title:'Nexus Auction LAN',text:e.value});else lanCopy(id);}catch(e){}}
 function openLanMode(){closeCitySelection();document.getElementById('lanModal').style.display='flex';lanShowHost();lanRenderHostPlayers();}
 function closeLanMode(){document.getElementById('lanModal').style.display='none';}
@@ -1870,7 +3180,7 @@ let lanSignalSocket=null, lanAutoRole=null, lanAutoHostInfo=null;
 let lanAutoRooms=new Map();
 function lanAutoDiscover(){
   const box=document.getElementById('lanRoomList');
-  if(box) box.innerHTML='<span style="color:#00f3ff">&#128269; Mencari room di jaringan lokal...</span>';
+  if(box) box.innerHTML='<span style="color:#00f3ff">🔎 Mencari room di jaringan lokal...</span>';
   if(window.AndroidLAN?.discoverRooms) AndroidLAN.discoverRooms();
   else if(box) box.textContent='Mode browser: discovery otomatis membutuhkan APK Android.';
 }
@@ -1881,7 +3191,7 @@ window.onAndroidLanRoomLost=function(name){lanAutoRooms.delete(name);lanRenderRo
 function lanRenderRooms(){
   const box=document.getElementById('lanRoomList');if(!box)return;
   if(!lanAutoRooms.size){box.innerHTML='<span class="muted">Tidak ada room ditemukan.</span>';return;}
-  box.innerHTML=Array.from(lanAutoRooms.values()).map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;margin-top:7px;border:1px solid #26334a;border-radius:10px;background:#070b12;"><div><b>&#128225; ${escapeHtml(r.name||'Nexus Auction')}</b><div class="muted" style="font-size:11px;">${escapeHtml(r.host)}:${r.port}</div></div><button class="btn primary" onclick='lanAutoJoin(${JSON.stringify(r)})'>GABUNG</button></div>`).join('');
+  box.innerHTML=Array.from(lanAutoRooms.values()).map(r=>`<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px;margin-top:7px;border:1px solid #26334a;border-radius:10px;background:#070b12;"><div><b>📡 ${escapeHtml(r.name||'Nexus Auction')}</b><div class="muted" style="font-size:11px;">${escapeHtml(r.host)}:${r.port}</div></div><button class="btn primary" onclick='lanAutoJoin(${JSON.stringify(r)})'>GABUNG</button></div>`).join('');
 }
 function escapeHtml(x){return String(x).replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));}
 function lanOpenSignal(url,onMsg){try{if(lanSignalSocket)lanSignalSocket.close();lanSignalSocket=new WebSocket(url);lanSignalSocket.onmessage=e=>onMsg(e.data);lanSignalSocket.onclose=()=>{};return true;}catch(e){showToast('LAN signaling gagal.');return false;}}
@@ -1892,8 +3202,8 @@ function lanAutoHost(){
   if(!info.ok){showToast('Gagal membuat room LAN.');return;}
   lanAutoRole='host';lanMode=true;lanRole='host';lanAutoHostInfo=info;
   lanOpenSignal('ws://127.0.0.1:'+info.port, raw=>lanAutoHostReceive(raw));
-  showToast('&#128225; Room LAN aktif. HP lain dapat menemukan room otomatis.');
-  lanSetStatus('lanHostStatus','&#128225; ROOM AKTIF — '+info.ip+':'+info.port);
+  showToast('📡 Room LAN aktif. HP lain dapat menemukan room otomatis.');
+  lanSetStatus('lanHostStatus','📡 ROOM AKTIF — '+info.ip+':'+info.port);
 }
 async function lanAutoHostReceive(raw){
   let m;try{m=JSON.parse(raw)}catch(e){return}
@@ -1903,7 +3213,7 @@ async function lanAutoHostReceive(raw){
     const slot='S'+(++lanOfferSeq),rec=lanMakePeer(slot);rec.name=(m.name||'Player').slice(0,24);rec.socketId=m.clientId||'';lanPeers.set(slot,rec);lanRenderHostPlayers();
     const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await lanWaitIce(rec.pc);
     lanSignalSend({type:'lanOffer',slot,clientId:rec.socketId,sdp:rec.pc.localDescription,city:selectedAuctionCity});
-    lanSetStatus('lanHostStatus',`&#128225; ${lanPeers.size+1}/${LAN_MAX_PLAYERS} pemain terhubung.`);
+    lanSetStatus('lanHostStatus',`📡 ${lanPeers.size+1}/${LAN_MAX_PLAYERS} pemain terhubung.`);
   }else if(m.type==='lanAnswer'){
     const rec=lanPeers.get(m.slot)||lanPending.get(m.slot);if(!rec)return;try{await rec.pc.setRemoteDescription(m.sdp);}catch(e){}
   }
@@ -1912,9 +3222,9 @@ async function lanAutoJoin(r){
   selectedAuctionCity=selectedAuctionCity||'CITY1';lanAutoRole='client';lanMode=true;lanRole='client';
   const clientId='C'+Math.random().toString(36).slice(2,10);
   if(!lanOpenSignal('ws://'+r.host+':'+r.port, raw=>lanAutoClientReceive(raw,clientId))){return;}
-  lanSetStatus('lanJoinStatus','&#128279; Menghubungkan ke '+r.name+'...');
+  lanSetStatus('lanJoinStatus','🔗 Menghubungkan ke '+r.name+'...');
   const sendHello=()=>lanSignalSend({type:'lanHello',name:playerProfile.name,clientId});
-  const old=lanSignalSocket.onopen;lanSignalSocket.onopen=()=>{if(old)old();sendHello();lanSetStatus('lanJoinStatus','&#9989; Terhubung ke room. Menunggu Host.');};
+  const old=lanSignalSocket.onopen;lanSignalSocket.onopen=()=>{if(old)old();sendHello();lanSetStatus('lanJoinStatus','✅ Terhubung ke room. Menunggu Host.');};
 }
 async function lanAutoClientReceive(raw,clientId){
   let m;try{m=JSON.parse(raw)}catch(e){return}
@@ -1926,18 +3236,18 @@ async function lanAutoClientReceive(raw,clientId){
     pc.ondatachannel=e=>{lanHostDC=e.channel;lanHostDC.onopen=()=>{lanSend(lanHostDC,{type:'hello',name:playerProfile.name});};lanHostDC.onmessage=e=>lanClientReceive(e.data);};
     await pc.setRemoteDescription(m.sdp);const ans=await pc.createAnswer();await pc.setLocalDescription(ans);await lanWaitIce(pc);
     lanSignalSend({type:'lanAnswer',slot:m.slot,clientId,sdp:pc.localDescription});
-    lanSetStatus('lanJoinStatus','&#9989; Berhasil terhubung — menunggu Host memulai.');
+    lanSetStatus('lanJoinStatus','✅ Berhasil terhubung — menunggu Host memulai.');
   }catch(e){showToast('Gagal membuat koneksi pemain.');}
 }
 function lanShowHost(){document.getElementById('lanHostPanel').style.display='block';document.getElementById('lanJoinPanel').style.display='none';}
 function lanShowJoin(){document.getElementById('lanHostPanel').style.display='none';document.getElementById('lanJoinPanel').style.display='block';lanAutoDiscover();}
-function lanRenderHostPlayers(){const e=document.getElementById('lanHostPlayers');if(!e)return;const a=[playerProfile.name,...Array.from(lanPeers.values()).map(x=>x.name||'Player')];e.innerHTML=a.map((n,i)=>`<div style="display:flex;justify-content:space-between;padding:9px 10px;border:1px solid #26334a;border-radius:8px;background:rgba(0,243,255,.04);"><b>${i===0?'&#128273; ':''}${n}</b><span style="color:#00ff9d">${i===0?'HOST':'&#9679; ONLINE'}</span></div>`).join('');}
+function lanRenderHostPlayers(){const e=document.getElementById('lanHostPlayers');if(!e)return;const a=[playerProfile.name,...Array.from(lanPeers.values()).map(x=>x.name||'Player')];e.innerHTML=a.map((n,i)=>`<div style="display:flex;justify-content:space-between;padding:9px 10px;border:1px solid #26334a;border-radius:8px;background:rgba(0,243,255,.04);"><b>${i===0?'🔑 ':''}${n}</b><span style="color:#00ff9d">${i===0?'HOST':'● ONLINE'}</span></div>`).join('');}
 function lanMakePeer(slot){const pc=new RTCPeerConnection({iceServers:[]});const dc=pc.createDataChannel('nexus-auction');const rec={pc,dc,name:null,slot};lanPending.set(slot,rec);dc.onopen=()=>lanSetStatus('lanHostStatus','Player terhubung.');dc.onmessage=e=>lanHostReceive(rec,e.data);pc.onconnectionstatechange=()=>{if(['failed','closed'].includes(pc.connectionState)){lanPending.delete(slot);if(rec.name)lanPeers.delete(slot);lanRenderHostPlayers();}};return rec;}
 function lanSetStatus(id,t){const e=document.getElementById(id);if(e)e.textContent=t;}
 async function lanCreateOffer(){if(lanPeers.size>=LAN_MAX_PLAYERS-1)return showToast('Slot player penuh.');lanMode=true;lanRole='host';const slot='S'+(++lanOfferSeq),rec=lanMakePeer(slot);const offer=await rec.pc.createOffer();await rec.pc.setLocalDescription(offer);await lanWaitIce(rec.pc);document.getElementById('lanOfferOut').value=lanEncode({v:1,city:selectedAuctionCity,slot,sdp:rec.pc.localDescription});lanSetStatus('lanHostStatus',`Kode Player ${lanPeers.size+2} siap. Kirim ke HP player.`);}
 async function lanAcceptAnswer(){try{const d=lanDecode(document.getElementById('lanAnswerIn').value),rec=lanPending.get(d.slot);if(!rec)throw 0;await rec.pc.setRemoteDescription(d.sdp);lanSetStatus('lanHostStatus','Jawaban diterima. Menunggu koneksi...');}catch(e){showToast('Kode jawaban tidak valid atau bukan untuk slot tersebut.');}}
 function lanHostReceive(rec,raw){let m;try{m=JSON.parse(raw)}catch(e){return}if(m.type==='hello'){rec.name=(m.name||'Player').slice(0,24);lanPeers.set(rec.slot,rec);lanRenderHostPlayers();lanBroadcast({type:'roster',players:[playerProfile.name,...Array.from(lanPeers.values()).map(x=>x.name)],city:selectedAuctionCity});}if(m.type==='bid'&&lanRole==='host'&&!roundFinished){const n=Math.max(0,Math.floor(Number(m.bid)||0));playerBids[rec.name]=n;setBidLockIndicator(rec.name,true);lanBroadcast({type:'bidSync',name:rec.name,bid:n,round,locked:true});checkAllBids();}}
-async function lanJoinFromOffer(){try{const d=lanDecode(document.getElementById('lanOfferIn').value);if(!d.sdp)throw 0;selectedAuctionCity=d.city||selectedAuctionCity;lanMode=true;lanRole='client';const pc=new RTCPeerConnection({iceServers:[]});lanHostPC=pc;pc.ondatachannel=e=>{lanHostDC=e.channel;lanHostDC.onopen=()=>{lanSetStatus('lanJoinStatus','&#9989; TERHUBUNG — menunggu host.');lanSend(lanHostDC,{type:'hello',name:playerProfile.name});};lanHostDC.onmessage=e=>lanClientReceive(e.data);};await pc.setRemoteDescription(d.sdp);const ans=await pc.createAnswer();await pc.setLocalDescription(ans);await lanWaitIce(pc);document.getElementById('lanAnswerOut').value=lanEncode({v:1,slot:d.slot,sdp:pc.localDescription});}catch(e){showToast('Kode HOST tidak valid.');}}
+async function lanJoinFromOffer(){try{const d=lanDecode(document.getElementById('lanOfferIn').value);if(!d.sdp)throw 0;selectedAuctionCity=d.city||selectedAuctionCity;lanMode=true;lanRole='client';const pc=new RTCPeerConnection({iceServers:[]});lanHostPC=pc;pc.ondatachannel=e=>{lanHostDC=e.channel;lanHostDC.onopen=()=>{lanSetStatus('lanJoinStatus','✅ TERHUBUNG — menunggu host.');lanSend(lanHostDC,{type:'hello',name:playerProfile.name});};lanHostDC.onmessage=e=>lanClientReceive(e.data);};await pc.setRemoteDescription(d.sdp);const ans=await pc.createAnswer();await pc.setLocalDescription(ans);await lanWaitIce(pc);document.getElementById('lanAnswerOut').value=lanEncode({v:1,slot:d.slot,sdp:pc.localDescription});}catch(e){showToast('Kode HOST tidak valid.');}}
 function lanClientBeginRound(m){show('game');roundFinished=false;round=m.round||1;auctionItems=m.items||auctionItems;playerBids=m.bids||{};bidLockHistory=m.locks||{};window._totalBoardValue=auctionItems.reduce((a,x)=>a+Number(x.price||0),0);window._currentRoundMultiplier=ROUND_MULTIPLIERS[round]||1.1;buildBoard();renderGamePlayers();document.getElementById('myBidStatus').textContent='MENUNGGU / INPUT BID';document.getElementById('round').textContent=round;document.getElementById('timer').textContent=String(m.time||30);updateMinBid();if(m.time){clearInterval(timerId);let localT=Number(m.time);timerId=setInterval(()=>{if(roundFinished)return;localT--;document.getElementById('timer').textContent=String(Math.max(0,localT));if(localT<=0)clearInterval(timerId);},1000);}}
 function lanClientReceive(raw){let m;try{m=JSON.parse(raw)}catch(e){return}if(m.type==='roster'){activePlayersList=m.players||activePlayersList;renderGamePlayers();}else if(m.type==='start'){activePlayersList=m.players||activePlayersList;selectedAuctionCity=m.city||selectedAuctionCity;window.lanBotPlayers=new Set(m.bots||[]);window.lanHumanPlayers=new Set(activePlayersList.filter(n=>!window.lanBotPlayers.has(n)));lanClientBeginRound({items:m.items,round:m.round,time:m.time,bids:{},locks:{}});}else if(m.type==='roundState'){activePlayersList=m.players||activePlayersList;lanClientBeginRound(m);}else if(m.type==='bidSync'){playerBids[m.name]=m.bid;if(m.locked)setBidLockIndicator(m.name,true);renderGamePlayers();}else if(m.type==='revealSync'){const ix=auctionItems.findIndex(x=>x.index===m.item.index||x.itemId===m.item.itemId);if(ix>=0){auctionItems[ix]=m.item;const x=auctionItems[ix];const e=document.getElementById('c'+x.index);if(e){e.classList.add('revealed','reveal-base');e.style.padding='0';e.style.display='block';e.style.border='none';e.style.background='transparent';e.innerHTML=getRevealedHTML(x,false);}updateMinBid();}}else if(m.type==='roundResult'){lanApplyRemoteResult(m);}else if(m.type==='nextRound'){lanClientBeginRound({items:m.items,round:m.round,time:30,bids:{},locks:{}});}}
 function lanApplyRemoteResult(m){roundFinished=true;window.lastRoundResult=m.entries||[];const win=m.winner===playerProfile.name;if(win){coins=Math.max(0,coins-Number(m.winningBid||0));safesWon++;auctionItems.forEach(i=>myInventory.push(i));saveData();}showVictoryScreen(win,m.winner,Number(m.winningBid||0),null);}
@@ -1971,7 +3281,7 @@ function chooseGameMode(mode){
   closeModeSelection();
   const m=document.getElementById('citySelectionModal');
   if(m) m.style.display='flex';
-  showToast(gameMode==='LAN' ? '&#128225; Mode Multiplayer LAN dipilih. Sekarang pilih kota.' : '&#129302; Mode Single Player dipilih. Sekarang pilih kota.');
+  showToast(gameMode==='LAN' ? '📡 Mode Multiplayer LAN dipilih. Sekarang pilih kota.' : '🤖 Mode Single Player dipilih. Sekarang pilih kota.');
 }
 function openCitySelection(){
   gameMode='SINGLE';
@@ -1986,10 +3296,10 @@ function selectAuctionCity(city){
   selectedAuctionCity = ['CITY1','CITY2','CITY3'].includes(city) ? city : 'CITY1';
   closeCitySelection();
   showToast(selectedAuctionCity === 'CITY3'
-    ? '&#128142; Kota 3 dipilih — setiap ronde 1–2 item akan bernilai 2x harga asli.'
+    ? '💎 Kota 3 dipilih — setiap ronde 1–2 item akan bernilai 2x harga asli.'
     : selectedAuctionCity === 'CITY2'
-      ? '&#128273; Kota 2 dipilih — peluang item kualitas tinggi ditingkatkan.'
-      : '&#127959;&#65039; Kota 1 dipilih — distribusi item standar.');
+      ? '🔑 Kota 2 dipilih — peluang item kualitas tinggi ditingkatkan.'
+      : '🏙️ Kota 1 dipilih — distribusi item standar.');
   setTimeout(()=>{
     if(gameMode === 'LAN'){ openLanMode(); }
     else { lanMode=false; lanRole=''; startMatchmaking(); }
@@ -2008,7 +3318,7 @@ function updateMinBid() {
 function startMatchmaking(){
   show('match');
   const cityLabel=document.getElementById('matchCityLabel');
-  if(cityLabel) cityLabel.textContent = selectedAuctionCity === 'CITY3' ? '&#128142; KOTA 3 &#8226; ×2 VALUE / RONDE' : (selectedAuctionCity === 'CITY2' ? '&#128273; KOTA 2 &#8226; HIGH RARITY' : '&#127959;&#65039; KOTA 1 &#8226; STANDARD');
+  if(cityLabel) cityLabel.textContent = selectedAuctionCity === 'CITY3' ? '💎 KOTA 3 • ×2 VALUE / RONDE' : (selectedAuctionCity === 'CITY2' ? '🔑 KOTA 2 • HIGH RARITY' : '🏙️ KOTA 1 • STANDARD');
   matchmaking = true;
   
   let availableNames = botNamesPool.filter(n => n.toLowerCase() !== playerProfile.name.toLowerCase());
@@ -2028,13 +3338,13 @@ function startMatchmaking(){
               const d = (i === 0) ? activeUserHero : roster[i];
               html += `<div class="wait-slot">
                   <div class="matchPhoto" style="width:90px; height:90px; border:2px solid #00f3ff; border-radius:16px; background:radial-gradient(circle, #1a0f2e, #05020a); margin-bottom:15px; display:flex; align-items:center; justify-content:center; overflow:hidden;">${d.photo}</div>
-                  <b style="color:#00f3ff; font-size:18px;">${(i===0 ? (playerProfile.country || '&#127760;') : (d.country || '&#127760;'))} ${p}</b>
+                  <b style="color:#00f3ff; font-size:18px;">${(i===0 ? (playerProfile.country || '🌐') : (d.country || '🌐'))} ${p}</b>
                   <div class="muted" style="font-size:13px; font-weight:700; margin-top:5px;">${d.role}</div>
-                  <div style="margin-top:15px; color:#00ff9d; font-size:12px; font-weight:900; letter-spacing:1px;">&#9989; TERHUBUNG</div>
+                  <div style="margin-top:15px; color:#00ff9d; font-size:12px; font-weight:900; letter-spacing:1px;">✅ TERHUBUNG</div>
               </div>`;
           } else {
               html += `<div class="wait-slot empty">
-                  <div style="font-size:35px; margin-bottom:15px; filter:grayscale(1); opacity:0.5;">&#128225;</div>
+                  <div style="font-size:35px; margin-bottom:15px; filter:grayscale(1); opacity:0.5;">📡</div>
                   <div style="font-weight:700;">MENCARI...</div>
                   <div class="muted" style="font-size:12px; margin-top:5px;">Slot ${i+1}</div>
               </div>`;
@@ -2193,13 +3503,13 @@ function buildBoard(){
     }
 
     e.style.background=`linear-gradient(145deg,${rarityColor[x.rarity]}10,#0a0514)`;
-    e.setAttribute('aria-label',`Slot ${i+1} &#8226; ${spanW}x${spanH}`);
+    e.setAttribute('aria-label',`Slot ${i+1} • ${spanW}x${spanH}`);
     e.onclick=()=>{
       touchSound();
       if(x.revealLevel >= 4 || x.known){
-        showToast(`${x.name} &#8226; ${x.type} &#8226; ${x.rarity} &#8226; ${spanW}x${spanH} &#8226; &#129689; ${money(x.price)}`);
+        showToast(`${x.name} • ${x.type} • ${x.rarity} • ${spanW}x${spanH} • 🪙 ${money(x.price)}`);
       } else {
-        showToast(`Box ${i+1} &#8226; ${spanW}x${spanH} &#8226; Konten Rahasia`);
+        showToast(`Box ${i+1} • ${spanW}x${spanH} • Konten Rahasia`);
       }
     };
     board.appendChild(e);
@@ -2237,18 +3547,18 @@ function renderGamePlayers(){
     const history = Array.from({length:5}, (_,n) => {
       const r = n + 1;
       const locked = !!(bidLockHistory[name] && bidLockHistory[name][r]);
-      return `<span id="bid-round-${i}-${r}" class="bid-round-dot${locked ? ' locked' : ''}${r===round ? ' current' : ''}">${locked ? '&#10003;' : 'R'+r}</span>`;
+      return `<span id="bid-round-${i}-${r}" class="bid-round-dot${locked ? ' locked' : ''}${r===round ? ' current' : ''}">${locked ? '✓' : 'R'+r}</span>`;
     }).join('');
 
     return `<div id="game-player-card-${i}" class="game-player-card${bidLockHistory[name] && bidLockHistory[name][round] ? ' bid-locked' : ''}">
       <div class="game-player-avatar">
         <div class="matchPhoto">${d.photo}</div>
         <div id="bid-lock-badge-${i}" class="bid-lock-badge${bidLockHistory[name] && bidLockHistory[name][round] ? ' show' : ''}">
-          <span class="lock-icon">&#128274;</span><span>LOCKED</span>
+          <span class="lock-icon">🔒</span><span>LOCKED</span>
         </div>
       </div>
       <div style="flex:1;min-width:0;">
-        <b style="color:#e0d8ea;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${(i===0 ? (playerProfile.country || '&#127760;') : (d.country || '&#127760;'))} ${dispName}</b>
+        <b style="color:#e0d8ea;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${(i===0 ? (playerProfile.country || '🌐') : (d.country || '🌐'))} ${dispName}</b>
         <div class="muted" style="font-size:11px;font-weight:700;">${d.role}</div>
         <div class="bid-round-label">STATUS BID / RONDE</div>
         <div class="bid-round-history">${history}</div>
@@ -2337,8 +3647,8 @@ function newRound(){
   if(!(lanMode && lanRole==='host')) scheduleAutoBids();
   if(lanMode && lanRole==='host') lanHostBroadcastRound();
   // Hanya tampilkan multiplier, tanpa nilai total
-  const city3Note = selectedAuctionCity === 'CITY3' ? ` | &#128142; ${window._city3BoostCount || 0} ITEM ×2` : '';
-  setJudge(`Fase Ekstraksi ${round} dimulai! (Syarat Partisipasi: &#129689; ${money(roundMinBid)}) | Target &#128274; ${mult.toFixed(1)}x${city3Note}`);
+  const city3Note = selectedAuctionCity === 'CITY3' ? ` | 💎 ${window._city3BoostCount || 0} ITEM ×2` : '';
+  setJudge(`Fase Ekstraksi ${round} dimulai! (Syarat Partisipasi: 🪙 ${money(roundMinBid)}) | Target 🔒 ${mult.toFixed(1)}x${city3Note}`);
   
   setTimeout(publicIntelReveal, 1000);
   setTimeout(automaticHeroSkill, 2500);
@@ -2388,7 +3698,7 @@ function revealItemsStaggered(itemsToReveal, hidePrice, revealType) {
             e.innerHTML = getRevealedHTML(x, hidePrice);
             
             let freq = 450;
-            if(x.rarity === 'MYTHIC' || x.rarity === 'LEGENDARY') { freq = 850; showToast(`&#9888;&#65039; PERINGATAN: Relik kelas dewa terdeteksi!`); }
+            if(x.rarity === 'MYTHIC' || x.rarity === 'LEGENDARY') { freq = 850; showToast(`⚠️ PERINGATAN: Relik kelas dewa terdeteksi!`); }
             else if(x.rarity === 'EPIC' || x.rarity === 'RARE') freq = 600;
             sound(freq);
         }
@@ -2402,13 +3712,13 @@ function publicIntelReveal() {
     const hidden = auctionItems.filter(x => !x.known && !x.publiclyRevealed);
     const toReveal = hidden.sort(() => Math.random() - 0.5).slice(0, count);
     
-    showToast(`&#127760; Informasi Publik: Memindai ${toReveal.length} Item...`);
+    showToast(`🌐 Informasi Publik: Memindai ${toReveal.length} Item...`);
     revealItemsStaggered(toReveal, false, 'public');
 }
 
 function automaticHeroSkill() {
     if(roundFinished) return;
-    showToast(`&#9889; Protokol ${activeUserHero.id} aktif! Mem-bypass enkripsi secara rahasia...`);
+    showToast(`⚡ Protokol ${activeUserHero.id} aktif! Mem-bypass enkripsi secara rahasia...`);
     
     const hidden = auctionItems.filter(x => !x.privatelyRevealed && !x.publiclyRevealed);
     const toReveal = hidden.sort(() => Math.random() - 0.5).slice(0, 3);
@@ -2507,7 +3817,7 @@ function useCalcBid(){
   const statusEl = document.getElementById(`status-${activePlayersList.indexOf(playerProfile.name)}`);
   if(statusEl) { statusEl.style.background = '#00ff9d'; statusEl.style.boxShadow = '0 0 8px #00ff9d'; }
   setBidLockIndicator(playerProfile.name, true);
-  closeCalculator(); sound(440); showToast(`&#128274; Bid ronde ${round} terkunci. Penanda ditampilkan pada karakter Anda.`);
+  closeCalculator(); sound(440); showToast(`🔒 Bid ronde ${round} terkunci. Penanda ditampilkan pada karakter Anda.`);
   checkAllBids();
 }
 
@@ -2571,7 +3881,7 @@ function loadData() {
                     if (offlineEarned > 0) {
                         pendingGalleryCredits += offlineEarned;
                         setTimeout(() => {
-                            showToast(`&#9889; Sistem Offline: Memperoleh &#129689; ${money(Math.floor(offlineEarned))} dari Ruang Pamer.`);
+                            showToast(`⚡ Sistem Offline: Memperoleh 🪙 ${money(Math.floor(offlineEarned))} dari Ruang Pamer.`);
                         }, 3500);
                     }
                 }
@@ -2612,7 +3922,7 @@ function setBidLockIndicator(playerName, locked){
     const isLocked = !!(bidLockHistory[playerName] && bidLockHistory[playerName][r]);
     dot.classList.toggle('locked', isLocked);
     dot.classList.toggle('current', r === round);
-    dot.textContent = isLocked ? '&#10003;' : `R${r}`;
+    dot.textContent = isLocked ? '✓' : `R${r}`;
   }
 }
 
@@ -2689,8 +3999,8 @@ function resolveRound(){
                       <span style="color:#ffd700; font-size:13px; margin-left:5px;">/ TARGET: ${targetMult.toFixed(1)}x</span>
                   </div>
                   <div style="text-align:right;">
-                      <b style="color:#00ff9d;">&#129689; ${money(e[1])}</b>
-                      <div style="color:#8b7a9e; font-size:12px; font-weight:700;">Est. Value saat ini: &#129689; ${money(currentKnownValue)}</div>
+                      <b style="color:#00ff9d;">🪙 ${money(e[1])}</b>
+                      <div style="color:#8b7a9e; font-size:12px; font-weight:700;">Est. Value saat ini: 🪙 ${money(currentKnownValue)}</div>
                       <!-- Target nilai total disembunyikan, hanya multiplier -->
                   </div>
               </div>
@@ -2734,9 +4044,9 @@ function resolveRound(){
                   myInventory.push(item);
               });
               saveData();
-              setJudge(`Lelang ditutup! ${winningName} memenangkan brankas. (&#129689; ${money(winningBid)})`);
+              setJudge(`Lelang ditutup! ${winningName} memenangkan brankas. (🪙 ${money(winningBid)})`);
           } else {
-              setJudge(`Brankas direbut oleh ${winningName} dengan &#129689; ${money(winningBid)}.`);
+              setJudge(`Brankas direbut oleh ${winningName} dengan 🪙 ${money(winningBid)}.`);
           }
           
           setTimeout(() => {
@@ -2755,7 +4065,7 @@ function resolveRound(){
           }, 2000);
           
       } else {
-          setJudge(`Fase gagal. Tawaran tertinggi (&#129689; ${money(winningBid)}) tidak mencapai ambang batas.`);
+          setJudge(`Fase gagal. Tawaran tertinggi (🪙 ${money(winningBid)}) tidak mencapai ambang batas.`);
           sound(200);
           setTimeout(()=>{
             if(round >= 5){
@@ -2797,12 +4107,12 @@ function showVictoryScreen(userWon, winnerName, winBid, bestFigure = null) {
                   ${renderIcon(bestFigure.icon, "100%", bestFigure.rarity, true)}
                 </div>
               </div>
-              <div style="position:absolute;bottom:5px;z-index:8;background:${rc};color:#05020a;padding:7px 16px;border-radius:14px;font-weight:1000;font-size:13px;box-shadow:0 0 25px ${rc};">&#128481; ${bestFigure.rarity} FIGURE DIDAPATKAN!</div>
+              <div style="position:absolute;bottom:5px;z-index:8;background:${rc};color:#05020a;padding:7px 16px;border-radius:14px;font-weight:1000;font-size:13px;box-shadow:0 0 25px ${rc};">🔱 ${bestFigure.rarity} FIGURE DIDAPATKAN!</div>
             </div>`;
         document.getElementById('victoryPlayerName').textContent = bestFigure.name;
         document.getElementById('victoryPlayerName').style.color = rc;
         document.getElementById('victoryPlayerName').style.textShadow = `0 0 15px ${rc}`;
-        document.getElementById('victoryHeroName').textContent = `ORIGINAL FIGURE &#8226; ${bestFigure.itemId || "MYTHIC-FIGURE"}`;
+        document.getElementById('victoryHeroName').textContent = `ORIGINAL FIGURE • ${bestFigure.itemId || "MYTHIC-FIGURE"}`;
         document.getElementById('victoryHeroName').style.color = "#fff";
     } else {
         document.getElementById('victoryAvatar').innerHTML = hero.photo;
@@ -2815,10 +4125,15 @@ function showVictoryScreen(userWon, winnerName, winBid, bestFigure = null) {
     
     ensureAudio();
     if(audioCtx) {
-        // Hanya gunakan sound engine V5; tidak ada oscillator kemenangan tambahan.
-        sound(userWon ? 880 : 300);
-        setTimeout(() => sound(userWon ? 1046 : 250), 200);
-        setTimeout(() => sound(userWon ? 1318 : 200), 400);
+        const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+        o.type='square'; o.frequency.value= userWon ? 880 : 300;
+        g.gain.setValueAtTime(.0001,audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(.15,audioCtx.currentTime+.02);
+        g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+1.5);
+        o.connect(g);g.connect(master);o.start();o.stop(audioCtx.currentTime+1.6);
+        
+        setTimeout(() => { sound(userWon ? 1046 : 250); }, 200);
+        setTimeout(() => { sound(userWon ? 1318 : 200); }, 400);
     }
     
     setTimeout(() => {
@@ -2832,7 +4147,7 @@ function startItemReveal(userWon, winnerName, winBid) {
     show('result');
     document.getElementById('resTitle').textContent = userWon ? 'BRANKAS JADI MILIKMU' : 'BRANKAS DIREBUT PESAING';
     document.getElementById('resTitle').style.color = userWon ? '#00ff9d' : '#ff007b';
-    document.getElementById('resSub').textContent = `${winnerName} Bayar &#129689; ${money(winBid)}`;
+    document.getElementById('resSub').textContent = `${winnerName} Bayar 🪙 ${money(winBid)}`;
     document.getElementById('revVaultValue').textContent = '0';
     document.getElementById('revWinBid').textContent = money(winBid);
 
@@ -2845,11 +4160,11 @@ function startItemReveal(userWon, winnerName, winBid) {
             const bg = index === 0 ? 'rgba(255,174,0,0.1)' : (isUser ? 'rgba(0,243,255,0.1)' : 'transparent');
             const border = index === 0 ? '1px solid #ffae00' : '1px solid #2a1545';
             const rank = index + 1;
-            const badge = index === 0 ? '&#128273; WINNER' : `#${rank}`;
+            const badge = index === 0 ? '🔑 WINNER' : `#${rank}`;
             return `<div style="display:flex;justify-content:space-between;padding:6px 12px;background:${bg};border:${border};border-radius:6px;align-items:center;">
                 <div><b style="color:${color};margin-right:10px;font-size:12px;">${badge}</b>
                 <b style="color:${isUser ? '#fff' : '#e0d8ea'};font-size:14px;">${name}</b></div>
-                <div style="color:${index === 0 ? '#ffae00' : '#00ff9d'};font-weight:900;font-size:14px;">&#129689; ${money(entry[1])}</div>
+                <div style="color:${index === 0 ? '#ffae00' : '#00ff9d'};font-weight:900;font-size:14px;">🪙 ${money(entry[1])}</div>
             </div>`;
         }).join('');
     }
@@ -2902,7 +4217,7 @@ function startItemReveal(userWon, winnerName, winBid) {
           </div>
           <div style="width:100%;text-align:center;line-height:1.15;position:relative;z-index:5;">
              <div style="font-size:${isFigureVertical?'11px':'9px'};font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 6px ${rc};">${item.name}</div>
-             <div style="font-size:9px;color:#00ff9d;font-weight:900;margin-top:3px;">&#129689; ${money(item.price)}</div>
+             <div style="font-size:9px;color:#00ff9d;font-weight:900;margin-top:3px;">🪙 ${money(item.price)}</div>
           </div>
         </div>`;
     }
@@ -2932,8 +4247,8 @@ function startItemReveal(userWon, winnerName, winBid) {
             const bidColor=isWinner?'#ffd700':(locked?'#00f3ff':'#8b7a9e');
             const resultText=result>0?'+'+money(result):money(result);
             return `<div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;padding:6px 8px;background:${isWinner?'rgba(255,174,0,.08)':(isUser?'rgba(0,243,255,.06)':'transparent')};border:1px solid ${isWinner?'#8a5d00':'#241437'};border-radius:6px;min-height:34px;box-sizing:border-box;">
-              <div style="min-width:0;display:flex;align-items:center;gap:5px;"><span style="font-size:11px;color:${isWinner?'#ffd700':'#8b7a9e'};font-weight:900;">${isWinner?'&#128273;':'#'+(index+1)}</span><b style="color:${isUser?'#fff':'#e0d8ea'};font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${displayName}</b>${locked?'<span style="font-size:8px;color:#00ff9d;">&#128274;</span>':'<span style="font-size:8px;color:#ff007b;">0 BID</span>'}</div>
-              <div style="text-align:right;white-space:nowrap;color:${bidColor};font-weight:900;font-size:12px;">&#129689; ${money(bid)}</div>
+              <div style="min-width:0;display:flex;align-items:center;gap:5px;"><span style="font-size:11px;color:${isWinner?'#ffd700':'#8b7a9e'};font-weight:900;">${isWinner?'🔑':'#'+(index+1)}</span><b style="color:${isUser?'#fff':'#e0d8ea'};font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${displayName}</b>${locked?'<span style="font-size:8px;color:#00ff9d;">🔒</span>':'<span style="font-size:8px;color:#ff007b;">0 BID</span>'}</div>
+              <div style="text-align:right;white-space:nowrap;color:${bidColor};font-weight:900;font-size:12px;">🪙 ${money(bid)}</div>
               <div style="text-align:right;min-width:82px;white-space:nowrap;"><div style="font-size:8px;color:#8b7a9e;font-weight:800;">${label}</div><b style="color:${resultColor};font-size:13px;">${resultText}</b></div>
             </div>`;
         }).join('');
@@ -2967,16 +4282,16 @@ function startItemReveal(userWon, winnerName, winBid) {
         if (excess > 0) {
             const losersCount = Math.max(0, activePlayersList.length - 1);
             if (userWon) {
-                setTimeout(() => showToast(`&#9888;&#65039; OVERBID! Kamu rugi &#129689; ${money(excess)}. Kerugian dibagikan ke ${losersCount} pemain lain.`), 500);
+                setTimeout(() => showToast(`⚠️ OVERBID! Kamu rugi 🪙 ${money(excess)}. Kerugian dibagikan ke ${losersCount} pemain lain.`), 500);
             } else {
-                setTimeout(() => showToast(`&#129309; ${winnerName} OVERBID. Kerugian &#129689; ${money(excess)} dibagikan ke pemain yang tidak menang.`), 500);
+                setTimeout(() => showToast(`🤝 ${winnerName} OVERBID. Kerugian 🪙 ${money(excess)} dibagikan ke pemain yang tidak menang.`), 500);
             }
         }
 
         if (userWon && profit > highestProfit) {
             highestProfit = profit;
             saveData();
-            setTimeout(() => showToast("&#127942; REKOR PROFIT BARU!"), 800);
+            setTimeout(() => showToast("🏆 REKOR PROFIT BARU!"), 800);
         }
 
         document.getElementById('btnReturnLobby').style.display = 'inline-block';
@@ -2986,7 +4301,7 @@ function startItemReveal(userWon, winnerName, winBid) {
                 if(!x.sold) {
                     const cell = document.getElementById(`revCell-${i}`);
                     if(cell && !cell.querySelector('.btn-sell-res')) {
-                        cell.innerHTML += `<button class="btn btn-sell-res" style="position:absolute;bottom:3px;left:5%;width:90%;background:rgba(74,21,37,.92);color:#ff007b;border:1px solid #ff007b;font-size:9px;padding:4px;z-index:10;font-weight:900;" onclick="sellWonItem(${i},event)">JUAL &#129689; ${money(x.price)}</button>`;
+                        cell.innerHTML += `<button class="btn btn-sell-res" style="position:absolute;bottom:3px;left:5%;width:90%;background:rgba(74,21,37,.92);color:#ff007b;border:1px solid #ff007b;font-size:9px;padding:4px;z-index:10;font-weight:900;" onclick="sellWonItem(${i},event)">JUAL 🪙 ${money(x.price)}</button>`;
                     }
                 }
             });
@@ -3020,9 +4335,9 @@ function startItemReveal(userWon, winnerName, winBid) {
               <div style="font-size:11px;color:#8b7a9e;">ITEM TERUNGKAP ${revealIndex+1}/${auctionItems.length}</div>
               <div style="font-size:18px;color:${rc};font-weight:900;">${item.name}</div>
               <div style="font-size:12px;color:#fff;margin-top:4px;">
-                ${item.rarity} &#8226; ${item.type} &#8226; ${item.w}&#215;${item.h}
+                ${item.rarity} • ${item.type} • ${item.w}×${item.h}
               </div>
-              <div style="font-size:14px;color:#00ff9d;font-weight:900;margin-top:4px;">Nilai &#129689; ${money(item.price)}</div>
+              <div style="font-size:14px;color:#00ff9d;font-weight:900;margin-top:4px;">Nilai 🪙 ${money(item.price)}</div>
               <div style="font-size:10px;color:#8b7a9e;margin-top:4px;">ID: ${item.itemId||'NXS-ITEM'}</div>
               <div style="font-size:10px;color:#cfc4da;margin-top:4px;">${item.description||''}</div>`;
 
@@ -3073,7 +4388,7 @@ function sellWonItem(index, event) {
         cell.innerHTML += `<div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.6); color:#ff007b; font-weight:900; font-size:18px; transform:rotate(-15deg); border: 2px dashed #ff007b; z-index:15;">TERJUAL</div>`;
     }
     
-    showToast(`Terjual: ${item.name} (+&#129689; ${money(item.price)})`);
+    showToast(`Terjual: ${item.name} (+🪙 ${money(item.price)})`);
     touchSound();
     
     document.getElementById('statItems').textContent = myInventory.length;
@@ -3109,7 +4424,7 @@ function sellWonBulk(rarity) {
     
     if(soldCount > 0) {
         saveData();
-        showToast(`${soldCount} item ${rarity} terjual (+&#129689; ${money(earned)})`);
+        showToast(`${soldCount} item ${rarity} terjual (+🪙 ${money(earned)})`);
         touchSound();
         document.getElementById('statItems').textContent = myInventory.length;
         document.getElementById('badgeInventory').textContent = myInventory.length;
@@ -3138,48 +4453,14 @@ function ensureAudio(){
   }catch(e){}
 }
 
-function playIntroSound() {
-    if(!audioCtx) return;
-    const synth = audioCtx.createOscillator();
-    const bass = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-
-    synth.type = 'square';
-    bass.type = 'sawtooth';
-
-    const now = audioCtx.currentTime;
-
-    bass.frequency.setValueAtTime(200, now);
-    bass.frequency.exponentialRampToValueAtTime(30, now + 1.5);
-
-    let freqs = [440, 523.25, 659.25, 880, 1318.51, 1046.50, 1760];
-    let t = now;
-    freqs.forEach((f) => {
-        synth.frequency.setValueAtTime(f, t);
-        t += 0.12;
-    });
-    synth.frequency.setValueAtTime(1760, t);
-
-    gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.2, now + 0.1);
-    gain.gain.setValueAtTime(0.2, now + 1.5);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
-
-    synth.connect(gain);
-    bass.connect(gain);
-    gain.connect(master);
-
-    synth.start(now); bass.start(now);
-    synth.stop(now + 2.5); bass.stop(now + 2.5);
-}
-
 function startAudio(){ ensureAudio(); if(!audioCtx) return; musicOn=true; }
 function toggleMusic(){
   ensureAudio(); if(!audioCtx)return;
   musicOn = !musicOn;
   master.gain.value = musicOn ? .055 : .0001;
-  showToast(musicOn ? '&#127925; AUDIO AKTIF' : '&#128263; AUDIO MATI');
+  showToast(musicOn ? '🎵 AUDIO AKTIF' : '🔇 AUDIO MATI');
   if(musicOn) sound(520);
+      checkAllBids();
 }
 function sound(f){
   ensureAudio(); if(!audioCtx)return;
@@ -3204,25 +4485,25 @@ function openIntel(index) {
 
     if (x.revealLevel === 4) {
         matched = items.filter(i => i[1] === x.name);
-        statusText = "&#9989; IDENTITAS ITEM TERKONFIRMASI PENUH (Nilai Asli Diketahui)";
+        statusText = "✅ IDENTITAS ITEM TERKONFIRMASI PENUH (Nilai Asli Diketahui)";
         statusEl.style.color = "#00ff9d";
         statusEl.style.background = "rgba(0,255,157,0.1)";
         statusEl.style.borderColor = "rgba(0,255,157,0.3)";
     } else if (x.revealLevel === 3) {
         matched = items.filter(i => i[1] === x.name);
-        statusText = "&#9888;&#65039; DATA TERBUKA SEBAGIAN (Identitas Terlacak, Nilai Disamarkan)";
+        statusText = "⚠️ DATA TERBUKA SEBAGIAN (Identitas Terlacak, Nilai Disamarkan)";
         statusEl.style.color = "#ffae00";
         statusEl.style.background = "rgba(255,174,0,0.1)";
         statusEl.style.borderColor = "rgba(255,174,0,0.3)";
     } else if (x.revealLevel === 2) {
         matched = items.filter(i => i[4] === x.type && i[2] === x.rarity);
-        statusText = `&#128269; DETEKSI TIPE: ${x.type} (${x.rarity}) | Menemukan ${matched.length} Kemungkinan Data`;
+        statusText = `🔍 DETEKSI TIPE: ${x.type} (${x.rarity}) | Menemukan ${matched.length} Kemungkinan Data`;
         statusEl.style.color = "#ffae00";
         statusEl.style.background = "rgba(255,174,0,0.1)";
         statusEl.style.borderColor = "rgba(255,174,0,0.3)";
     } else {
         matched = items.filter(i => i[5] === x.w && i[6] === x.h);
-        statusText = `&#9203; DATA RAHASIA | Terdeteksi Ukuran: ${x.w}x${x.h} | Menemukan ${matched.length} Kemungkinan`;
+        statusText = `⏳ DATA RAHASIA | Terdeteksi Ukuran: ${x.w}x${x.h} | Menemukan ${matched.length} Kemungkinan`;
         statusEl.style.color = "#a385ff";
         statusEl.style.background = "rgba(163,133,255,0.1)";
         statusEl.style.borderColor = "rgba(163,133,255,0.3)";
@@ -3233,11 +4514,11 @@ function openIntel(index) {
         let mPrice = ``;
         
         if (x.revealLevel === 4 && matched.length === 1) {
-            mPrice = `&#129689; ${money(x.price)}`;
+            mPrice = `🪙 ${money(x.price)}`;
         } else if (x.revealLevel === 3 && matched.length === 1) {
-            mPrice = `&#129689; ???`;
+            mPrice = `🪙 ???`;
         } else {
-            mPrice = `Est: &#129689; ${money(m[3])}`; 
+            mPrice = `Est: 🪙 ${money(m[3])}`; 
         }
 
         let rc = {
@@ -3253,7 +4534,7 @@ function openIntel(index) {
             ${renderIcon(m[0], "50px", mRarity)}
             <div style="flex:1;">
                 <div style="color:${rc}; font-weight:900; font-size:14px; text-shadow:0 0 5px ${rc}; margin-bottom:2px;">${m[1]}</div>
-                <div style="color:#e0d8ea; font-size:11px; font-weight:700;">${m[4]} &#8226; ${mRarity} &#8226; Ukuran: ${m[5]}x${m[6]}</div>
+                <div style="color:#e0d8ea; font-size:11px; font-weight:700;">${m[4]} • ${mRarity} • Ukuran: ${m[5]}x${m[6]}</div>
             </div>
             <div style="color:#00ff9d; font-weight:900; font-size:13px; text-align:right;">${mPrice}</div>
         </div>`;
@@ -3338,12 +4619,12 @@ function executeSpin() {
         if(selectedPrize.type === 'kredit') {
             coins += selectedPrize.val;
             document.getElementById('coins').textContent = money(coins);
-            showToast(`&#127921; HADIAH DIAMANKAN! Memperoleh &#129689; ${money(selectedPrize.val)} Kredit.`);
+            showToast(`🎰 HADIAH DIAMANKAN! Memperoleh 🪙 ${money(selectedPrize.val)} Kredit.`);
             sound(880); setTimeout(() => sound(1046), 200);
         } else {
             diamonds += selectedPrize.val;
             if(document.getElementById('diamondsUI')) document.getElementById('diamondsUI').textContent = diamonds;
-            showToast(`&#128142; JACKPOT! Memperoleh ${selectedPrize.val} Diamond Ekstraksi.`);
+            showToast(`💎 JACKPOT! Memperoleh ${selectedPrize.val} Diamond Ekstraksi.`);
             sound(1046); setTimeout(() => sound(1318), 200); setTimeout(() => sound(1760), 400);
         }
         saveData();
@@ -3360,13 +4641,13 @@ function updateAllianceUI() {
     
     list.innerHTML = myFriends.map(f => `
         <div class="player" style="border-bottom: 1px solid #2a1545; background: rgba(0,0,0,0.2); border-radius:8px; display:flex; align-items:center; padding:10px;">
-            <div style="width:50px;height:50px; border:1px solid #00f3ff; background:radial-gradient(circle, #1a0f2e, #05020a); border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow: 0 0 10px rgba(0,243,255,0.3); font-size:24px;">&#129517;</div>
+            <div style="width:50px;height:50px; border:1px solid #00f3ff; background:radial-gradient(circle, #1a0f2e, #05020a); border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow: 0 0 10px rgba(0,243,255,0.3); font-size:24px;">🥽</div>
             <div style="flex:1; margin-left:12px;">
                 <b style="color:#e0d8ea; font-size:16px;">${f.name}</b>
                 <div class="muted" style="font-size:11px; font-weight:700;">ID: ${f.id}</div>
             </div>
             <div style="display:flex; gap:8px;">
-                <button class="btn primary" style="padding:6px 12px; font-size:12px;" onclick="openFriendChat('${f.id}')">&#128172; CHAT</button>
+                <button class="btn primary" style="padding:6px 12px; font-size:12px;" onclick="openFriendChat('${f.id}')">💬 CHAT</button>
                 <button class="btn" style="padding:6px 10px; font-size:12px; background:#4a1525; color:#ff007b; border-color:#ff007b;" onclick="removeFriend('${f.id}')">X</button>
             </div>
         </div>
@@ -3502,10 +4783,10 @@ function buyCreditsWithDiamonds(diamondCost, creditReward) {
         document.getElementById('coins').textContent = money(coins);
         if(document.getElementById('diamondsUI')) document.getElementById('diamondsUI').textContent = diamonds;
         saveData();
-        showToast(`&#9989; Transaksi Berhasil! Menukar ${diamondCost} &#128142; dengan &#129689; ${money(creditReward)} Kredit.`);
+        showToast(`✅ Transaksi Berhasil! Menukar ${diamondCost} 💎 dengan 🪙 ${money(creditReward)} Kredit.`);
         sound(880); setTimeout(() => sound(1046), 200);
     } else {
-        showToast(`&#10060; Diamond tidak cukup! Anda butuh ${diamondCost} &#128142;.`);
+        showToast(`❌ Diamond tidak cukup! Anda butuh ${diamondCost} 💎.`);
         sound(300);
     }
 }
@@ -3525,8 +4806,8 @@ function renderP2PListings() {
             <div style="flex:1;">
                 <b style="color:${rc}; font-size:15px; text-shadow:0 0 5px ${rc}80;">${l.name}</b>
                 <div style="font-size:11px; color:#e0d8ea; margin-bottom:5px;">Penjual: <b>${l.seller}</b> | ${l.rarity}</div>
-                <div style="font-size:12px; color:#8b7a9e;">Nilai Asli: &#129689; ${money(l.basePrice)}</div>
-                <div style="font-size:14px; color:#00ff9d; font-weight:900;">Buka Harga: &#129689; ${money(l.askingPrice)}</div>
+                <div style="font-size:12px; color:#8b7a9e;">Nilai Asli: 🪙 ${money(l.basePrice)}</div>
+                <div style="font-size:14px; color:#00ff9d; font-weight:900;">Buka Harga: 🪙 ${money(l.askingPrice)}</div>
             </div>
             <button class="btn primary" style="padding:10px 15px; font-size:12px; background:linear-gradient(135deg, ${rc}, #111); box-shadow:0 0 10px ${rc}40; border:none;" onclick="openP2PBuyModal(${index})">NEGO/BELI</button>
         </div>`;
@@ -3553,11 +4834,11 @@ function openP2PBuyModal(index) {
             <div style="background:rgba(15,8,30,0.8); padding:15px; border-radius:10px; border:1px solid #4a2575; text-align:left;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                     <span style="color:#8b7a9e; font-size:14px; font-weight:700;">Harga Asli (Pasar)</span>
-                    <span style="color:#fff; font-size:14px; font-weight:900;">&#129689; ${money(l.basePrice)}</span>
+                    <span style="color:#fff; font-size:14px; font-weight:900;">🪙 ${money(l.basePrice)}</span>
                 </div>
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #3a1c5e;">
                     <span style="color:#ffae00; font-size:14px; font-weight:700;">Harga Penjual</span>
-                    <span style="color:#ffae00; font-size:14px; font-weight:900;">&#129689; ${money(l.askingPrice)}</span>
+                    <span style="color:#ffae00; font-size:14px; font-weight:900;">🪙 ${money(l.askingPrice)}</span>
                 </div>
                 
                 <label style="color:#00f3ff; font-weight:900; font-size:14px; display:block; margin-bottom:5px;">AJUKAN PENAWARAN ANDA:</label>
@@ -3578,12 +4859,12 @@ function confirmP2PBuy(index) {
     let offer = Number(document.getElementById('p2pBuyInput').value);
     
     if(!offer) return showToast("Masukkan nominal tawaran!");
-    if(offer < l.basePrice) return showToast(`Ditolak! Penawaran tidak boleh di bawah harga asli (&#129689; ${money(l.basePrice)})`);
-    if(offer > l.askingPrice) return showToast(`Ditolak! Penawaran tidak boleh melebihi harga penjual (&#129689; ${money(l.askingPrice)})`);
+    if(offer < l.basePrice) return showToast(`Ditolak! Penawaran tidak boleh di bawah harga asli (🪙 ${money(l.basePrice)})`);
+    if(offer > l.askingPrice) return showToast(`Ditolak! Penawaran tidak boleh melebihi harga penjual (🪙 ${money(l.askingPrice)})`);
     
     let finalDeal = Math.floor((offer + l.askingPrice) / 2);
     
-    if(coins < finalDeal) return showToast(`Kredit tidak cukup untuk deal penyesuaian (Butuh &#129689; ${money(finalDeal)})`);
+    if(coins < finalDeal) return showToast(`Kredit tidak cukup untuk deal penyesuaian (Butuh 🪙 ${money(finalDeal)})`);
     
     coins -= finalDeal;
     
@@ -3598,7 +4879,7 @@ function confirmP2PBuy(index) {
     
     p2pListings.splice(index, 1);
     
-    showToast(`&#9989; DEAL BERHASIL! Sistem menyetujui harga sehat di angka &#129689; ${money(finalDeal)}.`);
+    showToast(`✅ DEAL BERHASIL! Sistem menyetujui harga sehat di angka 🪙 ${money(finalDeal)}.`);
     sound(880);
     saveData();
     closeP2PModals();
@@ -3627,7 +4908,7 @@ function openP2PSellModal() {
                         ${renderIcon(obj.item.icon||obj.item[0], "50px", obj.item.rarity)}
                         <div style="flex:1;">
                             <b style="color:${rc}; font-size:14px; text-shadow:0 0 5px ${rc}80;">${obj.item.name}</b>
-                            <div style="font-size:12px; color:#8b7a9e;">Nilai Asli: &#129689; ${money(obj.item.price)}</div>
+                            <div style="font-size:12px; color:#8b7a9e;">Nilai Asli: 🪙 ${money(obj.item.price)}</div>
                         </div>
                         <button class="btn primary" style="padding:8px 12px; font-size:11px;" onclick="initiateP2PSell(${obj.originalIndex})">JUAL INI</button>
                     </div>`;
@@ -3653,11 +4934,11 @@ function initiateP2PSell(invIndex) {
             <div style="background:rgba(15,8,30,0.8); padding:15px; border-radius:10px; border:1px solid #4a2575; text-align:left;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
                     <span style="color:#8b7a9e; font-size:14px; font-weight:700;">Harga Asli Figure</span>
-                    <span style="color:#00ff9d; font-size:14px; font-weight:900;">&#129689; ${money(item.price)}</span>
+                    <span style="color:#00ff9d; font-size:14px; font-weight:900;">🪙 ${money(item.price)}</span>
                 </div>
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #3a1c5e;">
                     <span style="color:#ffae00; font-size:14px; font-weight:700;">Batas Maksimal (170%)</span>
-                    <span style="color:#ffae00; font-size:14px; font-weight:900;">&#129689; ${money(maxAsking)}</span>
+                    <span style="color:#ffae00; font-size:14px; font-weight:900;">🪙 ${money(maxAsking)}</span>
                 </div>
                 
                 <label style="color:#00f3ff; font-weight:900; font-size:14px; display:block; margin-bottom:5px;">MASUKKAN HARGA JUAL ANDA:</label>
@@ -3678,8 +4959,8 @@ function confirmP2PSell(invIndex, basePrice, maxAsking) {
     let asking = Number(document.getElementById('p2pSellInput').value);
     
     if(!asking) return showToast("Masukkan nominal harga jual!");
-    if(asking < basePrice) return showToast(`Harga jual tidak boleh lebih rendah dari harga asli (&#129689; ${money(basePrice)})`);
-    if(asking > maxAsking) return showToast(`Harga jual maksimal hanya 170% dari nilai asli (&#129689; ${money(maxAsking)})`);
+    if(asking < basePrice) return showToast(`Harga jual tidak boleh lebih rendah dari harga asli (🪙 ${money(basePrice)})`);
+    if(asking > maxAsking) return showToast(`Harga jual maksimal hanya 170% dari nilai asli (🪙 ${money(maxAsking)})`);
     
     let botOffer = Math.floor(basePrice + Math.random() * (asking - basePrice));
     
@@ -3690,7 +4971,7 @@ function confirmP2PSell(invIndex, basePrice, maxAsking) {
     coins += finalDeal;
     let item = myInventory.splice(invIndex, 1)[0];
     
-    showToast(`&#9989; SOLD! Penjualan berhasil. Sistem menutup deal di angka &#129689; ${money(finalDeal)}.`);
+    showToast(`✅ SOLD! Penjualan berhasil. Sistem menutup deal di angka 🪙 ${money(finalDeal)}.`);
     sound(880);
     saveData();
     closeP2PModals();
@@ -3748,8 +5029,8 @@ renderP2PListings = function() {
             <div style="flex:1;">
                 <b style="color:${rc}; font-size:15px; text-shadow:0 0 5px ${rc}80;">${l.name}</b>
                 <div style="font-size:11px; color:#e0d8ea; margin-bottom:5px;">Penjual: <b>${l.seller}</b> | ${l.rarity}</div>
-                <div style="font-size:12px; color:#8b7a9e;">Nilai Asli: &#129689; ${money(l.basePrice)}</div>
-                <div style="font-size:14px; color:#00ff9d; font-weight:900;">Buka Harga: &#129689; ${money(l.askingPrice)}</div>
+                <div style="font-size:12px; color:#8b7a9e;">Nilai Asli: 🪙 ${money(l.basePrice)}</div>
+                <div style="font-size:14px; color:#00ff9d; font-weight:900;">Buka Harga: 🪙 ${money(l.askingPrice)}</div>
             </div>
             ${isMyTab ? `<button class="btn" style="background:#4a1525; color:#ff007b; border-color:#ff007b; padding:6px 12px;" onclick="removeMyListing(${index})">BATAL</button>` : 
                         `<button class="btn primary" style="padding:10px 15px; font-size:12px; background:linear-gradient(135deg, ${rc}, #111); box-shadow:0 0 10px ${rc}40; border:none;" onclick="openP2PBuyModalGlobal(${index})">NEGO/BELI</button>`}
@@ -3772,11 +5053,11 @@ function openP2PBuyModalGlobal(index) {
             <div style="background:rgba(15,8,30,0.8); padding:15px; border-radius:10px; border:1px solid #4a2575; text-align:left;">
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
                     <span style="color:#8b7a9e; font-size:14px; font-weight:700;">Harga Asli (Pasar)</span>
-                    <span style="color:#fff; font-size:14px; font-weight:900;">&#129689; ${money(l.basePrice)}</span>
+                    <span style="color:#fff; font-size:14px; font-weight:900;">🪙 ${money(l.basePrice)}</span>
                 </div>
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #3a1c5e;">
                     <span style="color:#ffae00; font-size:14px; font-weight:700;">Harga Penjual</span>
-                    <span style="color:#ffae00; font-size:14px; font-weight:900;">&#129689; ${money(l.askingPrice)}</span>
+                    <span style="color:#ffae00; font-size:14px; font-weight:900;">🪙 ${money(l.askingPrice)}</span>
                 </div>
                 
                 <label style="color:#00f3ff; font-weight:900; font-size:14px; display:block; margin-bottom:5px;">AJUKAN PENAWARAN ANDA:</label>
@@ -3795,10 +5076,10 @@ function confirmP2PBuyGlobal(index) {
     let l = p2pListings[index];
     let offer = Number(document.getElementById('p2pBuyInput').value);
     if(!offer) return showToast("Masukkan nominal tawaran!");
-    if(offer < l.basePrice) return showToast(`Ditolak! Penawaran tidak boleh di bawah harga asli (&#129689; ${money(l.basePrice)})`);
-    if(offer > l.askingPrice) return showToast(`Ditolak! Penawaran tidak boleh melebihi harga penjual (&#129689; ${money(l.askingPrice)})`);
+    if(offer < l.basePrice) return showToast(`Ditolak! Penawaran tidak boleh di bawah harga asli (🪙 ${money(l.basePrice)})`);
+    if(offer > l.askingPrice) return showToast(`Ditolak! Penawaran tidak boleh melebihi harga penjual (🪙 ${money(l.askingPrice)})`);
     let finalDeal = Math.floor((offer + l.askingPrice) / 2);
-    if(coins < finalDeal) return showToast(`Kredit tidak cukup untuk deal penyesuaian (Butuh &#129689; ${money(finalDeal)})`);
+    if(coins < finalDeal) return showToast(`Kredit tidak cukup untuk deal penyesuaian (Butuh 🪙 ${money(finalDeal)})`);
     coins -= finalDeal;
     let boughtP2P = {
         icon: l.icon, name: l.name, rarity: l.rarity, price: l.basePrice, type: l.type, w: l.w||3, h: l.h||3, equipped: false
@@ -3809,7 +5090,7 @@ function confirmP2PBuyGlobal(index) {
     }
     myInventory.push(boughtP2P);
     p2pListings.splice(index, 1);
-    showToast(`&#9989; DEAL BERHASIL! Sistem menyetujui harga sehat di angka &#129689; ${money(finalDeal)}.`);
+    showToast(`✅ DEAL BERHASIL! Sistem menyetujui harga sehat di angka 🪙 ${money(finalDeal)}.`);
     sound(880);
     saveData();
     closeP2PModals();
@@ -3846,10 +5127,53 @@ renderP2PListings();
 
 </script>
 
+
+<script id="nexus-android-layout-helper">
+(function(){
+  function syncAndroidViewport(){
+    document.documentElement.style.setProperty('--nexus-vw', window.innerWidth + 'px');
+    document.documentElement.style.setProperty('--nexus-vh', window.innerHeight + 'px');
+    document.documentElement.dataset.orientation =
+      window.matchMedia('(orientation:landscape)').matches ? 'landscape' : 'portrait';
+  }
+  syncAndroidViewport();
+  window.addEventListener('resize', syncAndroidViewport, {passive:true});
+  window.addEventListener('orientationchange', function(){
+    setTimeout(syncAndroidViewport, 80);
+    setTimeout(syncAndroidViewport, 350);
+  }, {passive:true});
+})();
+</script>
+
 <script>
 // ANDROID OFFLINE APK BRIDGE
 window.NEXUS_ANDROID_OFFLINE = true;
 window.NEXUS_LAN_MAX_PLAYERS = 5;
 window.addEventListener('offline',()=>{ document.documentElement.dataset.network='offline'; });
 </script>
+
+<script id="nexus-android-viewport-final">
+/* Android WebView viewport helper. Tidak mengubah aturan game. */
+(function(){
+  function syncViewport(){
+    var vv=window.visualViewport;
+    var h=vv ? vv.height : window.innerHeight;
+    var w=vv ? vv.width : window.innerWidth;
+    document.documentElement.style.setProperty('--vw-real', w+'px');
+    document.documentElement.style.setProperty('--vh-real', h+'px');
+    document.documentElement.dataset.orientation =
+      w >= h ? 'landscape' : 'portrait';
+  }
+  syncViewport();
+  window.addEventListener('resize',syncViewport,{passive:true});
+  window.addEventListener('orientationchange',function(){
+    setTimeout(syncViewport,50);
+    setTimeout(syncViewport,250);
+  },{passive:true});
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',syncViewport,{passive:true});
+  }
+})();
+</script>
+
 </body></html>
