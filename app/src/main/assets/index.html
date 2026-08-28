@@ -1947,6 +1947,218 @@ html, body{
   #game .game, .game{grid-template-columns:1fr !important;}
 }
 </style>
+<style id="nexus-fit-to-screen-v2">
+/* =========================================================
+   NEXUS AUCTION — FIT TO SCREEN v2
+   Fokus: Pasar Gelap, Pilih Mode/Kota, Pencarian Player,
+   HUD In-Game (papan tetap 10x8 tanpa terpotong), garis Bid,
+   dan layar hasil profit — semua wajib pas di layar HP
+   Android tanpa perlu discroll. Berlaku juga saat portrait,
+   tapi paling terasa di landscape (lebar > tinggi).
+   Tidak ada fitur/logic yang diubah, hanya ukuran/posisi.
+   ========================================================= */
+
+.app{
+  height:100dvh !important;
+  min-height:100dvh !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow:hidden !important;
+}
+.top{flex:0 0 auto !important;}
+.screen{flex:0 0 auto;}
+.screen.active{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  max-height:100% !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+}
+
+/* ---------- IN-GAME HUD: papan & panel mengisi tinggi layar, tidak terpotong ---------- */
+#game.screen.active{
+  display:flex !important;
+  flex-direction:column !important;
+  padding:4px !important;
+  overflow:hidden !important;
+}
+#game .game, .game{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  height:auto !important;
+  display:grid !important;
+  grid-template-rows:minmax(0,1fr) !important;
+  grid-template-columns:
+    clamp(88px,16vw,150px)
+    minmax(0,1fr)
+    clamp(118px,21vw,190px) !important;
+  gap:5px !important;
+  overflow:hidden !important;
+}
+.players, .arena, .right{
+  min-height:0 !important;
+  height:100% !important;
+  max-height:100% !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+}
+.arena{
+  display:flex !important;
+  flex-direction:column !important;
+  padding:5px !important;
+  overflow:hidden !important;
+}
+.arenahead{flex:0 0 auto !important;margin-bottom:3px !important;padding-bottom:3px !important;}
+#judgeBox{flex:0 0 auto !important;margin:3px 0 !important;padding:5px !important;font-size:10px !important;}
+.value-box{flex:0 0 auto !important;margin-top:3px !important;padding:5px !important;}
+#btnInitiateBid{min-height:34px !important;padding:6px 10px !important;font-size:10px !important;}
+
+/* Papan lelang: mengisi SISA ruang vertikal di arena, rasio 10x8 tetap terjaga,
+   tidak akan pernah melebihi tinggi/lebar yang tersisa (mirip object-fit:contain). */
+.board{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  aspect-ratio:10 / 8 !important;
+  margin:2px auto !important;
+  gap:1px !important;
+  padding:2px !important;
+}
+.cell{font-size:clamp(5px,1.1vh,10px) !important;}
+
+.game-player-card{padding:3px 2px !important;gap:3px !important;}
+.game-player-avatar{
+  flex:0 0 clamp(28px,5.5vh,42px) !important;
+  width:clamp(28px,5.5vh,42px) !important;
+  height:clamp(28px,5.5vh,42px) !important;
+}
+.game-player-avatar .matchPhoto{font-size:clamp(16px,3.5vh,24px) !important;}
+.game-player-card b{font-size:9px !important;}
+.bid-round-dot{width:14px !important;height:13px !important;font-size:6px !important;}
+.skill{padding:4px !important;flex:0 0 auto !important;}
+.skill h3{font-size:10px !important;margin:0 0 2px !important;}
+.skill p{font-size:8px !important;margin:1px 0 !important;}
+.chat{flex:1 1 auto !important;min-height:0 !important;margin-top:3px !important;}
+.chatbar{flex:0 0 auto !important;}
+.chatbar input{padding:5px !important;font-size:9px !important;}
+
+/* ---------- GARIS BID / TARUHAN saat ronde berakhir: wajib muat semua pemain ---------- */
+#bidRevealUI{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  max-height:100% !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow-y:auto !important;
+  padding:8px !important;
+  gap:4px !important;
+}
+#bidRevealUI[style*="min-height: 450px"],
+#bidRevealUI[style*="min-height:450px"]{min-height:0 !important;}
+#bidRevealUI > h3{font-size:12px !important;margin:0 0 4px !important;flex:0 0 auto !important;}
+#bidRevealUI > div{margin-bottom:6px !important;flex:0 0 auto !important;}
+#bidRevealUI [style*="font-size:18px"]{font-size:11px !important;margin-bottom:3px !important;}
+#bidRevealUI [style*="font-size:16px"]{font-size:10px !important;}
+#bidRevealUI [style*="font-size:13px"]{font-size:8px !important;}
+#bidRevealUI [style*="font-size:12px"]{font-size:8px !important;}
+#bidRevealUI [style*="height:25px"]{height:14px !important;border-radius:7px !important;}
+
+/* ---------- PASAR GELAP & layar menu lainnya ---------- */
+.menu-screen{
+  margin:6px auto !important;
+  padding:8px !important;
+  max-height:calc(100dvh - 60px) !important;
+  overflow-y:auto !important;
+}
+.menu-header{padding-bottom:6px !important;margin-bottom:8px !important;}
+.menu-header h2{font-size:15px !important;}
+.grid-container{grid-template-columns:repeat(auto-fill,minmax(96px,1fr)) !important;gap:6px !important;}
+.grid-item{padding:6px !important;}
+.grid-icon{font-size:24px !important;margin-bottom:4px !important;}
+.grid-title{font-size:10px !important;}
+.grid-sub{font-size:9px !important;}
+#shopSistemMode .grid-container, #shopDiamondMode .grid-container{grid-template-columns:repeat(auto-fit,minmax(105px,1fr)) !important;}
+#p2pListings{max-height:180px !important;}
+
+/* ---------- MODAL PILIH MODE / PILIH KOTA ---------- */
+#modeSelectionModal, #citySelectionModal, #lanModal{padding:6px !important;}
+#modeSelectionModal>div, #citySelectionModal>div, #lanModal>div{
+  padding:12px !important;
+  max-height:96dvh !important;
+  overflow-y:auto !important;
+}
+#modeSelectionModal [style*="padding:26px"],
+#citySelectionModal [style*="padding:22px"]{
+  padding:10px !important;
+}
+#modeSelectionModal div[style*="font-size:32px"],
+#citySelectionModal div[style*="font-size:28px"],
+#citySelectionModal div[style*="font-size:34px"]{
+  font-size:18px !important;
+}
+#modeSelectionModal b[style*="font-size:20px"],
+#citySelectionModal b[style*="font-size:19px"]{font-size:13px !important;}
+#modeSelectionModal .muted, #citySelectionModal .muted{font-size:10px !important;}
+@media screen and (orientation:landscape){
+  #modeSelectionModal > div > div[style*="grid-template-columns"],
+  #citySelectionModal > div > div[style*="grid-template-columns"]{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:8px !important;
+  }
+}
+
+/* ---------- PENCARIAN PLAYER (MATCHMAKING) ---------- */
+#match{padding:4px !important;}
+#match > .panel{
+  min-height:0 !important;
+  max-height:96dvh !important;
+  overflow-y:auto !important;
+  margin:6px auto !important;
+  padding:12px !important;
+}
+#match h2{font-size:15px !important;}
+#match [style*="font-size:16px"]{font-size:10px !important;}
+#match [style*="font-size:24px"]{font-size:13px !important;}
+.wait-room{gap:6px !important;margin-top:10px !important;}
+.wait-slot{min-height:60px !important;padding:6px 3px !important;}
+.wait-slot .matchPhoto{width:44px !important;height:44px !important;font-size:22px !important;margin-bottom:4px !important;}
+.wait-slot b{font-size:10px !important;}
+.wait-slot .muted{font-size:8px !important;}
+
+/* ---------- LAYAR VICTORY & HASIL PROFIT ---------- */
+#screen-victory > .panel{
+  margin:6px auto !important;
+  padding:10px !important;
+  max-height:96dvh !important;
+  overflow-y:auto !important;
+}
+.victory-title{font-size:clamp(18px,5vh,28px) !important;margin-top:6px !important;}
+.victory-avatar-container{width:min(28vh,170px) !important;height:min(28vh,170px) !important;margin:8px auto !important;}
+.victory-player-name{font-size:18px !important;}
+.victory-hero-name{font-size:11px !important;}
+
+#result .panel{
+  margin:6px auto !important;
+  padding:10px !important;
+  max-height:96dvh !important;
+  overflow-y:auto !important;
+}
+#resTitle{font-size:18px !important;}
+#resSub{font-size:11px !important;}
+.v10-rarity-info span{font-size:8px !important;padding:2px 5px !important;}
+#resLeaderboard{max-height:130px !important;overflow-y:auto !important;}
+#resLeaderboard > div{padding:4px 6px !important;font-size:10px !important;}
+#revealBoard.board{max-width:min(100%,420px) !important;}
+#currentRevealDetails{padding:6px !important;margin:6px 0 !important;}
+#currentRevealDetails div{font-size:10px !important;}
+#resultSellTools{padding:6px !important;gap:5px !important;}
+#resultSellTools button{font-size:8px !important;padding:4px 6px !important;}
+#btnReturnLobby{padding:10px 20px !important;font-size:13px !important;}
+.unboxing-stats span{min-width:80px !important;font-size:12px !important;}
+</style>
 </head>
 <body>
 <!-- SPLASH SCREEN -->
