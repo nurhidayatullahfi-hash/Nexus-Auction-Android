@@ -1,7 +1,12 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style id="nexus-vh-fallback">
+:root{--nexus-vh:1vh;}
+@supports (height:1dvh){:root{--nexus-vh:1dvh;}}
+</style>
+
+<meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0514"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><title>Nexus Auction: Cyber Relic</title>
 <style>
 /* Offline APK: no external font/network dependency. */
@@ -535,7 +540,7 @@ button{
   width:100%;
   max-width:1450px;
   min-height:100svh;
-  min-height:100dvh;
+  min-height:calc(var(--nexus-vh) * 100);
   margin:0 auto;
   padding:
     max(6px,var(--safe-top))
@@ -595,7 +600,7 @@ button{
 /* ---------- LOBBY ---------- */
 .lobby-layout{
   width:100%;
-  min-height:calc(100dvh - 85px);
+  min-height:calc(calc(var(--nexus-vh) * 100) - 85px);
   gap:var(--app-gap);
   margin-top:var(--app-gap);
 }
@@ -673,7 +678,7 @@ button{
 #citySelectionModal > div,
 #lanModal > div{
   width:min(100%,760px) !important;
-  max-height:calc(100dvh - 20px);
+  max-height:calc(calc(var(--nexus-vh) * 100) - 20px);
   overflow:auto;
 }
 
@@ -801,7 +806,7 @@ button{
 #bidRevealUI{
   min-width:0;
   min-height:0 !important;
-  max-height:55dvh;
+  max-height:calc(var(--nexus-vh) * 55);
   overflow:auto;
   padding:clamp(10px,1.5vw,25px) !important;
 }
@@ -878,7 +883,7 @@ button{
 
 .chat{
   min-width:0;
-  min-height:clamp(100px,18dvh,280px);
+  min-height:clamp(100px,calc(var(--nexus-vh) * 18),280px);
   margin-top:8px;
   overflow:auto;
 }
@@ -895,7 +900,7 @@ button{
 /* ---------- CALCULATOR ---------- */
 .calc{
   width:min(94vw,420px);
-  max-height:calc(100dvh - 20px);
+  max-height:calc(calc(var(--nexus-vh) * 100) - 20px);
   overflow:auto;
   padding:clamp(12px,2vw,20px);
 }
@@ -1426,7 +1431,7 @@ button{
 
   .board{
     /* Keep the board visible without pushing the controls off-screen. */
-    max-height:44dvh;
+    max-height:calc(var(--nexus-vh) * 44);
   }
 
   #judgeBox{
@@ -1441,7 +1446,7 @@ button{
 
   .chat{
     min-height:50px;
-    max-height:18dvh;
+    max-height:calc(var(--nexus-vh) * 18);
   }
 }
 
@@ -1503,12 +1508,12 @@ html,body{
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
-body{min-height:100dvh;}
+body{min-height:calc(var(--nexus-vh) * 100);}
 .app{
   box-sizing:border-box;
   width:100%;
   max-width:1500px;
-  min-height:100dvh;
+  min-height:calc(var(--nexus-vh) * 100);
   padding:calc(5px + var(--safe-t)) calc(5px + var(--safe-r))
           calc(7px + var(--safe-b)) calc(5px + var(--safe-l));
 }
@@ -1525,7 +1530,7 @@ input,select,textarea{touch-action:manipulation;}
 /* ---------- top ---------- */
 .top{
   width:100%;
-  min-height:clamp(40px,7dvh,65px);
+  min-height:clamp(40px,calc(var(--nexus-vh) * 7),65px);
   height:auto;
   padding:clamp(5px,1vw,10px) clamp(7px,1.8vw,20px);
   gap:8px;
@@ -1547,7 +1552,7 @@ input,select,textarea{touch-action:manipulation;}
 .menu-header h2{min-width:0;overflow-wrap:anywhere;}
 .lobby-layout{
   width:100%;
-  min-height:calc(100dvh - 85px);
+  min-height:calc(calc(var(--nexus-vh) * 100) - 85px);
   height:auto;
   display:flex;
   gap:var(--g);
@@ -1591,7 +1596,7 @@ input,select,textarea{touch-action:manipulation;}
 }
 #modeSelectionModal>div,#citySelectionModal>div,#lanModal>div{
   width:min(100%,760px)!important;
-  max-height:calc(100dvh - 16px);
+  max-height:calc(calc(var(--nexus-vh) * 100) - 16px);
   overflow:auto;
 }
 
@@ -1668,7 +1673,7 @@ input,select,textarea{touch-action:manipulation;}
 #bidRevealUI{
   min-width:0!important;
   max-width:100%;
-  max-height:48dvh;
+  max-height:calc(var(--nexus-vh) * 48);
   overflow:auto;
   padding:clamp(8px,1.4vw,25px)!important;
 }
@@ -1692,14 +1697,14 @@ input,select,textarea{touch-action:manipulation;}
 .skill{padding:clamp(7px,1.1vw,15px);}
 .skill h3{font-size:clamp(13px,1.7vw,18px);}
 .skill p{font-size:clamp(10px,1.25vw,14px);line-height:1.3;}
-.chat{min-width:0;min-height:clamp(85px,17dvh,280px);max-height:30dvh;overflow:auto;}
+.chat{min-width:0;min-height:clamp(85px,calc(var(--nexus-vh) * 17),280px);max-height:calc(var(--nexus-vh) * 30);overflow:auto;}
 .chatbar{min-width:0;gap:6px;}
 .chatbar input{width:100%;min-width:0;}
 
 /* ---------- calculator / grids ---------- */
 .calc{
   width:min(94vw,420px);
-  max-height:calc(100dvh - 16px);
+  max-height:calc(calc(var(--nexus-vh) * 100) - 16px);
   overflow:auto;
   padding:clamp(10px,2vw,20px);
 }
@@ -1738,7 +1743,7 @@ input,select,textarea{touch-action:manipulation;}
   .game-player-avatar{flex-basis:40px;width:40px;height:40px;}
   .skill{padding:5px;}
   .skill p{font-size:10px;}
-  .chat{min-height:65px;max-height:20dvh;}
+  .chat{min-height:65px;max-height:calc(var(--nexus-vh) * 20);}
   #bidRevealUI{padding:6px!important;}
   #btnInitiateBid{min-height:40px;}
 }
@@ -1755,7 +1760,7 @@ input,select,textarea{touch-action:manipulation;}
   .game-player-avatar{flex-basis:34px;width:34px;height:34px;}
   .game-player-card{padding:2px 1px;}
   .bid-round-dot{width:15px;height:15px;font-size:8px;}
-  .chat{min-height:48px;max-height:18dvh;}
+  .chat{min-height:48px;max-height:calc(var(--nexus-vh) * 18);}
   .skill{padding:3px;}
   .skill p{margin:2px 0;font-size:9px;}
 }
@@ -1766,7 +1771,7 @@ input,select,textarea{touch-action:manipulation;}
   .board{max-width:100%;}
   .players{overflow:auto;}
   .right{overflow:auto;}
-  .chat{max-height:32dvh;}
+  .chat{max-height:calc(var(--nexus-vh) * 32);}
 }
 
 /* ---------- large tablets / desktop-like Android ---------- */
@@ -1799,7 +1804,7 @@ html, body{
 .app{
   width:100% !important;
   max-width:100% !important;
-  min-height:100dvh !important;
+  min-height:calc(var(--nexus-vh) * 100) !important;
   padding:6px !important;
   overflow-x:hidden !important;
 }
@@ -1894,7 +1899,7 @@ html, body{
   .skill{padding:5px !important;}
   .skill h3{font-size:11px !important;margin-bottom:3px !important;}
   .skill p{font-size:9px !important;margin:2px 0 !important;}
-  .chat{min-height:0 !important;max-height:22dvh !important;margin-top:4px !important;}
+  .chat{min-height:0 !important;max-height:calc(var(--nexus-vh) * 22) !important;margin-top:4px !important;}
   .chatbar input{padding:6px !important;font-size:9px !important;}
 
   .value-box{padding:6px !important;margin-top:4px !important;font-size:10px !important;}
@@ -1902,12 +1907,12 @@ html, body{
 
   /* Modal (mode/kota/lan/kalkulator) tidak boleh melebihi tinggi layar pendek */
   #modeSelectionModal>div, #citySelectionModal>div, #lanModal>div{
-    max-height:94dvh !important;
+    max-height:calc(var(--nexus-vh) * 94) !important;
     overflow:auto !important;
     padding:14px !important;
   }
   .calc{
-    max-height:94dvh !important;
+    max-height:calc(var(--nexus-vh) * 94) !important;
     overflow:auto !important;
     width:min(90vw,380px) !important;
   }
@@ -1923,7 +1928,7 @@ html, body{
   #result .panel, #screen-victory>.panel{
     margin:6px auto !important;
     padding:10px !important;
-    max-height:94dvh !important;
+    max-height:calc(var(--nexus-vh) * 94) !important;
     overflow:auto !important;
   }
 }
@@ -1936,7 +1941,7 @@ html, body{
   #game .game, .game{gap:4px !important;}
   .arena{padding:4px !important;}
   .timer{font-size:clamp(16px,4vh,24px) !important;}
-  .chat{max-height:16dvh !important;}
+  .chat{max-height:calc(var(--nexus-vh) * 16) !important;}
   .skill p{display:none;} /* teks penjelasan disembunyikan agar kontrol utama tetap terlihat penuh */
   .skill h3{font-size:10px !important;margin:0 !important;}
 }
@@ -1959,11 +1964,12 @@ html, body{
    ========================================================= */
 
 .app{
-  height:100dvh !important;
-  min-height:100dvh !important;
+  height:calc(var(--nexus-vh) * 100) !important;
+  min-height:calc(var(--nexus-vh) * 100) !important;
   display:flex !important;
   flex-direction:column !important;
-  overflow:hidden !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
 }
 .top{flex:0 0 auto !important;}
 .screen{flex:0 0 auto;}
@@ -1980,7 +1986,7 @@ html, body{
   display:flex !important;
   flex-direction:column !important;
   padding:4px !important;
-  overflow:hidden !important;
+  overflow-y:auto !important;
 }
 #game .game, .game{
   flex:1 1 auto !important;
@@ -2070,7 +2076,7 @@ html, body{
 .menu-screen{
   margin:6px auto !important;
   padding:8px !important;
-  max-height:calc(100dvh - 60px) !important;
+  max-height:calc(calc(var(--nexus-vh) * 100) - 60px) !important;
   overflow-y:auto !important;
 }
 .menu-header{padding-bottom:6px !important;margin-bottom:8px !important;}
@@ -2087,7 +2093,7 @@ html, body{
 #modeSelectionModal, #citySelectionModal, #lanModal{padding:6px !important;}
 #modeSelectionModal>div, #citySelectionModal>div, #lanModal>div{
   padding:12px !important;
-  max-height:96dvh !important;
+  max-height:calc(var(--nexus-vh) * 96) !important;
   overflow-y:auto !important;
 }
 #modeSelectionModal [style*="padding:26px"],
@@ -2114,7 +2120,7 @@ html, body{
 #match{padding:4px !important;}
 #match > .panel{
   min-height:0 !important;
-  max-height:96dvh !important;
+  max-height:calc(var(--nexus-vh) * 96) !important;
   overflow-y:auto !important;
   margin:6px auto !important;
   padding:12px !important;
@@ -2132,7 +2138,7 @@ html, body{
 #screen-victory > .panel{
   margin:6px auto !important;
   padding:10px !important;
-  max-height:96dvh !important;
+  max-height:calc(var(--nexus-vh) * 96) !important;
   overflow-y:auto !important;
 }
 .victory-title{font-size:clamp(18px,5vh,28px) !important;margin-top:6px !important;}
@@ -2143,7 +2149,7 @@ html, body{
 #result .panel{
   margin:6px auto !important;
   padding:10px !important;
-  max-height:96dvh !important;
+  max-height:calc(var(--nexus-vh) * 96) !important;
   overflow-y:auto !important;
 }
 #resTitle{font-size:18px !important;}
@@ -2275,7 +2281,7 @@ html, body{
   max-width:460px !important;
   margin:8px auto !important;
   padding:16px !important;
-  max-height:94dvh !important;
+  max-height:calc(var(--nexus-vh) * 94) !important;
   overflow-y:auto !important;
 }
 #screen-register h2{font-size:clamp(18px,3vh,24px) !important;margin-top:0 !important;}
@@ -2298,32 +2304,32 @@ html, body{
 
 /* ---------- ALIANSI ---------- */
 #screen-alliance input{padding:9px !important;font-size:clamp(11px,1.8vh,13px) !important;}
-#allianceList{max-height:min(60dvh,420px) !important;}
+#allianceList{max-height:min(calc(var(--nexus-vh) * 60),420px) !important;}
 #allianceList .player{padding:6px !important;}
 #allianceList b{font-size:clamp(11px,1.8vh,13px) !important;}
 
 /* ---------- MODAL ANALISIS DATABASE (INTEL) ---------- */
 #intelModal > .panel{
-  max-height:92dvh !important;
+  max-height:calc(var(--nexus-vh) * 92) !important;
   padding:12px !important;
 }
-#intelList{max-height:min(58dvh,380px) !important;}
+#intelList{max-height:min(calc(var(--nexus-vh) * 58),380px) !important;}
 #intelModal h2{font-size:clamp(14px,2.4vh,18px) !important;}
 #intelStatus{font-size:clamp(9px,1.6vh,11px) !important;padding:6px !important;}
 
 /* ---------- CHAT TEMAN ---------- */
 #chatModal > .panel{
   height:auto !important;
-  max-height:92dvh !important;
+  max-height:calc(var(--nexus-vh) * 92) !important;
   padding:12px !important;
 }
 #chatModal h2{font-size:clamp(13px,2.2vh,16px) !important;}
-#chatMessages{max-height:min(50dvh,320px) !important;}
+#chatMessages{max-height:min(calc(var(--nexus-vh) * 50),320px) !important;}
 #friendChatInput{padding:9px !important;font-size:clamp(10px,1.8vh,12px) !important;}
 
 /* ---------- PASAR P2P: MODAL JUAL & BELI ---------- */
 #p2pSellModal > .panel, #p2pBuyModal > .panel{
-  max-height:92dvh !important;
+  max-height:calc(var(--nexus-vh) * 92) !important;
   overflow-y:auto !important;
   padding:12px !important;
 }
@@ -2339,8 +2345,8 @@ html, body{
 
 /* ---------- SPIN WHEEL: batas aman di semua tinggi layar landscape ---------- */
 @media screen and (orientation:landscape){
-  .spin-wheel-box{width:min(44dvh,220px) !important;height:min(44dvh,220px) !important;margin:6px auto !important;}
-  #screen-spin .menu-screen{padding:8px !important;max-height:94dvh !important;overflow-y:auto !important;}
+  .spin-wheel-box{width:min(calc(var(--nexus-vh) * 44),220px) !important;height:min(calc(var(--nexus-vh) * 44),220px) !important;margin:6px auto !important;}
+  #screen-spin .menu-screen{padding:8px !important;max-height:calc(var(--nexus-vh) * 94) !important;overflow-y:auto !important;}
   #screen-spin h2{font-size:clamp(14px,2.4vh,18px) !important;}
   #screen-spin p{font-size:clamp(9px,1.6vh,11px) !important;}
   #btnSpin{padding:12px !important;font-size:clamp(13px,2.2vh,16px) !important;}
@@ -2360,8 +2366,21 @@ html, body{
 
 /* ---------- SAFETY NET UMUM: modal generik lain tidak boleh melebihi layar ---------- */
 [id$="Modal"] > .panel, [id$="Modal"] > div{
-  max-height:94dvh !important;
+  max-height:calc(var(--nexus-vh) * 94) !important;
 }
+</style>
+<style id="nexus-fit-to-screen-v5">
+/* Splash & intro sinematik dibesarkan lagi (laporan: masih kekecilan) */
+.splash-logo{font-size:clamp(38px,10vh,72px) !important;}
+.splash-sub{font-size:clamp(14px,2.8vh,20px) !important;}
+#startBtn{font-size:clamp(14px,2.6vh,19px) !important;padding:13px 30px !important;}
+.cine-text{font-size:clamp(36px,11vh,110px) !important;letter-spacing:-4px !important;}
+.cine-sub{font-size:clamp(13px,2.8vh,28px) !important;letter-spacing:10px !important;}
+div[style*="font-size:60px"]{font-size:clamp(46px,11vh,80px) !important;} /* ikon diamond splash */
+
+/* Ekstra ruang aman untuk form registrasi supaya tombol daftar tidak pernah terjebak di luar jangkauan */
+#screen-register{padding:6px !important;}
+#screen-register .panel{margin:4px auto !important;}
 </style>
 </head>
 <body>
@@ -4381,7 +4400,6 @@ function resolveRound(){
   const winner = entries[0];
   const winningName = (winner[0] === 'Pemain' || winner[0] === playerProfile.name) ? playerProfile.name : winner[0];
   const winningBid = winner[1];
-  if(lanMode && lanRole==='host') lanBroadcast({type:'roundResult',entries,winner:winningName,winningBid});
   
   // 1. VISUALIZE BIDS â€” TARGET HANYA MULTIPLIER
   document.getElementById('board').style.display = 'none';
@@ -4443,6 +4461,11 @@ function resolveRound(){
 
   setTimeout(() => {
       if(winningBid >= winThreshold && winningBid >= roundMinBid) {
+          // Kirim hasil ke client LAN HANYA saat lelang benar-benar berakhir (menang).
+          // Sebelumnya ini dikirim terlalu awal (sebelum diketahui menang/gagal),
+          // sehingga client menampilkan layar kemenangan padahal host masih lanjut
+          // ke ronde berikutnya â€” inilah penyebab bug "sudah menang tapi masih lanjut main".
+          if(lanMode && lanRole==='host') lanBroadcast({type:'roundResult',entries,winner:winningName,winningBid});
           let userWon = (winner[0] === 'Pemain' || winner[0] === playerProfile.name);
           if(userWon){
               coins = Math.max(0, coins - winningBid);
