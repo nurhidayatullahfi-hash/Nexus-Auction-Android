@@ -1,5 +1,4 @@
 package com.nexusauction.game;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +15,6 @@ import android.webkit.WebViewClient;
 import android.net.wifi.WifiManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
@@ -26,12 +24,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import android.util.Base64;
-
 public class MainActivity extends Activity {
     private WebView web;
     private static final int REQ_WIFI = 42;
     private LanService lanService;
-
     @Override public void onCreate(Bundle b) {
         super.onCreate(b);
         requestLanPermission();
@@ -39,6 +35,10 @@ public class MainActivity extends Activity {
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true); s.setDomStorageEnabled(true); s.setDatabaseEnabled(true);
         s.setAllowFileAccess(true); s.setAllowContentAccess(true); s.setMediaPlaybackRequiresUserGesture(false);
+        // FIX: tanpa baris ini, sejumlah WebView Android salah menebak encoding
+        // saat memuat file lokal (file://), sehingga emoji/simbol tampil sebagai
+        // karakter aneh (mojibake) walau index.html sudah punya <meta charset="utf-8">.
+        s.setDefaultTextEncodingName("UTF-8");
         web.setWebViewClient(new WebViewClient());
         web.setWebChromeClient(new WebChromeClient(){
             @Override public void onPermissionRequest(final PermissionRequest r){
@@ -50,17 +50,14 @@ public class MainActivity extends Activity {
         setContentView(web);
         web.loadUrl("file:///android_asset/index.html");
     }
-
     private void requestLanPermission(){
         if (android.os.Build.VERSION.SDK_INT >= 33 && checkSelfPermission(Manifest.permission.NEARBY_WIFI_DEVICES) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(new String[]{Manifest.permission.NEARBY_WIFI_DEVICES}, REQ_WIFI);
         else if (android.os.Build.VERSION.SDK_INT >= 23 && android.os.Build.VERSION.SDK_INT <= 32 && checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQ_WIFI);
     }
-
     @Override public void onDestroy(){ if(lanService!=null) lanService.close(); super.onDestroy(); }
     @Override public void onBackPressed(){ if(web != null && web.canGoBack()) web.goBack(); else super.onBackPressed(); }
-
     public static class AndroidBridge {
         private final Context c; private final LanService lan;
         AndroidBridge(Context c, LanService lan){this.c=c;this.lan=lan;}
@@ -73,16 +70,13 @@ public class MainActivity extends Activity {
         @JavascriptInterface public void stopRoom(){ lan.stopHost(); }
         @JavascriptInterface public void discoverRooms(){ lan.startDiscovery(); }
     }
-
     static class LanService {
         static final String SERVICE_TYPE = "_nexusauction._tcp.";
         final MainActivity activity; final Context context; final ExecutorService pool=Executors.newCachedThreadPool();
         final List<WsClient> clients=new CopyOnWriteArrayList<>();
         NsdManager nsd; NsdManager.RegistrationListener reg; NsdManager.DiscoveryListener discovery;
         ServerSocket server; volatile boolean running=false; int port=0; String serviceName="";
-
         LanService(MainActivity a){activity=a; context=a.getApplicationContext(); nsd=(NsdManager)context.getSystemService(Context.NSD_SERVICE);}
-
         String startHost(String roomName){
             if(running) stopHost();
             try{
@@ -124,7 +118,6 @@ public class MainActivity extends Activity {
         static String localIp(){try{Enumeration<NetworkInterface> ns=NetworkInterface.getNetworkInterfaces();while(ns.hasMoreElements()){NetworkInterface n=ns.nextElement();Enumeration<InetAddress> as=n.getInetAddresses();while(as.hasMoreElements()){InetAddress a=as.nextElement();if(!a.isLoopbackAddress()&&a.getHostAddress().indexOf(':')<0)return a.getHostAddress();}}}catch(Exception ignored){}return "0.0.0.0";}
         static String safe(String s){return s==null?"error":s.replace("\\","\\\\").replace("\"","\\\"");}
     }
-
     static class WsClient implements Runnable {
         final Socket socket; final LanService owner; OutputStream out; InputStream in; volatile boolean open=true;
         WsClient(Socket s,LanService o){socket=s;owner=o;}
